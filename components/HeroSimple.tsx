@@ -63,7 +63,9 @@ export default function HeroSimple({
 
           {/* Faja de empresas */}
           <div className="pt-8" style={{borderTop:'1px solid rgba(255,255,255,0.08)'}}>
-            <p className="text-slate-500 text-xs uppercase tracking-widest mb-4">Empresas que confían en nuestros graduados</p>
+            <p style={{color:'rgba(255,255,255,0.45)',fontSize:'0.8rem',fontWeight:600,letterSpacing:'0.15em',textTransform:'uppercase',textAlign:'center',marginBottom:'1.25rem'}}>
+              — Empresas que confían en nuestros graduados —
+            </p>
             <div style={{overflow:'hidden', position:'relative'}}>
               {/* Fade izquierda */}
               <div style={{position:'absolute',left:0,top:0,bottom:0,width:'80px',background:'linear-gradient(to right,#060d1f,transparent)',zIndex:1}}></div>
