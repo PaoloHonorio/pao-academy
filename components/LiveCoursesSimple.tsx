@@ -31,6 +31,14 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
   const [loadingCourses, setLoadingCourses] = useState(true);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [asyncCarouselIndex, setAsyncCarouselIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   const carouselTimer = useRef<NodeJS.Timeout | null>(null);
   const asyncCarouselTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -459,13 +467,14 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
 
         {/* Async Courses - Carousel */}
         {activeTab === 'async' && (() => {
+          const visibleCount = isMobile ? 1 : 3;
           const total = asyncCourses.length;
           const idx = asyncCarouselIndex % total;
-          const visible = [0,1,2].map(i => asyncCourses[(idx + i) % total]);
+          const visible = Array.from({length: visibleCount}, (_, i) => asyncCourses[(idx + i) % total]);
           return (
         <div style={{ position: 'relative', marginBottom: '3rem' }}>
           <div style={{ overflow: 'hidden' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', transition: 'all 0.5s ease' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(1, 1fr)' : 'repeat(3, 1fr)', gap: '1.5rem', transition: 'all 0.5s ease' }}>
           {visible.map((course) => (
             <div
               key={course.id}
@@ -677,17 +686,17 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           </div>
         )}
         {activeTab === 'live' && !loadingCourses && filteredCourses.length > 0 && (() => {
-          const visibleCount = 3;
+          const visibleCount = isMobile ? 1 : 3;
           const total = filteredCourses.length;
           const idx = carouselIndex % total;
-          const visible = [0,1,2].map(i => filteredCourses[(idx + i) % total]);
+          const visible = Array.from({length: visibleCount}, (_, i) => filteredCourses[(idx + i) % total]);
           return (
         <div style={{ position: 'relative', marginBottom: '3rem' }}>
           {/* Carousel wrapper */}
           <div style={{ overflow: 'hidden' }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
+              gridTemplateColumns: isMobile ? 'repeat(1, 1fr)' : 'repeat(3, 1fr)',
               gap: '1.5rem',
               transition: 'all 0.5s ease'
             }}>
