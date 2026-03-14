@@ -26,6 +26,7 @@ const SocialProofSimple = dynamic(() => import('../components/SocialProofSimple'
 const FAQSimple = dynamic(() => import('../components/FAQSimple'), {
   loading: () => <LoadingSpinner size="lg" />,
 });
+const CTASection = dynamic(() => import('../components/CTASection'));
 const NewsletterSectionSimple = dynamic(() => import('../components/NewsletterSectionSimple'), {
   loading: () => <LoadingSpinner size="lg" />,
 });
@@ -208,6 +209,8 @@ ${lang==='es'?'Vengo desde la web de':'I come from the website of'} ${brandName}
 
         {/* Beneficios diferenciales - Diseño moderno claro */}
         <BenefitsSimple t={t} />
+
+        <CTASection onCTA={() => { setInteres(lang === 'es' ? 'programas' : 'programs'); setModalOpen(true); }} />
 
         {/* FAQ */}
         <FAQSimple t={t} />
