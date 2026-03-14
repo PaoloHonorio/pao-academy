@@ -274,14 +274,14 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
                 fontSize: '0.875rem',
                 color: '#0F172A',
                 background: 'white',
-                width: '100px',
+                width: '85px',
                 cursor: 'pointer',
                 appearance: 'none',
                 WebkitAppearance: 'none',
               }}
             >
               {Object.entries(PHONE_PREFIXES).map(([code, prefix]) => (
-                <option key={code} value={prefix}>{prefix} ({code})</option>
+                <option key={code} value={prefix}>{prefix}</option>
               ))}
             </select>
             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
@@ -326,14 +326,6 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
               ))}
             </SelectGroup>
             <SelectGroup>
-              <SelectLabel className="text-xs font-bold text-[#8B5CF6] uppercase tracking-wide px-2 py-1 mt-1">
-                🎧 A Tu Ritmo — On demand
-              </SelectLabel>
-              {PROGRAMAS_ASYNC.map(p => (
-                <SelectItem key={p} value={p} className="select-item-modern pl-4">{p}</SelectItem>
-              ))}
-            </SelectGroup>
-            <SelectGroup>
               <SelectLabel className="text-xs font-bold text-slate-500 uppercase tracking-wide px-2 py-1 mt-1">
                 🏢 Corporativo
               </SelectLabel>
@@ -356,11 +348,11 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
       {/* ¿Por qué te interesa? */}
       <textarea
         className="input-modern resize-none py-3"
-        rows={3}
-        placeholder="¿Por qué te interesa este programa?"
+        rows={4}
+        placeholder="¿Qué esperás aplicar de este programa en tu desarrollo profesional?"
         value={motivation}
         onChange={e => setMotivation(e.target.value)}
-        style={{ minHeight: '80px' }}
+        style={{ minHeight: '100px' }}
       />
 
       {error && (
