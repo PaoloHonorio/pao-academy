@@ -432,7 +432,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             ? { bg: '#EF4444', shadow: 'rgba(239,68,68,0.35)' }
             : { bg: '#8B5CF6', shadow: 'rgba(139,92,246,0.35)' };
           return (
-            <div className="filter-scroll" style={{ display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', gap: '0.5rem', marginBottom: '2.5rem', paddingBottom: '0.5rem', WebkitOverflowScrolling: 'touch' as any, scrollbarWidth: 'none' as any }}>
+            <div className="filter-scroll" style={{ display: 'flex', flexWrap: isMobile ? 'nowrap' : 'wrap', overflowX: isMobile ? 'auto' : 'visible', justifyContent: isMobile ? 'flex-start' : 'center', gap: '0.5rem', marginBottom: '2.5rem', paddingBottom: '0.5rem', WebkitOverflowScrolling: 'touch' as any, scrollbarWidth: 'none' as any }}>
               {filterTags.map((tag) => (
                 <button
                   key={tag}
