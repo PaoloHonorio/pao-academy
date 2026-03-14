@@ -254,62 +254,6 @@ export default function SocialProofSimple({
           </div>
         </div>
 
-        {/* Empresas que confían */}
-        <div>
-          <h3 style={{
-            fontSize: '1.125rem',
-            fontWeight: '600',
-            color: '#64748B',
-            textAlign: 'center',
-            marginBottom: '2rem'
-          }}>
-            Empresas que confían en nuestros graduados
-          </h3>
-
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: '1.5rem',
-            alignItems: 'center'
-          }}>
-            {companies.map((company, index) => (
-              <div
-                key={index}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.75rem 1.5rem',
-                  background: 'white',
-                  border: '1px solid #E5E7EB',
-                  borderRadius: '0.75rem',
-                  transition: 'all 0.3s',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = company.color;
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = `0 4px 6px -1px ${company.color}33`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = '#E5E7EB';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                <Building2 size={20} color={company.color} />
-                <span style={{
-                  fontSize: '0.9375rem',
-                  fontWeight: '600',
-                  color: '#0F172A'
-                }}>
-                  {company.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
 
       </div>
     </section>
