@@ -292,7 +292,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           flexWrap: 'wrap'
         }}>
           {[
-            { id: 'live' as TabType, label: 'Cursos en Vivo', icon: Play, color: '#0077FF' },
+            { id: 'live' as TabType, label: 'Cursos en Vivo', icon: Play, color: '#EF4444' },
             { id: 'async' as TabType, label: 'On Demand', icon: BookOpen, color: '#00B8B0' },
             { id: 'corporate' as TabType, label: 'Corporate Training', icon: Building2, color: '#0055CC' }
           ].map((tab) => (
