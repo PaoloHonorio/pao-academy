@@ -308,23 +308,25 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
 
       {/* Programa */}
       {isGeneric ? (
-        <Select value={course} onValueChange={setCourse}>
-          <SelectTrigger className={`select-trigger-modern h-11 w-full ${courseError ? 'border-red-500' : ''}`}>
-            <div className="flex items-center gap-2 w-full overflow-hidden">
-              <BookOpen className="w-4 h-4 text-slate-400 flex-shrink-0" />
-              <span className="text-sm truncate text-slate-500">
-                {course || 'Seleccioná un programa'}
-              </span>
-            </div>
-          </SelectTrigger>
-          <SelectContent className="select-content-modern max-h-72">
-            {PROGRAMAS_EN_VIVO.map(p => (
-              <SelectItem key={p} value={p} className="select-item-modern">{p}</SelectItem>
-            ))}
-            <SelectItem value="Formación Corporativa" className="select-item-modern">Formación Corporativa</SelectItem>
-          </SelectContent>
-        </Select>
-        {courseError && <p className="text-red-500 text-xs mt-1">{courseError}</p>}
+        <div>
+          <Select value={course} onValueChange={val => { setCourse(val); handleBlur('course'); }}>
+            <SelectTrigger className={`select-trigger-modern h-11 w-full ${courseError ? 'border-red-500' : ''}`}>
+              <div className="flex items-center gap-2 w-full overflow-hidden">
+                <BookOpen className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                <span className="text-sm truncate text-slate-500">
+                  {course || 'Seleccioná un programa'}
+                </span>
+              </div>
+            </SelectTrigger>
+            <SelectContent className="select-content-modern max-h-72">
+              {PROGRAMAS_EN_VIVO.map(p => (
+                <SelectItem key={p} value={p} className="select-item-modern">{p}</SelectItem>
+              ))}
+              <SelectItem value="Formación Corporativa" className="select-item-modern">Formación Corporativa</SelectItem>
+            </SelectContent>
+          </Select>
+          {courseError && <p className="text-red-500 text-xs mt-1">{courseError}</p>}
+        </div>
       ) : (
         <div className="input-group relative">
           <BookOpen className="input-icon" />
