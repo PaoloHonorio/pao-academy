@@ -46,8 +46,8 @@ function WhatsAppFloat({
       className="fixed z-[9999]"
       style={{
         position: 'fixed',
-        bottom: '100px',
-        right: '24px',
+        bottom: '24px',
+        left: '24px',
         zIndex: 9999
       }}
     >
@@ -55,7 +55,7 @@ function WhatsAppFloat({
       <div className="relative">
         {/* Mensaje de burbuja */}
         {isExpanded && (
-          <div className="absolute bottom-16 right-0 mb-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 max-w-xs">
+          <div className="absolute bottom-16 left-0 mb-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 max-w-xs">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <WhatsAppIcon className="w-4 h-4 text-white" />
@@ -85,7 +85,7 @@ function WhatsAppFloat({
             </div>
             
             {/* Flecha */}
-            <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white border-r border-b border-gray-200 transform rotate-45" />
+            <div className="absolute -bottom-2 left-6 w-4 h-4 bg-white border-r border-b border-gray-200 transform rotate-45" />
           </div>
         )}
 
