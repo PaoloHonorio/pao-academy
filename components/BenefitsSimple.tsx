@@ -164,6 +164,7 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
                     padding: '1rem',
                     background: 'white',
                     border: '1px solid #E5E7EB',
+                    borderLeft: `4px solid ${benefit.color}`,
                     borderRadius: '0.75rem',
                     transition: 'all 0.3s',
                     cursor: 'pointer'

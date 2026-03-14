@@ -60,7 +60,7 @@ export default function SocialProofSimple({
 
   return (
     <section style={{
-      background: 'white',
+      background: 'linear-gradient(180deg, #F8FAFF 0%, #ffffff 100%)',
       padding: '5rem 1rem'
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
@@ -95,6 +95,7 @@ export default function SocialProofSimple({
               style={{
                 background: 'white',
                 border: '1px solid #E5E7EB',
+                borderTop: `4px solid ${stat.color}`,
                 borderRadius: '1rem',
                 padding: '1.5rem',
                 textAlign: 'center',
@@ -124,10 +125,11 @@ export default function SocialProofSimple({
                 <stat.icon size={28} color={stat.color} />
               </div>
               <div style={{
-                fontSize: '2rem',
-                fontWeight: '700',
+                fontSize: '2.25rem',
+                fontWeight: '900',
                 color: stat.color,
-                marginBottom: '0.25rem'
+                marginBottom: '0.25rem',
+                letterSpacing: '-0.02em'
               }}>
                 {stat.value}
               </div>

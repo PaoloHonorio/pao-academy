@@ -65,7 +65,7 @@ export default function FooterSimple({
   ];
 
   return (
-    <footer style={{ background: '#0F172A', padding: '3rem 1.5rem 1.5rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+    <footer style={{ background: '#001433', padding: '3rem 1.5rem 1.5rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         {/* Top gradient line */}
@@ -88,7 +88,7 @@ export default function FooterSimple({
               <span style={{ fontSize: '1.125rem', fontWeight: '800', color: 'white', letterSpacing: '-0.01em' }}>{brandName}</span>
             </div>
             <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.45)', lineHeight: '1.6', marginBottom: '1.5rem', maxWidth: '280px' }}>
-              Formación en vivo y online para transformar tu futuro profesional
+              Formando personas que transforman empresas
             </p>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               {socialLinks.map((s) => (

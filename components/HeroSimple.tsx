@@ -6,7 +6,7 @@ export default function HeroSimple({
 }:{ brandName:string; t:(k:string)=>string; cta:()=>void; }){
 
   return (
-    <section className="relative pt-36 pb-20 px-4 min-h-[780px] flex items-center overflow-hidden" style={{background:'linear-gradient(135deg,#0044AA 0%,#0055CC 50%,#0066EE 100%)'}}>
+    <section className="relative pt-32 pb-20 px-4 min-h-[780px] flex items-center overflow-hidden" style={{background:'linear-gradient(135deg,#0044AA 0%,#0055CC 50%,#0066EE 100%)'}}>
 
       {/* Fondo con patrón de puntos sutil */}
       <div className="absolute inset-0 opacity-30" style={{backgroundImage:'radial-gradient(circle, #0077FF 1px, transparent 1px)',backgroundSize:'40px 40px'}}></div>

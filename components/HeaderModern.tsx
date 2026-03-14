@@ -133,30 +133,30 @@ export default function HeaderModern({
     <>
       {/* Barra de Promoción */}
       {showPromo && (
-        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'#0F172A'}}>
-          <div className="max-w-7xl mx-auto px-4 py-2 relative">
-            <div className="flex items-center justify-center gap-2 flex-wrap">
-              <span className="text-sm text-white/80">
+        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#00D4CC 0%,#00F7EF 100%)', height:'32px', display:'flex', alignItems:'center'}}>
+          <div className="max-w-7xl mx-auto px-4 w-full relative" style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+            <div className="flex items-center justify-center gap-2">
+              <span className="text-sm font-semibold" style={{color:'#002D80'}}>
                 🔥 {promoMessage},
               </span>
-              <span className="text-sm font-black" style={{color:'#00F7EF'}}>
+              <span className="text-sm font-black" style={{color:'#001A4D'}}>
                 {promoSubMessage}
               </span>
-              <span className="text-white/60 text-sm hidden sm:inline">→</span>
+              <span className="text-sm hidden sm:inline" style={{color:'#002D80'}}>→</span>
               <button
                 onClick={onClickCTA}
                 className="text-sm font-black underline underline-offset-2 hidden sm:inline"
-                style={{color:'#00F7EF', background:'none', border:'none', cursor:'pointer', padding:0}}
+                style={{color:'#000000', background:'none', border:'none', cursor:'pointer', padding:0}}
               >
                 Inscribirme ahora
               </button>
             </div>
             <button
               onClick={() => setShowPromo(false)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-white/20 transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-black/10 transition-colors"
               aria-label="Cerrar promoción"
             >
-              <X className="w-4 h-4 text-white" />
+              <X className="w-4 h-4" style={{color:'#002D80'}} />
             </button>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function HeaderModern({
 
       {/* Header */}
       <header
-        className={`fixed ${showPromo ? 'top-[42px]' : 'top-0'} left-0 right-0 z-[1000] transition-all duration-300 ${scrolled ? 'bg-white border-b border-gray-200 shadow-md' : 'bg-transparent border-b border-white/10'}`}
+        className={`fixed ${showPromo ? 'top-[32px]' : 'top-0'} left-0 right-0 z-[1000] transition-all duration-300 ${scrolled ? 'bg-white border-b border-gray-200 shadow-md' : 'bg-transparent border-b border-white/10'}`}
         role="banner"
       >
         <div className="max-w-7xl mx-auto px-4">

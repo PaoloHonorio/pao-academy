@@ -4,7 +4,7 @@ export type Theme = typeof THEMES[number];
 
 export const copy: Record<Lang, Record<string, string>> = {
   es: {
-    brandTagline: "Transforma tu carrera profesional",
+    brandTagline: "Formando personas que transforman empresas",
     heroTitle: "Formación práctica que acelera tu carrera",
     heroSubtitle: "Desarrollá habilidades reales, aplicá lo que aprendés y destacate en el mercado laboral. Clases en vivo con mentores expertos y proyectos que suman a tu portfolio.",
     heroDesc: "Clases en vivo y cursos asincrónicos que convierten el aprendizaje en resultados: más experiencia, más confianza, más oportunidades.",
