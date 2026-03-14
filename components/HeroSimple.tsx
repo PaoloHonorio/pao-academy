@@ -35,7 +35,7 @@ export default function HeroSimple({
 
           {/* Subtítulo */}
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Formación práctica con mentores expertos que te preparan para los desafíos reales del mercado laboral. Clases en vivo, certificación válida.
+            Formación práctica con <span className="text-white font-semibold">mentores expertos</span> que te preparan para los <span style={{color:'#00F7EF', fontWeight:600}}>desafíos reales</span> del mercado laboral.
           </p>
 
           {/* CTAs */}
