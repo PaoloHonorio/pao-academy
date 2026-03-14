@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Calendar, Clock, Star, UserCheck, Award, Play, BookOpen, Building2, Users, TrendingUp, Target, BarChart, Loader2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import Link from 'next/link';
@@ -29,6 +29,24 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
   const [activeTab, setActiveTab] = useState<TabType>('live');
   const [dbCourses, setDbCourses] = useState<any[]>([]);
   const [loadingCourses, setLoadingCourses] = useState(true);
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [asyncCarouselIndex, setAsyncCarouselIndex] = useState(0);
+  const carouselTimer = useRef<NodeJS.Timeout | null>(null);
+  const asyncCarouselTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const resetCarouselTimer = useCallback((courses: any[]) => {
+    if (carouselTimer.current) clearInterval(carouselTimer.current);
+    carouselTimer.current = setInterval(() => {
+      setCarouselIndex(i => (i + 1) % Math.max(1, courses.length));
+    }, 4000);
+  }, []);
+
+  const resetAsyncCarouselTimer = useCallback((courses: any[]) => {
+    if (asyncCarouselTimer.current) clearInterval(asyncCarouselTimer.current);
+    asyncCarouselTimer.current = setInterval(() => {
+      setAsyncCarouselIndex(i => (i + 1) % Math.max(1, courses.length));
+    }, 4000);
+  }, []);
 
   // Fetch courses from Supabase
   useEffect(() => {
@@ -53,12 +71,25 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
     fetchCourses();
   }, []);
 
+  // Start carousel auto-rotation when courses load
+  useEffect(() => {
+    if (dbCourses.length > 0) {
+      resetCarouselTimer(dbCourses);
+    }
+    return () => { if (carouselTimer.current) clearInterval(carouselTimer.current); };
+  }, [dbCourses, resetCarouselTimer]);
+
+  // Reset carousel when filter changes
+  useEffect(() => {
+    setCarouselIndex(0);
+  }, [selectedTag, activeTab]);
+
   // Corporate Training data
   const corporateMetrics = [
-    { number: '500+', label: 'Empresas capacitadas', icon: Building2, color: '#3B82F6' },
-    { number: '15,000+', label: 'Profesionales formados', icon: Users, color: '#8B5CF6' },
-    { number: '95%', label: 'Satisfacción promedio', icon: Star, color: '#F59E0B' },
-    { number: '40%', label: 'Mejora promedio en KPIs', icon: TrendingUp, color: '#10B981' },
+    { number: '500+', label: 'Empresas capacitadas', icon: Building2, color: '#0077FF' },
+    { number: '15,000+', label: 'Profesionales formados', icon: Users, color: '#00F7EF' },
+    { number: '95%', label: 'Satisfacción promedio', icon: Star, color: '#0077FF' },
+    { number: '40%', label: 'Mejora promedio en KPIs', icon: TrendingUp, color: '#00F7EF' },
   ];
 
   const corporateBenefits = [
@@ -157,6 +188,12 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
     });
   }, [lang, asyncCoursesData]);
 
+  // Start async carousel
+  useEffect(() => {
+    resetAsyncCarouselTimer(asyncCourses);
+    return () => { if (asyncCarouselTimer.current) clearInterval(asyncCarouselTimer.current); };
+  }, [asyncCourses, resetAsyncCarouselTimer]);
+
   // Map database courses to display format
   const courses = useMemo(() => {
     // Map category to tag for display
@@ -189,20 +226,20 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
   const getCategoryColor = (tag: string) => {
     const colors: Record<string, string> = {
       // Live courses
-      'Comercial': '#22C55E',
-      'Liderazgo': '#8B5CF6',
-      'Datos': '#3B82F6',
-      'Mindset': '#F97316',
-      'Branding': '#EAB308',
+      'Comercial': '#0077FF',
+      'Liderazgo': '#0055CC',
+      'Datos': '#0077FF',
+      'Mindset': '#00C4BE',
+      'Branding': '#00F7EF',
       // Async courses
-      'Análisis de Datos': '#3B82F6',
-      'Negocios y Finanzas': '#22C55E',
-      'Gestión de Procesos': '#F97316',
-      'Desarrollo Personal': '#EC4899',
-      'Tecnología': '#6366F1',
-      'Marketing Digital': '#EAB308',
+      'Análisis de Datos': '#8B5CF6',
+      'Negocios y Finanzas': '#7C3AED',
+      'Gestión de Procesos': '#8B5CF6',
+      'Desarrollo Personal': '#7C3AED',
+      'Tecnología': '#8B5CF6',
+      'Marketing Digital': '#7C3AED',
     };
-    return colors[tag] || '#3B82F6';
+    return colors[tag] || '#0077FF';
   };
 
   const getAsyncCategoryEmoji = (tag: string) => {
@@ -231,8 +268,8 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
         }}>
           {[
             { id: 'live' as TabType, label: 'Cursos en Vivo', icon: Play, color: '#EF4444' },
-            { id: 'async' as TabType, label: 'Cursos Asincrónicos', icon: BookOpen, color: '#8B5CF6' },
-            { id: 'corporate' as TabType, label: 'Corporate Training', icon: Building2, color: '#3B82F6' }
+            { id: 'async' as TabType, label: 'On Demand', icon: BookOpen, color: '#8B5CF6' },
+            { id: 'corporate' as TabType, label: 'Corporate Training', icon: Building2, color: '#0077FF' }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -257,17 +294,22 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                   boxShadow: `0 4px 14px ${tab.color}40`
                 } : {
                   background: '#F1F5F9',
-                  color: '#64748B'
+                  color: '#64748B',
+                  border: '1px solid transparent'
                 })
               }}
               onMouseEnter={(e) => {
                 if (activeTab !== tab.id) {
-                  e.currentTarget.style.background = '#E2E8F0';
+                  e.currentTarget.style.background = `${tab.color}18`;
+                  e.currentTarget.style.color = tab.color;
+                  e.currentTarget.style.borderColor = `${tab.color}40`;
                 }
               }}
               onMouseLeave={(e) => {
                 if (activeTab !== tab.id) {
                   e.currentTarget.style.background = '#F1F5F9';
+                  e.currentTarget.style.color = '#64748B';
+                  e.currentTarget.style.borderColor = 'transparent';
                 }
               }}
             >
@@ -284,13 +326,14 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              background: '#FEE2E2',
-              color: '#991B1B',
+              background: 'rgba(239,68,68,0.08)',
+              color: '#EF4444',
               borderRadius: '9999px',
               padding: '0.5rem 1rem',
               fontSize: '0.875rem',
               fontWeight: '600',
-              marginBottom: '1rem'
+              marginBottom: '1rem',
+              border: '1px solid rgba(239,68,68,0.2)'
             }}>
               <span style={{
                 width: '8px',
@@ -309,8 +352,9 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              background: '#EDE9FE',
-              color: '#5B21B6',
+              background: 'rgba(139,92,246,0.1)',
+              color: '#8B5CF6',
+              border: '1px solid rgba(139,92,246,0.3)',
               borderRadius: '9999px',
               padding: '0.5rem 1rem',
               fontSize: '0.875rem',
@@ -327,9 +371,9 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              background: '#DBEAFE',
-              color: '#1E40AF',
-              border: '1px solid #93C5FD',
+              background: 'rgba(0,119,255,0.1)',
+              color: '#0077FF',
+              border: '1px solid rgba(0,119,255,0.25)',
               borderRadius: '9999px',
               padding: '0.5rem 1.5rem',
               fontSize: '0.875rem',
@@ -351,7 +395,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             {activeTab === 'async' && 'Aprende a tu propio ritmo'}
             {activeTab === 'corporate' && (
               <>Formación a medida para <span style={{
-                background: 'linear-gradient(90deg, #3B82F6, #8B5CF6)',
+                background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text'
@@ -371,54 +415,58 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           </p>
         </div>
 
-        {/* Filters - Only show for live courses */}
-        {activeTab === 'live' && (
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: '0.5rem',
-            marginBottom: '2.5rem'
-          }}>
-            {tags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setSelectedTag(tag)}
-                style={{
-                  padding: '0.5rem 1rem',
-                  borderRadius: '9999px',
-                  fontSize: '0.875rem',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  ...(selectedTag === tag ? {
-                    background: '#EF4444',
-                    color: 'white',
-                    border: 'none',
-                    boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.3)'
-                  } : {
-                    background: 'white',
-                    color: '#374151',
-                    border: '2px solid #E5E7EB'
-                  })
-                }}
-              >
-                {tag === 'All' ? 'Todos' : tag}
-                {tag !== 'All' && ` (${courses.filter((c) => c.tag === tag).length})`}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Filters */}
+        {(activeTab === 'live' || activeTab === 'async') && (() => {
+          const filterTags = activeTab === 'live'
+            ? tags
+            : ['All', ...Array.from(new Set(asyncCourses.map((c) => c.tag)))];
+          const activeColor = activeTab === 'live'
+            ? { bg: '#EF4444', shadow: 'rgba(239,68,68,0.35)' }
+            : { bg: '#8B5CF6', shadow: 'rgba(139,92,246,0.35)' };
+          return (
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '0.5rem', marginBottom: '2.5rem' }}>
+              {filterTags.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => setSelectedTag(tag)}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    borderRadius: '9999px',
+                    fontSize: '0.875rem',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    ...(selectedTag === tag ? {
+                      background: activeColor.bg,
+                      color: 'white',
+                      border: 'none',
+                      boxShadow: `0 4px 14px ${activeColor.shadow}`
+                    } : {
+                      background: 'white',
+                      color: '#374151',
+                      border: '2px solid #E5E7EB'
+                    })
+                  }}
+                >
+                  {tag === 'All' ? 'Destacados' : tag}
+                  {tag !== 'All' && activeTab === 'live' && ` (${courses.filter((c) => c.tag === tag).length})`}
+                  {tag !== 'All' && activeTab === 'async' && ` (${asyncCourses.filter((c) => c.tag === tag).length})`}
+                </button>
+              ))}
+            </div>
+          );
+        })()}
 
-        {/* Async Courses - Card Grid */}
-        {activeTab === 'async' && (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: '1.5rem',
-          marginBottom: '3rem'
-        }}>
-          {asyncCourses.map((course) => (
+        {/* Async Courses - Carousel */}
+        {activeTab === 'async' && (() => {
+          const total = asyncCourses.length;
+          const idx = asyncCarouselIndex % total;
+          const visible = [0,1,2].map(i => asyncCourses[(idx + i) % total]);
+          return (
+        <div style={{ position: 'relative', marginBottom: '3rem' }}>
+          <div style={{ overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', transition: 'all 0.5s ease' }}>
+          {visible.map((course) => (
             <div
               key={course.id}
               style={{
@@ -442,13 +490,13 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               {/* Color bar */}
               <div style={{
                 height: '0.5rem',
-                background: `linear-gradient(90deg, ${getCategoryColor(course.tag)}, ${getCategoryColor(course.tag)}dd)`
+                background: getCategoryColor(course.tag)
               }}></div>
 
               {/* Course image */}
               <div style={{
                 height: '12rem',
-                background: `linear-gradient(135deg, ${getCategoryColor(course.tag)}22, ${getCategoryColor(course.tag)}11)`,
+                background: '#F1F5F9',
                 position: 'relative',
                 overflow: 'hidden'
               }}>
@@ -473,25 +521,6 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     <BookOpen size={64} color={getCategoryColor(course.tag)} style={{ opacity: 0.3 }} />
                   </div>
                 )}
-                {/* Badge - Async/Recorded */}
-                <div style={{
-                  position: 'absolute',
-                  top: '1rem',
-                  left: '1rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.375rem',
-                  background: '#8B5CF6',
-                  color: 'white',
-                  padding: '0.375rem 0.75rem',
-                  borderRadius: '9999px',
-                  fontSize: '0.75rem',
-                  fontWeight: '600',
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                }}>
-                  <Play size={12} />
-                  GRABADO
-                </div>
               </div>
 
               {/* Content */}
@@ -502,8 +531,9 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                   alignItems: 'center',
                   gap: '0.375rem',
                   padding: '0.25rem 0.75rem',
-                  background: `${getCategoryColor(course.tag)}22`,
-                  color: getCategoryColor(course.tag),
+                  background: 'rgba(139,92,246,0.08)',
+                  color: '#8B5CF6',
+                  border: '1px solid rgba(139,92,246,0.2)',
                   borderRadius: '9999px',
                   fontSize: '0.75rem',
                   fontWeight: '600',
@@ -573,8 +603,8 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                   borderRadius: '0.5rem',
                   marginBottom: '1rem'
                 }}>
-                  <BookOpen size={16} color="#8B5CF6" />
-                  <span style={{ fontSize: '0.875rem', color: '#5B21B6', fontWeight: '500' }}>
+                  <BookOpen size={16} color="#00F7EF" />
+                  <span style={{ fontSize: '0.875rem', color: '#005FCC', fontWeight: '500' }}>
                     {course.nextStart}
                   </span>
                 </div>
@@ -612,13 +642,32 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               </div>
             </div>
           ))}
+            </div>
+          </div>
+          {/* Dots */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '1.5rem' }}>
+            {asyncCourses.map((_, i) => (
+              <button key={i} onClick={() => { setAsyncCarouselIndex(i); resetAsyncCarouselTimer(asyncCourses); }}
+                style={{ width: i === idx ? '24px' : '8px', height: '8px', borderRadius: '9999px', border: 'none', cursor: 'pointer', transition: 'all 0.3s', background: i === idx ? '#8B5CF6' : '#E5E7EB', padding: 0 }} />
+            ))}
+          </div>
+          {/* Arrows */}
+          <button onClick={() => { setAsyncCarouselIndex(i => (i - 1 + total) % total); resetAsyncCarouselTimer(asyncCourses); }}
+            style={{ position: 'absolute', left: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '2px solid #E5E7EB', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+            <ArrowRight size={18} style={{ transform: 'rotate(180deg)', color: '#1E1E1E' }} />
+          </button>
+          <button onClick={() => { setAsyncCarouselIndex(i => (i + 1) % total); resetAsyncCarouselTimer(asyncCourses); }}
+            style={{ position: 'absolute', right: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '2px solid #E5E7EB', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+            <ArrowRight size={18} style={{ color: '#1E1E1E' }} />
+          </button>
         </div>
-        )}
+          );
+        })()}
 
         {/* Course Cards Grid - Only for live courses */}
         {activeTab === 'live' && loadingCourses && (
           <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }}>
-            <Loader2 size={40} className="animate-spin" style={{ color: '#3B82F6' }} />
+            <Loader2 size={40} className="animate-spin" style={{ color: '#0077FF' }} />
           </div>
         )}
         {activeTab === 'live' && !loadingCourses && filteredCourses.length === 0 && (
@@ -627,14 +676,22 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             <p>No hay cursos publicados aún.</p>
           </div>
         )}
-        {activeTab === 'live' && !loadingCourses && filteredCourses.length > 0 && (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: '1.5rem',
-          marginBottom: '3rem'
-        }}>
-          {filteredCourses.map((course) => (
+        {activeTab === 'live' && !loadingCourses && filteredCourses.length > 0 && (() => {
+          const visibleCount = 3;
+          const total = filteredCourses.length;
+          const idx = carouselIndex % total;
+          const visible = [0,1,2].map(i => filteredCourses[(idx + i) % total]);
+          return (
+        <div style={{ position: 'relative', marginBottom: '3rem' }}>
+          {/* Carousel wrapper */}
+          <div style={{ overflow: 'hidden' }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '1.5rem',
+              transition: 'all 0.5s ease'
+            }}>
+          {visible.map((course) => (
             <div
               key={course.id}
               style={{
@@ -658,13 +715,13 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               {/* Color bar */}
               <div style={{
                 height: '0.5rem',
-                background: `linear-gradient(90deg, ${getCategoryColor(course.tag)}, ${getCategoryColor(course.tag)}dd)`
+                background: getCategoryColor(course.tag)
               }}></div>
 
               {/* Course image */}
               <div style={{
                 height: '12rem',
-                background: `linear-gradient(135deg, ${getCategoryColor(course.tag)}22, ${getCategoryColor(course.tag)}11)`,
+                background: '#F1F5F9',
                 position: 'relative',
                 overflow: 'hidden'
               }}>
@@ -686,7 +743,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     alignItems: 'center',
                     justifyContent: 'center'
                   }}>
-                    <Award size={64} color={getCategoryColor(course.tag)} style={{ opacity: 0.3 }} />
+                    <Award size={64} color="#0077FF" style={{ opacity: 0.3 }} />
                   </div>
                 )}
                 {/* Badge - Live */}
@@ -703,7 +760,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                   borderRadius: '9999px',
                   fontSize: '0.75rem',
                   fontWeight: '600',
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                  boxShadow: '0 4px 10px rgba(239,68,68,0.4)'
                 }}>
                   <span style={{
                     width: '6px',
@@ -717,15 +774,16 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               </div>
 
               {/* Content */}
-              <div style={{ padding: '1.5rem' }}>
+              <div style={{ padding: '1.5rem', color: '#1E1E1E' }}>
                 {/* Category tag */}
                 <div style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.375rem',
                   padding: '0.25rem 0.75rem',
-                  background: `${getCategoryColor(course.tag)}22`,
-                  color: getCategoryColor(course.tag),
+                  background: 'rgba(0,119,255,0.08)',
+                  color: '#0077FF',
+                  border: '1px solid rgba(0,119,255,0.2)',
                   borderRadius: '9999px',
                   fontSize: '0.75rem',
                   fontWeight: '600',
@@ -795,12 +853,12 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                   alignItems: 'center',
                   gap: '0.5rem',
                   padding: '0.75rem',
-                  background: '#EFF6FF',
+                  background: 'rgba(0,119,255,0.06)',
                   borderRadius: '0.5rem',
                   marginBottom: '1rem'
                 }}>
-                  <Calendar size={16} color="#3B82F6" />
-                  <span style={{ fontSize: '0.875rem', color: '#1E40AF', fontWeight: '500' }}>
+                  <Calendar size={16} color="#0077FF" />
+                  <span style={{ fontSize: '0.875rem', color: '#0055CC', fontWeight: '500' }}>
                     Próximo inicio: {course.nextStart}
                   </span>
                 </div>
@@ -818,18 +876,21 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     fontSize: '1rem',
                     fontWeight: '600',
                     color: 'white',
-                    background: '#3B82F6',
+                    background: '#0077FF',
                     border: 'none',
                     borderRadius: '0.5rem',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
-                    textDecoration: 'none'
+                    textDecoration: 'none',
+                    boxShadow: '0 4px 14px rgba(0,119,255,0.25)'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#2563EB';
+                    e.currentTarget.style.background = '#0055CC';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#3B82F6';
+                    e.currentTarget.style.background = '#0077FF';
+                    e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
                   <span>Ver curso</span>
@@ -838,11 +899,33 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               </div>
             </div>
           ))}
-        </div>
-        )}
+            </div>
+          </div>
 
-        {/* Ver todos CTA - Only for live courses */}
-        {activeTab === 'live' && (
+          {/* Navigation dots */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '1.5rem' }}>
+            {filteredCourses.map((_, i) => (
+              <button key={i} onClick={() => { setCarouselIndex(i); resetCarouselTimer(filteredCourses); }}
+                style={{ width: i === idx ? '24px' : '8px', height: '8px', borderRadius: '9999px', border: 'none', cursor: 'pointer', transition: 'all 0.3s', background: i === idx ? '#0077FF' : '#E5E7EB', padding: 0 }}
+              />
+            ))}
+          </div>
+
+          {/* Arrow buttons */}
+          <button onClick={() => { setCarouselIndex(i => (i - 1 + total) % total); resetCarouselTimer(filteredCourses); }}
+            style={{ position: 'absolute', left: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '2px solid #E5E7EB', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+            <ArrowRight size={18} style={{ transform: 'rotate(180deg)', color: '#1E1E1E' }} />
+          </button>
+          <button onClick={() => { setCarouselIndex(i => (i + 1) % total); resetCarouselTimer(filteredCourses); }}
+            style={{ position: 'absolute', right: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '2px solid #E5E7EB', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+            <ArrowRight size={18} style={{ color: '#1E1E1E' }} />
+          </button>
+        </div>
+          );
+        })()}
+
+        {/* Ver todos CTA */}
+        {(activeTab === 'live' || activeTab === 'async') && (
         <div style={{ textAlign: 'center' }}>
           <button
             onClick={onCatalogClick}
@@ -861,7 +944,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               transition: 'all 0.2s'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#EF4444';
+              e.currentTarget.style.borderColor = '#0077FF';
               e.currentTarget.style.background = '#F9FAFB';
             }}
             onMouseLeave={(e) => {
@@ -961,7 +1044,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = 'white';
-                      e.currentTarget.style.borderColor = '#3B82F6';
+                      e.currentTarget.style.borderColor = '#0077FF';
                       e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
                     }}
                     onMouseLeave={(e) => {
@@ -975,7 +1058,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                       width: '40px',
                       height: '40px',
                       borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                      background: 'linear-gradient(135deg, #0077FF, #00F7EF)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -1035,8 +1118,8 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     left: 0
                   }}>
                     <div style={{ textAlign: 'center' }}>
-                      <Building2 size={64} color="#3B82F6" style={{ opacity: 0.5, margin: '0 auto 1rem' }} />
-                      <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1E40AF', margin: 0 }}>
+                      <Building2 size={64} color="#0077FF" style={{ opacity: 0.5, margin: '0 auto 1rem' }} />
+                      <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#0055CC', margin: 0 }}>
                         Formación Corporativa
                       </p>
                     </div>
@@ -1055,7 +1138,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     fontSize: '1.125rem',
                     fontWeight: '600',
                     color: 'white',
-                    background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                    background: 'linear-gradient(135deg, #0077FF, #00F7EF)',
                     border: 'none',
                     borderRadius: '0.75rem',
                     cursor: 'pointer',
@@ -1087,7 +1170,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                 marginBottom: '2rem'
               }}>
                 Casos de Éxito <span style={{
-                  background: 'linear-gradient(90deg, #10B981, #059669)',
+                  background: 'linear-gradient(90deg, #00F7EF, #00C4BE)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
@@ -1110,7 +1193,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                       transition: 'all 0.3s'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = '#10B981';
+                      e.currentTarget.style.borderColor = '#00F7EF';
                       e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(16, 185, 129, 0.2)';
                       e.currentTarget.style.transform = 'scale(1.02)';
                     }}
@@ -1153,7 +1236,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                         <div style={{
                           fontSize: '0.875rem',
                           fontWeight: '600',
-                          color: '#10B981'
+                          color: '#00F7EF'
                         }}>
                           {case_.duration}
                         </div>
@@ -1195,7 +1278,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                           <div style={{
                             fontSize: '1.25rem',
                             fontWeight: '700',
-                            color: '#10B981',
+                            color: '#00F7EF',
                             marginBottom: '0.25rem'
                           }}>
                             {result.metric}

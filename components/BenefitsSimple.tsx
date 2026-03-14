@@ -14,25 +14,25 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
       icon: GraduationCap,
       title: 'Mentores expertos',
       desc: 'Aprende de profesionales que aplican lo que enseñan en empresas reales.',
-      color: '#3B82F6'
+      color: '#0077FF'
     },
     {
       icon: Users,
       title: 'Acompañamiento personalizado',
       desc: 'Soporte humano real para resolver dudas y guiarte en tu proceso.',
-      color: '#8B5CF6'
+      color: '#00F7EF'
     },
     {
       icon: Globe,
       title: 'Comunidad internacional',
       desc: 'Conectá con mentores y alumnos de distintos países y sectores.',
-      color: '#10B981'
+      color: '#00F7EF'
     },
     {
       icon: Award,
       title: 'Certificaciones con impacto',
       desc: 'Sumá avales que fortalecen tu perfil y abren puertas laborales.',
-      color: '#F59E0B'
+      color: '#0055CC'
     },
   ];
 
@@ -99,7 +99,7 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
                   width: '48px',
                   height: '48px',
                   borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                  background: 'linear-gradient(135deg, #0077FF, #00F7EF)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -133,9 +133,9 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                background: '#DBEAFE',
-                color: '#1E40AF',
-                border: '1px solid #93C5FD',
+                background: 'rgba(0,119,255,0.08)',
+                color: '#0077FF',
+                border: '1px solid rgba(0,119,255,0.3)',
                 borderRadius: '9999px',
                 padding: '0.5rem 1rem',
                 fontSize: '0.875rem',
@@ -155,7 +155,7 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
               }}>
                 ¿Por qué estudiar con{' '}
                 <span style={{
-                  background: 'linear-gradient(90deg, #3B82F6, #8B5CF6)',
+                  background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
@@ -256,7 +256,7 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
                     gap: '0.5rem'
                   }}
                 >
-                  <CheckCircle size={18} color="#10B981" />
+                  <CheckCircle size={18} color="#0077FF" />
                   <span style={{
                     fontSize: '0.875rem',
                     color: '#475569'

@@ -29,7 +29,7 @@ export default function FooterSimple({
         {/* Top gradient line */}
         <div style={{
           height: '4px',
-          background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #06B6D4)',
+          background: 'linear-gradient(90deg, #0077FF, #00F7EF, #00F7EF)',
           borderRadius: '9999px',
           marginBottom: '3rem'
         }}></div>
@@ -53,7 +53,7 @@ export default function FooterSimple({
               <div style={{
                 width: '40px',
                 height: '40px',
-                background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                background: 'linear-gradient(135deg, #0077FF, #00F7EF)',
                 borderRadius: '0.5rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -101,7 +101,7 @@ export default function FooterSimple({
                   textDecoration: 'none'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#3B82F6';
+                  e.currentTarget.style.background = '#0077FF';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
@@ -195,7 +195,7 @@ export default function FooterSimple({
                     textDecoration: 'none',
                     transition: 'color 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   Cursos en Vivo
@@ -210,7 +210,7 @@ export default function FooterSimple({
                     textDecoration: 'none',
                     transition: 'color 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   Formación Corporativa
@@ -225,7 +225,7 @@ export default function FooterSimple({
                     textDecoration: 'none',
                     transition: 'color 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   Beneficios
@@ -261,7 +261,7 @@ export default function FooterSimple({
                     textDecoration: 'none',
                     transition: 'color 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   Sobre Nosotros
@@ -276,7 +276,7 @@ export default function FooterSimple({
                     textDecoration: 'none',
                     transition: 'color 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   Preguntas Frecuentes
@@ -293,7 +293,7 @@ export default function FooterSimple({
                     textDecoration: 'none',
                     transition: 'color 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   Contacto
@@ -329,7 +329,7 @@ export default function FooterSimple({
                     textDecoration: 'none',
                     transition: 'color 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   {t('footerPrivacyPolicy') || 'Políticas de Privacidad'}
@@ -344,7 +344,7 @@ export default function FooterSimple({
                     textDecoration: 'none',
                     transition: 'color 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   {t('footerTermsConditions') || 'Términos y Condiciones'}
@@ -359,7 +359,7 @@ export default function FooterSimple({
                     textDecoration: 'none',
                     transition: 'color 0.2s'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#3B82F6'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   {t('footerWithdrawalButton') || 'Botón de Arrepentimiento'}

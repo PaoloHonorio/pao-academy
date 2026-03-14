@@ -20,34 +20,34 @@ export default function SocialProofSimple({
       icon: Users,
       value: '10,000+',
       label: 'Estudiantes graduados',
-      color: '#22C55E'
+      color: '#0077FF'
     },
     {
       icon: Star,
       value: '4.9/5',
       label: 'Calificación promedio',
-      color: '#F59E0B'
+      color: '#0077FF'
     },
     {
       icon: Briefcase,
       value: '95%',
       label: 'Consigue empleo',
-      color: '#8B5CF6'
+      color: '#00F7EF'
     },
     {
       icon: TrendingUp,
       value: '+40%',
       label: 'Aumento salarial',
-      color: '#3B82F6'
+      color: '#0077FF'
     }
   ];
 
   const companies = [
-    { name: 'TechStart', color: '#3B82F6' },
-    { name: 'DataCorp', color: '#22C55E' },
-    { name: 'RetailPro', color: '#EF4444' },
-    { name: 'FinanceMax', color: '#8B5CF6' },
-    { name: 'EduTech', color: '#F97316' }
+    { name: 'TechStart', color: '#0077FF' },
+    { name: 'DataCorp', color: '#0077FF' },
+    { name: 'RetailPro', color: '#00F7EF' },
+    { name: 'FinanceMax', color: '#00F7EF' },
+    { name: 'EduTech', color: '#0055CC' }
   ];
 
   return (
@@ -63,9 +63,9 @@ export default function SocialProofSimple({
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: '#DBEAFE',
-            color: '#1E40AF',
-            border: '1px solid #93C5FD',
+            background: 'rgba(0,119,255,0.08)',
+            color: '#0077FF',
+            border: '1px solid rgba(0,119,255,0.3)',
             borderRadius: '9999px',
             padding: '0.5rem 1.5rem',
             fontSize: '0.875rem',
@@ -84,7 +84,7 @@ export default function SocialProofSimple({
           }}>
             Lo que dicen nuestros{' '}
             <span style={{
-              background: 'linear-gradient(90deg, #3B82F6, #8B5CF6)',
+              background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -171,7 +171,7 @@ export default function SocialProofSimple({
             right: '1.5rem',
             width: '48px',
             height: '48px',
-            background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+            background: 'linear-gradient(135deg, #0077FF, #00F7EF)',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
@@ -192,7 +192,7 @@ export default function SocialProofSimple({
               width: '96px',
               height: '96px',
               borderRadius: '50%',
-              border: '4px solid #DBEAFE',
+              border: '4px solid rgba(0,119,255,0.25)',
               overflow: 'hidden',
               position: 'relative'
             }}>
@@ -257,7 +257,7 @@ export default function SocialProofSimple({
                     width: i === idx ? '32px' : '8px',
                     height: '8px',
                     borderRadius: '9999px',
-                    background: i === idx ? '#3B82F6' : '#E5E7EB',
+                    background: i === idx ? '#0077FF' : '#E5E7EB',
                     transition: 'all 0.3s'
                   }}
                 />

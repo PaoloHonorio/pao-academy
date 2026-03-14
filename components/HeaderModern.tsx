@@ -133,7 +133,7 @@ export default function HeaderModern({
     <>
       {/* Barra de Promoción */}
       {showPromo && (
-        <div className="fixed top-0 left-0 right-0 z-[1001] bg-gradient-to-r from-red-500 to-orange-500">
+        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#0077FF,#00F7EF)'}}>
           <div className="max-w-7xl mx-auto px-4 py-2.5 relative">
             <div className="flex items-center justify-center gap-3">
               <span className="font-bold text-xs sm:text-sm text-white">
@@ -156,7 +156,7 @@ export default function HeaderModern({
 
       {/* Header */}
       <header
-        className={`fixed ${showPromo ? 'top-[42px]' : 'top-0'} left-0 right-0 z-[1000] bg-white border-b border-gray-200 transition-all duration-300 ${scrolled ? 'shadow-md' : ''}`}
+        className={`fixed ${showPromo ? 'top-[42px]' : 'top-0'} left-0 right-0 z-[1000] transition-all duration-300 ${scrolled ? 'bg-white border-b border-gray-200 shadow-md' : 'bg-transparent border-b border-white/10'}`}
         role="banner"
       >
         <div className="max-w-7xl mx-auto px-4">
@@ -164,16 +164,16 @@ export default function HeaderModern({
             {/* Logo */}
             <a href="#inicio" className="flex items-center gap-3 group">
               <div className="w-10 h-10 rounded-lg flex items-center justify-center shadow-lg transition-all group-hover:shadow-xl" style={{
-                background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
-                boxShadow: '0 4px 6px -1px rgba(59, 130, 246, 0.3)'
+                background: 'linear-gradient(135deg, #0077FF, #00F7EF)',
+                boxShadow: '0 4px 6px -1px rgba(0, 119, 255, 0.3)'
               }}>
                 <GraduationCap className="w-6 h-6 text-white" />
               </div>
               <div className="hidden sm:block">
-                <span className="text-gray-900 font-bold text-lg leading-none block">
+                <span className={`font-bold text-lg leading-none block ${scrolled ? 'text-gray-900' : 'text-white'}`}>
                   {brandName}
                 </span>
-                <span className="text-gray-500 text-xs leading-none">{t('brandTagline')}</span>
+                <span className={`text-xs leading-none ${scrolled ? 'text-gray-500' : 'text-white/60'}`}>{t('brandTagline')}</span>
               </div>
             </a>
 
@@ -184,7 +184,7 @@ export default function HeaderModern({
                 <NavigationMenuItem>
                   <NavigationMenuLink
                     href="#inicio"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                    className={`group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${scrolled ? 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}
                   >
                     {t('home')}
                   </NavigationMenuLink>
@@ -192,7 +192,7 @@ export default function HeaderModern({
 
                 {/* Cursos - Con Dropdown */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent text-gray-700 hover:bg-gray-100 hover:text-gray-900 data-[state=open]:bg-gray-100">
+                  <NavigationMenuTrigger className={`bg-transparent data-[state=open]:bg-transparent ${scrolled ? 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}>
                     <BookOpen className="w-4 h-4 mr-1.5" />
                     Cursos
                   </NavigationMenuTrigger>
@@ -244,7 +244,7 @@ export default function HeaderModern({
                     href="https://wa.me/5493517601441?text=¡Hola! Me interesa recibir más información sobre los cursos de GLOMIND360."
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                    className={`group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${scrolled ? 'text-gray-700 hover:bg-gray-100 hover:text-gray-900' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}
                   >
                     {t('contact')}
                   </NavigationMenuLink>
@@ -260,8 +260,8 @@ export default function HeaderModern({
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
                   aria-label="Change language"
                 >
-                  <Globe className="w-4 h-4 text-gray-600" />
-                  <span className="text-gray-900 text-sm font-semibold">{lang?.toUpperCase()}</span>
+                  <Globe className={`w-4 h-4 ${scrolled ? 'text-gray-600' : 'text-white/70'}`} />
+                  <span className={`text-sm font-semibold ${scrolled ? 'text-gray-900' : 'text-white'}`}>{lang?.toUpperCase()}</span>
                 </button>
               )}
 
@@ -279,14 +279,14 @@ export default function HeaderModern({
                   <>
                     <Link
                       href="/login"
-                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all duration-200 text-gray-700 text-sm font-medium"
+                      className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border transition-all duration-200 text-sm font-medium ${scrolled ? 'border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-700' : 'border-white/20 hover:border-white/40 text-white/80 hover:bg-white/10'}`}
                     >
                       <LogIn className="w-4 h-4" />
                       Ingresar
                     </Link>
                     <Link
                       href="/registro"
-                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-green-500 hover:bg-green-600 transition-all duration-200 text-white text-sm font-semibold"
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-200 text-white text-sm font-semibold" style={{background:'linear-gradient(90deg,#0077FF,#005FCC)'}}
                     >
                       <UserPlus className="w-4 h-4" />
                       Registrarse
@@ -317,7 +317,7 @@ export default function HeaderModern({
       >
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{background:'linear-gradient(135deg,#0077FF,#00F7EF)'}}>
               <GraduationCap className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -452,7 +452,7 @@ export default function HeaderModern({
                 <Link
                   href="/registro"
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-green-500 hover:bg-green-600 transition-all text-white font-semibold"
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-all text-white font-semibold" style={{background:'linear-gradient(90deg,#0077FF,#005FCC)'}}
                 >
                   <UserPlus className="w-4 h-4" />
                   Registrarse

@@ -51,7 +51,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
             right: '-50px',
             width: '200px',
             height: '200px',
-            background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+            background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
             borderRadius: '50%',
             opacity: 0.1,
             filter: 'blur(40px)'
@@ -62,7 +62,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
             left: '-50px',
             width: '200px',
             height: '200px',
-            background: 'linear-gradient(135deg, #06B6D4, #3B82F6)',
+            background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
             borderRadius: '50%',
             opacity: 0.1,
             filter: 'blur(40px)'
@@ -76,7 +76,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
               width: '64px',
               height: '64px',
               margin: '0 auto 1.5rem',
-              background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+              background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
               borderRadius: '1rem',
               display: 'flex',
               alignItems: 'center',
@@ -126,7 +126,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
                 padding: '0.5rem 1rem',
                 fontSize: '0.875rem'
               }}>
-                <Gift size={16} color="#3B82F6" />
+                <Gift size={16} color="#0077FF" />
                 <span style={{ color: '#0F172A', fontWeight: '500' }}>Contenido exclusivo</span>
               </div>
               <div style={{
@@ -139,7 +139,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
                 padding: '0.5rem 1rem',
                 fontSize: '0.875rem'
               }}>
-                <CheckCircle size={16} color="#22C55E" />
+                <CheckCircle size={16} color="#00F7EF" />
                 <span style={{ color: '#0F172A', fontWeight: '500' }}>Sin spam</span>
               </div>
               <div style={{
@@ -185,7 +185,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
                       transition: 'all 0.2s'
                     }}
                     onFocus={(e) => {
-                      e.currentTarget.style.borderColor = '#3B82F6';
+                      e.currentTarget.style.borderColor = '#0077FF';
                       e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
                     }}
                     onBlur={(e) => {
@@ -205,7 +205,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
                       fontSize: '1rem',
                       fontWeight: '600',
                       color: 'white',
-                      background: loading ? '#94A3B8' : 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                      background: loading ? '#94A3B8' : 'linear-gradient(90deg, #0077FF, #00F7EF)',
                       border: 'none',
                       borderRadius: '0.75rem',
                       cursor: loading ? 'not-allowed' : 'pointer',
@@ -270,7 +270,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  <CheckCircle size={32} color="#22C55E" />
+                  <CheckCircle size={32} color="#00F7EF" />
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <h3 style={{

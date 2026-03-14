@@ -13,7 +13,7 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 214 100% 50%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -64,7 +64,7 @@
   --bg-accent: #EFF6FF;  /* Azul muy claro */
 
   /* Texto */
-  --text-primary: #0F172A;
+  --text-primary: #1E1E1E;
   --text-secondary: #475569;
   --text-tertiary: #94A3B8;
   --text-inverse: #FFFFFF;
@@ -74,9 +74,10 @@
   --border-medium: #CBD5E1;
   --border-dark: #94A3B8;
 
-  /* Colores de Acción - Platzi Style */
-  --accent-blue: #3B82F6;      /* Primary blue */
-  --accent-blue-hover: #2563EB;
+  /* Colores de Acción - Glomind360 */
+  --accent-blue: #0077FF;      /* Azul eléctrico Glomind360 */
+  --accent-blue-hover: #005FCC;
+  --accent-aqua: #00F7EF;      /* Aqua Glomind360 */
   --accent-green: #22C55E;     /* Success green */
   --accent-yellow: #EAB308;    /* Warning yellow */
   --accent-orange: #F97316;    /* Orange */
@@ -104,7 +105,7 @@
 
   /* Compatibilidad con código existente */
   --acc1: var(--accent-blue);
-  --acc2: var(--accent-green);
+  --acc2: var(--accent-aqua);
   --fg: var(--text-primary);
   --bg: var(--bg-primary);
   --card-bg: var(--bg-primary);

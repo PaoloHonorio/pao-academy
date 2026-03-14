@@ -23,9 +23,9 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: '#EFF6FF',
-            color: '#1E40AF',
-            border: '1px solid #BFDBFE',
+            background: 'rgba(0,119,255,0.1)',
+            color: '#0077FF',
+            border: '1px solid rgba(0,119,255,0.3)',
             borderRadius: '9999px',
             padding: '0.5rem 1.5rem',
             fontSize: '0.875rem',
@@ -43,7 +43,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
             marginBottom: '1rem'
           }}>
             {t('faq')} <span style={{
-              background: 'linear-gradient(90deg, #3B82F6, #8B5CF6)',
+              background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -73,7 +73,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
                 transition: 'all 0.3s'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#3B82F6';
+                e.currentTarget.style.borderColor = '#0077FF';
                 e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
               }}
               onMouseLeave={(e) => {
@@ -100,7 +100,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
                   transition: 'color 0.2s'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = '#3B82F6';
+                  e.currentTarget.style.color = '#0077FF';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = '#0F172A';
@@ -117,7 +117,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderRadius: '50%',
-                  background: openIndex === index ? '#3B82F6' : '#F1F5F9',
+                  background: openIndex === index ? '#0077FF' : '#F1F5F9',
                   transition: 'all 0.3s',
                   transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)'
                 }}>
@@ -155,9 +155,9 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
         <div style={{
           marginTop: '3rem',
           padding: '2rem',
-          background: 'linear-gradient(135deg, #EFF6FF, #F0F9FF)',
+          background: 'linear-gradient(135deg, rgba(0,119,255,0.05), rgba(0,247,239,0.08))',
           borderRadius: '1rem',
-          border: '1px solid #BFDBFE',
+          border: '1px solid rgba(0,119,255,0.2)',
           textAlign: 'center'
         }}>
           <h3 style={{
