@@ -35,7 +35,7 @@ export default function HeroSimple({
 
           {/* Subtítulo */}
           <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Formación práctica con <span className="text-white font-semibold">mentores expertos</span> que te preparan para los <span style={{color:'#00F7EF', fontWeight:600}}>desafíos reales</span> del mercado laboral.
+            Formación práctica con <span style={{background:'rgba(0,119,255,0.25)', color:'#fff', fontWeight:600, borderRadius:'4px', padding:'2px 8px'}}>mentores expertos</span> que te preparan para los <span style={{background:'rgba(0,247,239,0.2)', color:'#00F7EF', fontWeight:600, borderRadius:'4px', padding:'2px 8px'}}>desafíos reales</span> del mercado laboral.
           </p>
 
           {/* CTAs */}
