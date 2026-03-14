@@ -240,12 +240,12 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
       'Mindset': '#00C4BE',
       'Branding': '#00F7EF',
       // Async courses
-      'Análisis de Datos': '#8B5CF6',
-      'Negocios y Finanzas': '#7C3AED',
-      'Gestión de Procesos': '#8B5CF6',
-      'Desarrollo Personal': '#7C3AED',
-      'Tecnología': '#8B5CF6',
-      'Marketing Digital': '#7C3AED',
+      'Análisis de Datos': '#00B8B0',
+      'Negocios y Finanzas': '#00B8B0',
+      'Gestión de Procesos': '#00B8B0',
+      'Desarrollo Personal': '#00B8B0',
+      'Tecnología': '#00B8B0',
+      'Marketing Digital': '#00B8B0',
     };
     return colors[tag] || '#0077FF';
   };
@@ -292,9 +292,9 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           flexWrap: 'wrap'
         }}>
           {[
-            { id: 'live' as TabType, label: 'Cursos en Vivo', icon: Play, color: '#EF4444' },
-            { id: 'async' as TabType, label: 'On Demand', icon: BookOpen, color: '#8B5CF6' },
-            { id: 'corporate' as TabType, label: 'Corporate Training', icon: Building2, color: '#0077FF' }
+            { id: 'live' as TabType, label: 'Cursos en Vivo', icon: Play, color: '#0077FF' },
+            { id: 'async' as TabType, label: 'On Demand', icon: BookOpen, color: '#00B8B0' },
+            { id: 'corporate' as TabType, label: 'Corporate Training', icon: Building2, color: '#0055CC' }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -351,19 +351,19 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              background: 'rgba(239,68,68,0.08)',
-              color: '#EF4444',
+              background: 'rgba(0,119,255,0.08)',
+              color: '#0077FF',
               borderRadius: '9999px',
               padding: '0.5rem 1rem',
               fontSize: '0.875rem',
               fontWeight: '600',
               marginBottom: '1rem',
-              border: '1px solid rgba(239,68,68,0.2)'
+              border: '1px solid rgba(0,119,255,0.2)'
             }}>
               <span style={{
                 width: '8px',
                 height: '8px',
-                background: '#EF4444',
+                background: '#0077FF',
                 borderRadius: '50%',
                 display: 'inline-block',
                 animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
@@ -377,9 +377,9 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              background: 'rgba(139,92,246,0.1)',
-              color: '#8B5CF6',
-              border: '1px solid rgba(139,92,246,0.3)',
+              background: 'rgba(0,184,176,0.1)',
+              color: '#00B8B0',
+              border: '1px solid rgba(0,184,176,0.3)',
               borderRadius: '9999px',
               padding: '0.5rem 1rem',
               fontSize: '0.875rem',
@@ -399,8 +399,8 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             textTransform: 'uppercase',
             letterSpacing: '-0.01em'
           }}>
-            {activeTab === 'live' && <>Programas en vivo que <span style={{background:'rgba(239,68,68,0.1)',color:'#C81E1E',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>transforman tu carrera</span></>}
-            {activeTab === 'async' && <>Aprende <span style={{background:'rgba(139,92,246,0.12)',color:'#6D28D9',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>a tu propio ritmo</span></>}
+            {activeTab === 'live' && <>Programas en vivo que <span style={{background:'rgba(0,119,255,0.1)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>transforman tu carrera</span></>}
+            {activeTab === 'async' && <>Aprende <span style={{background:'rgba(0,184,176,0.12)',color:'#007A75',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>a tu propio ritmo</span></>}
             {activeTab === 'corporate' && (
               <>Formación a medida para <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>empresas</span></>
             )}
@@ -424,8 +424,8 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             ? tags
             : ['All', ...Array.from(new Set(asyncCourses.map((c) => c.tag)))];
           const activeColor = activeTab === 'live'
-            ? { bg: '#EF4444', shadow: 'rgba(239,68,68,0.35)' }
-            : { bg: '#8B5CF6', shadow: 'rgba(139,92,246,0.35)' };
+            ? { bg: '#0077FF', shadow: 'rgba(0,119,255,0.35)' }
+            : { bg: '#00B8B0', shadow: 'rgba(0,184,176,0.35)' };
           return (
             <div className="filter-scroll" style={{ display: 'flex', flexWrap: isMobile ? 'nowrap' : 'wrap', overflowX: isMobile ? 'auto' : 'visible', justifyContent: isMobile ? 'flex-start' : 'center', gap: '0.625rem', marginBottom: '2.5rem', paddingBottom: '0.5rem', paddingLeft: isMobile ? '0.25rem' : 0, paddingRight: isMobile ? '1rem' : 0, WebkitOverflowScrolling: 'touch' as any, scrollbarWidth: 'none' as any }}>
               {filterTags.map((tag) => (
@@ -521,9 +521,9 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                   alignItems: 'center',
                   gap: '0.375rem',
                   padding: '0.25rem 0.75rem',
-                  background: 'rgba(139,92,246,0.08)',
-                  color: '#8B5CF6',
-                  border: '1px solid rgba(139,92,246,0.2)',
+                  background: 'rgba(0,184,176,0.08)',
+                  color: '#00B8B0',
+                  border: '1px solid rgba(0,184,176,0.2)',
                   borderRadius: '9999px',
                   fontSize: '0.75rem',
                   fontWeight: '600',
@@ -612,7 +612,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     fontSize: '1rem',
                     fontWeight: '600',
                     color: 'white',
-                    background: '#8B5CF6',
+                    background: '#00B8B0',
                     border: 'none',
                     borderRadius: '0.5rem',
                     cursor: 'pointer',
@@ -620,10 +620,10 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     textDecoration: 'none'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#7C3AED';
+                    e.currentTarget.style.background = '#00B8B0';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#8B5CF6';
+                    e.currentTarget.style.background = '#00B8B0';
                   }}
                 >
                   <span>Ver cursos</span>
@@ -638,7 +638,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '1.5rem' }}>
             {asyncCourses.map((_, i) => (
               <button key={i} onClick={() => { setAsyncCarouselIndex(i); resetAsyncCarouselTimer(asyncCourses); }}
-                style={{ width: i === idx ? '24px' : '8px', height: '8px', borderRadius: '9999px', border: 'none', cursor: 'pointer', transition: 'all 0.3s', background: i === idx ? '#8B5CF6' : '#E5E7EB', padding: 0 }} />
+                style={{ width: i === idx ? '24px' : '8px', height: '8px', borderRadius: '9999px', border: 'none', cursor: 'pointer', transition: 'all 0.3s', background: i === idx ? '#00B8B0' : '#E5E7EB', padding: 0 }} />
             ))}
           </div>
           {/* Arrows */}
