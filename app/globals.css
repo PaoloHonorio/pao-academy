@@ -734,6 +734,7 @@ header .relative { overflow: visible !important; }
   .hero-ctas-mobile button{ width:100%; justify-content:center; max-width:100%; box-sizing:border-box; font-size:.9rem; padding:.75rem 1rem; }
   .hero-bullets-mobile{ display:flex; overflow-x:auto; gap:1rem; padding:0 .75rem .5rem; scrollbar-width:none; -ms-overflow-style:none; }
   .hero-bullets-mobile::-webkit-scrollbar{ display:none; }
+  .filter-scroll::-webkit-scrollbar{ display:none; }
   .hero-bullets-mobile > div{ flex-shrink:0; min-width:180px; }
   .hero-mobile p{ padding:0 .75rem; text-align:center; word-wrap:break-word; overflow-wrap:break-word; hyphens:auto; max-width:100%; box-sizing:border-box; font-size:.9rem; }
   .hero-mobile{ padding:0 .75rem; max-width:100%; overflow-x:hidden; }
