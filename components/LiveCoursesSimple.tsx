@@ -432,7 +432,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             ? { bg: '#EF4444', shadow: 'rgba(239,68,68,0.35)' }
             : { bg: '#8B5CF6', shadow: 'rgba(139,92,246,0.35)' };
           return (
-            <div className="filter-scroll" style={{ display: 'flex', flexWrap: isMobile ? 'nowrap' : 'wrap', overflowX: isMobile ? 'auto' : 'visible', justifyContent: isMobile ? 'flex-start' : 'center', gap: '0.5rem', marginBottom: '2.5rem', paddingBottom: '0.5rem', WebkitOverflowScrolling: 'touch' as any, scrollbarWidth: 'none' as any }}>
+            <div className="filter-scroll" style={{ display: 'flex', flexWrap: isMobile ? 'nowrap' : 'wrap', overflowX: isMobile ? 'auto' : 'visible', justifyContent: isMobile ? 'flex-start' : 'center', gap: '0.625rem', marginBottom: '2.5rem', paddingBottom: '0.5rem', paddingLeft: isMobile ? '0.25rem' : 0, paddingRight: isMobile ? '1rem' : 0, WebkitOverflowScrolling: 'touch' as any, scrollbarWidth: 'none' as any }}>
               {filterTags.map((tag) => (
                 <button
                   key={tag}
@@ -444,6 +444,8 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     fontWeight: '600',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
+                    whiteSpace: 'nowrap',
+                    flexShrink: 0,
                     ...(selectedTag === tag ? {
                       background: activeColor.bg,
                       color: 'white',
