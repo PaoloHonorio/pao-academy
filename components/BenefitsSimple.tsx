@@ -147,11 +147,13 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
               </div>
 
               <h2 style={{
-                fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
-                fontWeight: '700',
+                fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+                fontWeight: '900',
                 color: '#0F172A',
                 marginBottom: '1rem',
-                lineHeight: '1.2'
+                lineHeight: '1.2',
+                textTransform: 'uppercase',
+                letterSpacing: '-0.01em'
               }}>
                 ¿Por qué estudiar con{' '}
                 <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 10px'}}>

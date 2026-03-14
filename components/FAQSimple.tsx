@@ -37,10 +37,12 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
           </div>
 
           <h2 style={{
-            fontSize: 'clamp(2rem, 4vw, 3rem)',
-            fontWeight: '700',
+            fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)',
+            fontWeight: '900',
             color: '#0F172A',
-            marginBottom: '1rem'
+            marginBottom: '1rem',
+            textTransform: 'uppercase',
+            letterSpacing: '-0.01em'
           }}>
             {t('faq')} <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 10px'}}>resueltas</span>
           </h2>

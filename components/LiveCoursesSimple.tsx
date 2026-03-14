@@ -411,10 +411,12 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           )}
 
           <h2 style={{
-            fontSize: 'clamp(2rem, 4vw, 3rem)',
-            fontWeight: '700',
+            fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)',
+            fontWeight: '900',
             color: '#0F172A',
-            marginBottom: '1rem'
+            marginBottom: '1rem',
+            textTransform: 'uppercase',
+            letterSpacing: '-0.01em'
           }}>
             {activeTab === 'live' && <>Programas en vivo que <span style={{background:'rgba(239,68,68,0.1)',color:'#C81E1E',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>transforman tu carrera</span></>}
             {activeTab === 'async' && <>Aprende <span style={{background:'rgba(139,92,246,0.12)',color:'#6D28D9',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>a tu propio ritmo</span></>}
