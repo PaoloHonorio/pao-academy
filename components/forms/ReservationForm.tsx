@@ -259,41 +259,46 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
 
       {/* Teléfono con prefijo */}
       <div>
-        <div className="input-group relative flex gap-2">
-          <Phone className="input-icon" style={{ left: '0.75rem' }} />
-          <select
-            value={phonePrefix}
-            onChange={e => setPhonePrefix(e.target.value)}
-            style={{
-              paddingLeft: '2.5rem',
-              paddingRight: '0.5rem',
-              height: '44px',
-              border: '1px solid #E2E8F0',
-              borderRadius: '0.5rem',
-              fontSize: '0.875rem',
-              color: '#0F172A',
-              background: 'white',
-              flexShrink: 0,
-              width: '90px',
-              cursor: 'pointer',
-            }}
-          >
-            {Object.entries(PHONE_PREFIXES).map(([code, prefix]) => (
-              <option key={code} value={prefix}>{prefix}</option>
-            ))}
-          </select>
-          <input
-            type="tel"
-            className={getFieldClasses('phone', phoneV).replace('input-with-icon', '')}
-            style={{ flex: 1 }}
-            placeholder="Número de teléfono"
-            value={phone}
-            onChange={e => setPhone(e.target.value)}
-            onBlur={() => handleBlur('phone')}
-          />
-          {touched.phone && phoneV.status === 'valid' && (
-            <Check className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500" />
-          )}
+        <div className="relative flex gap-2 items-center">
+          <div className="relative flex-shrink-0">
+            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)] pointer-events-none" />
+            <select
+              value={phonePrefix}
+              onChange={e => setPhonePrefix(e.target.value)}
+              style={{
+                paddingLeft: '2.25rem',
+                paddingRight: '1.5rem',
+                height: '44px',
+                border: '1px solid #E2E8F0',
+                borderRadius: '0.5rem',
+                fontSize: '0.875rem',
+                color: '#0F172A',
+                background: 'white',
+                width: '100px',
+                cursor: 'pointer',
+                appearance: 'none',
+                WebkitAppearance: 'none',
+              }}
+            >
+              {Object.entries(PHONE_PREFIXES).map(([code, prefix]) => (
+                <option key={code} value={prefix}>{prefix} ({code})</option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
+          </div>
+          <div className="relative flex-1">
+            <input
+              type="tel"
+              className={getFieldClasses('phone', phoneV).replace('input-with-icon', 'input-modern')}
+              placeholder="Número de teléfono"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+              onBlur={() => handleBlur('phone')}
+            />
+            {touched.phone && phoneV.status === 'valid' && (
+              <Check className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500" />
+            )}
+          </div>
         </div>
         {touched.phone && phoneV.error && (
           <p className="text-red-500 text-xs mt-1">{phoneV.error}</p>
@@ -304,27 +309,35 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
       {isGeneric ? (
         <Select value={course} onValueChange={setCourse}>
           <SelectTrigger className="select-trigger-modern h-11 w-full">
-            <div className="flex items-center gap-3">
-              <BookOpen className="w-4 h-4 text-[var(--text-tertiary)]" />
-              <SelectValue placeholder="Seleccioná un programa" />
+            <div className="flex items-center gap-2 w-full overflow-hidden">
+              <BookOpen className="w-4 h-4 text-slate-400 flex-shrink-0" />
+              <span className="text-sm truncate text-slate-500">
+                {course || 'Seleccioná un programa'}
+              </span>
             </div>
           </SelectTrigger>
-          <SelectContent className="select-content-modern max-h-64">
+          <SelectContent className="select-content-modern max-h-72">
             <SelectGroup>
-              <SelectLabel>En Vivo</SelectLabel>
+              <SelectLabel className="text-xs font-bold text-[#0077FF] uppercase tracking-wide px-2 py-1">
+                🔴 En Vivo — Con mentores
+              </SelectLabel>
               {PROGRAMAS_EN_VIVO.map(p => (
-                <SelectItem key={p} value={p} className="select-item-modern">{p}</SelectItem>
+                <SelectItem key={p} value={p} className="select-item-modern pl-4">{p}</SelectItem>
               ))}
             </SelectGroup>
             <SelectGroup>
-              <SelectLabel>A Tu Ritmo</SelectLabel>
+              <SelectLabel className="text-xs font-bold text-[#8B5CF6] uppercase tracking-wide px-2 py-1 mt-1">
+                🎧 A Tu Ritmo — On demand
+              </SelectLabel>
               {PROGRAMAS_ASYNC.map(p => (
-                <SelectItem key={p} value={p} className="select-item-modern">{p}</SelectItem>
+                <SelectItem key={p} value={p} className="select-item-modern pl-4">{p}</SelectItem>
               ))}
             </SelectGroup>
             <SelectGroup>
-              <SelectLabel>Corporativo</SelectLabel>
-              <SelectItem value="Formación Corporativa" className="select-item-modern">Formación Corporativa</SelectItem>
+              <SelectLabel className="text-xs font-bold text-slate-500 uppercase tracking-wide px-2 py-1 mt-1">
+                🏢 Corporativo
+              </SelectLabel>
+              <SelectItem value="Formación Corporativa" className="select-item-modern pl-4">Formación Corporativa</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -341,19 +354,14 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
       )}
 
       {/* ¿Por qué te interesa? */}
-      <Select value={motivation} onValueChange={setMotivation}>
-        <SelectTrigger className="select-trigger-modern h-11 w-full">
-          <div className="flex items-center gap-3">
-            <ChevronDown className="w-4 h-4 text-[var(--text-tertiary)]" />
-            <SelectValue placeholder="¿Por qué te interesa este programa?" />
-          </div>
-        </SelectTrigger>
-        <SelectContent className="select-content-modern">
-          {MOTIVACIONES.map(m => (
-            <SelectItem key={m} value={m} className="select-item-modern">{m}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <textarea
+        className="input-modern resize-none py-3"
+        rows={3}
+        placeholder="¿Por qué te interesa este programa?"
+        value={motivation}
+        onChange={e => setMotivation(e.target.value)}
+        style={{ minHeight: '80px' }}
+      />
 
       {error && (
         <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg" role="alert">{error}</div>
