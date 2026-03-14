@@ -135,12 +135,12 @@ export default function HeaderModern({
       {showPromo && (
         <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#0077FF,#00F7EF)'}}>
           <div className="max-w-7xl mx-auto px-4 py-2.5 relative">
-            <div className="flex items-center justify-center gap-3">
-              <span className="font-bold text-xs sm:text-sm text-white">
+            <div className="flex items-center justify-center gap-2">
+              <span className="font-black text-sm sm:text-base text-white">
                 🔥 {promoMessage}
               </span>
-              <span className="hidden sm:inline text-xs sm:text-sm text-white/90">
-                {promoSubMessage}
+              <span className="hidden sm:inline text-sm sm:text-base font-semibold" style={{color:'#0F172A'}}>
+                — {promoSubMessage}
               </span>
             </div>
             <button
