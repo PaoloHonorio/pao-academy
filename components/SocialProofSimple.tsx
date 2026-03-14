@@ -52,8 +52,8 @@ export default function SocialProofSimple({
 
   return (
     <section style={{
-      background: '#F8FAFC',
-      padding: '2rem 1rem 2rem'
+      background: 'white',
+      padding: '5rem 1rem'
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
@@ -83,12 +83,7 @@ export default function SocialProofSimple({
             marginBottom: '1rem'
           }}>
             Lo que dicen nuestros{' '}
-            <span style={{
-              background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
+            <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 10px'}}>
               estudiantes
             </span>
           </h2>

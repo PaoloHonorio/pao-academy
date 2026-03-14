@@ -280,7 +280,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
   };
 
   return (
-    <section style={{ background: 'white', padding: '2rem 1rem 2rem' }}>
+    <section style={{ background: '#F8FAFC', padding: '5rem 1rem' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         {/* Tabs Navigation */}

@@ -12,8 +12,8 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
 
   return (
     <section style={{
-      background: '#F8FAFC',
-      padding: '2rem 1rem 4rem'
+      background: 'white',
+      padding: '5rem 1rem'
     }}>
       <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
 
@@ -42,12 +42,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
             color: '#0F172A',
             marginBottom: '1rem'
           }}>
-            {t('faq')} <span style={{
-              background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>resueltas</span>
+            {t('faq')} <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 10px'}}>resueltas</span>
           </h2>
 
           <p style={{

@@ -45,8 +45,8 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
 
   return (
     <section style={{
-      background: '#F8FAFC',
-      padding: '2rem 1rem 2rem'
+      background: '#F0F4FF',
+      padding: '5rem 1rem'
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
@@ -154,12 +154,7 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
                 lineHeight: '1.2'
               }}>
                 ¿Por qué estudiar con{' '}
-                <span style={{
-                  background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}>
+                <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 10px'}}>
                   nosotros
                 </span>?
               </h2>
