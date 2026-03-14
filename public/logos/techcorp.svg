@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 162 44" width="162" height="44">
+  <!-- Code brackets -->
+  <polyline points="14,10 6,22 14,34" fill="none" stroke="white" stroke-width="2.5" opacity="0.85" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="22,10 30,22 22,34" fill="none" stroke="white" stroke-width="2.5" opacity="0.85" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="38" y="30" font-family="'Arial Black',Arial,sans-serif" font-size="17" font-weight="900" fill="white" opacity="0.85" letter-spacing="-0.5">TechCorp</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 44" width="180" height="44">
+  <!-- Trending up arrow -->
+  <polyline points="4,36 14,24 22,30 32,12" fill="none" stroke="white" stroke-width="2.5" opacity="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="24,10 32,10 32,18" fill="none" stroke="white" stroke-width="2.5" opacity="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="40" y="30" font-family="'Arial Black',Arial,sans-serif" font-size="17" font-weight="900" fill="white" opacity="0.85" letter-spacing="-0.5">FinanceMax</text>
+</svg>

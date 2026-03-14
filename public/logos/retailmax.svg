@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 165 44" width="165" height="44">
+  <!-- Price tag -->
+  <path d="M6,10 L22,10 L34,22 L22,34 L6,34 Z" fill="none" stroke="white" stroke-width="2.5" opacity="0.85" stroke-linejoin="round"/>
+  <circle cx="13" cy="17" r="2.5" fill="white" opacity="0.85"/>
+  <text x="40" y="30" font-family="'Arial Black',Arial,sans-serif" font-size="17" font-weight="900" fill="white" opacity="0.85" letter-spacing="-0.5">RetailMax</text>
+</svg>

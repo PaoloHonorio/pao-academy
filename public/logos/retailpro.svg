@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 163 44" width="163" height="44">
+  <!-- Shopping bag -->
+  <path d="M8,16 L8,38 L28,38 L28,16 Z" fill="none" stroke="white" stroke-width="2.5" opacity="0.85"/>
+  <path d="M12,16 Q12,8 18,8 Q24,8 24,16" fill="none" stroke="white" stroke-width="2.5" opacity="0.85"/>
+  <circle cx="14" cy="24" r="1.5" fill="white" opacity="0.85"/>
+  <circle cx="22" cy="24" r="1.5" fill="white" opacity="0.85"/>
+  <text x="36" y="30" font-family="'Arial Black',Arial,sans-serif" font-size="17" font-weight="900" fill="white" opacity="0.85" letter-spacing="-0.5">RetailPro</text>
+</svg>

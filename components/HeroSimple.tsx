@@ -73,21 +73,39 @@ export default function HeroSimple({
               <div style={{position:'absolute',right:0,top:0,bottom:0,width:'80px',background:'linear-gradient(to left,#060d1f,transparent)',zIndex:1}}></div>
               <div style={{
                 display:'flex',
-                gap:'3rem',
+                gap:'4rem',
                 alignItems:'center',
-                animation:'marquee 20s linear infinite',
+                animation:'marquee 28s linear infinite',
                 width:'max-content'
               }}>
-                {['TechStart','DataCorp','RetailPro','FinanceMax','EduTech','LogiSur','Grupo Andino','TechCorp','RetailMax','InnovateLab'].map((company, i) => (
-                  <span key={i} style={{color:'rgba(255,255,255,0.75)',fontSize:'2rem',fontWeight:800,whiteSpace:'nowrap',letterSpacing:'0.05em'}}>
-                    {company}
-                  </span>
+                {[
+                  {name:'TechStart', src:'/logos/techstart.svg'},
+                  {name:'DataCorp', src:'/logos/datacorp.svg'},
+                  {name:'RetailPro', src:'/logos/retailpro.svg'},
+                  {name:'FinanceMax', src:'/logos/financemax.svg'},
+                  {name:'EduTech', src:'/logos/edutech.svg'},
+                  {name:'LogiSur', src:'/logos/logisur.svg'},
+                  {name:'Grupo Andino', src:'/logos/grupoandino.svg'},
+                  {name:'TechCorp', src:'/logos/techcorp.svg'},
+                  {name:'RetailMax', src:'/logos/retailmax.svg'},
+                  {name:'InnovateLab', src:'/logos/innovatelab.svg'},
+                ].map((company, i) => (
+                  <img key={i} src={company.src} alt={company.name} style={{height:'40px',width:'auto',opacity:0.8,flexShrink:0}} />
                 ))}
                 {/* Duplicado para loop continuo */}
-                {['TechStart','DataCorp','RetailPro','FinanceMax','EduTech','LogiSur','Grupo Andino','TechCorp','RetailMax','InnovateLab'].map((company, i) => (
-                  <span key={`b${i}`} style={{color:'rgba(255,255,255,0.75)',fontSize:'2rem',fontWeight:800,whiteSpace:'nowrap',letterSpacing:'0.05em'}}>
-                    {company}
-                  </span>
+                {[
+                  {name:'TechStart', src:'/logos/techstart.svg'},
+                  {name:'DataCorp', src:'/logos/datacorp.svg'},
+                  {name:'RetailPro', src:'/logos/retailpro.svg'},
+                  {name:'FinanceMax', src:'/logos/financemax.svg'},
+                  {name:'EduTech', src:'/logos/edutech.svg'},
+                  {name:'LogiSur', src:'/logos/logisur.svg'},
+                  {name:'Grupo Andino', src:'/logos/grupoandino.svg'},
+                  {name:'TechCorp', src:'/logos/techcorp.svg'},
+                  {name:'RetailMax', src:'/logos/retailmax.svg'},
+                  {name:'InnovateLab', src:'/logos/innovatelab.svg'},
+                ].map((company, i) => (
+                  <img key={`b${i}`} src={company.src} alt={company.name} style={{height:'40px',width:'auto',opacity:0.8,flexShrink:0}} />
                 ))}
               </div>
             </div>

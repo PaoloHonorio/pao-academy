@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 165 44" width="165" height="44">
+  <!-- Bar chart -->
+  <rect x="6" y="26" width="6" height="14" fill="white" opacity="0.85" rx="1"/>
+  <rect x="15" y="18" width="6" height="22" fill="white" opacity="0.85" rx="1"/>
+  <rect x="24" y="10" width="6" height="30" fill="white" opacity="0.85" rx="1"/>
+  <text x="38" y="30" font-family="'Arial Black',Arial,sans-serif" font-size="17" font-weight="900" fill="white" opacity="0.85" letter-spacing="-0.5">DataCorp</text>
+</svg>
