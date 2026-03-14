@@ -250,6 +250,23 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
     return colors[tag] || '#0077FF';
   };
 
+  const getCategoryFallbackImage = (tag: string) => {
+    const images: Record<string, string> = {
+      'Desarrollo Personal': '/desarrollo-personal.webp',
+      'Branding': '/marca-personal.webp',
+      'Comercial': '/ventas-consultivas.webp',
+      'Liderazgo': '/liderazgo-agil.webp',
+      'Datos': '/analisis-datos.webp',
+      'Mindset': '/motivacion-habitos.webp',
+      'Análisis de Datos': '/analisis-datos.webp',
+      'Negocios y Finanzas': '/negocios-finanzas.webp',
+      'Gestión de Procesos': '/gestion-procesos.webp',
+      'Tecnología': '/tecnologia.webp',
+      'Marketing Digital': '/marketing-digital.webp',
+    };
+    return images[tag] || '/hero.webp';
+  };
+
   const getAsyncCategoryEmoji = (tag: string) => {
     const emojis: Record<string, string> = {
       'Análisis de Datos': '📊',
@@ -511,27 +528,11 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                 position: 'relative',
                 overflow: 'hidden'
               }}>
-                {course.image ? (
-                  <img
-                    src={course.image}
-                    alt={`Imagen del curso: ${course.title}`}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover'
-                    }}
-                  />
-                ) : (
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <BookOpen size={64} color={getCategoryColor(course.tag)} style={{ opacity: 0.3 }} />
-                  </div>
-                )}
+                <img
+                  src={course.image || getCategoryFallbackImage(course.tag)}
+                  alt={`Imagen del curso: ${course.title}`}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
               </div>
 
               {/* Content */}
@@ -736,27 +737,11 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                 position: 'relative',
                 overflow: 'hidden'
               }}>
-                {course.image ? (
-                  <img
-                    src={course.image}
-                    alt={`Imagen del curso: ${course.title}`}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover'
-                    }}
-                  />
-                ) : (
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <Award size={64} color="#0077FF" style={{ opacity: 0.3 }} />
-                  </div>
-                )}
+                <img
+                  src={course.image || getCategoryFallbackImage(course.tag)}
+                  alt={`Imagen del curso: ${course.title}`}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
                 {/* Badge - Live */}
                 <div style={{
                   position: 'absolute',
