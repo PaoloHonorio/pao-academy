@@ -2073,5 +2073,15 @@ header .relative { overflow: visible !important; }
 
 /* Ocultar WhatsApp float en mobile */
 @media (max-width: 767px) {
-  div[style*="bottom: 24px"][style*="left: 24px"] { display: none !important; }
+  .whatsapp-float-desktop { display: none !important; }
+}
+
+/* Sticky bar por encima del chatbot */
+.mobile-sticky-bar {
+  z-index: 99999 !important;
+}
+
+/* Espacio para que el footer no quede tapado por la sticky bar en mobile */
+@media (max-width: 767px) {
+  body { padding-bottom: 72px; }
 }

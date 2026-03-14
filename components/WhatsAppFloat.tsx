@@ -43,7 +43,7 @@ function WhatsAppFloat({
 
   return (
     <div
-      className="fixed z-[9999]"
+      className="fixed z-[9999] whatsapp-float-desktop"
       style={{
         position: 'fixed',
         bottom: '24px',
