@@ -129,22 +129,6 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
           <div>
             {/* Header */}
             <div style={{ marginBottom: '2rem' }}>
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                background: 'rgba(0,119,255,0.08)',
-                color: '#0077FF',
-                border: '1px solid rgba(0,119,255,0.3)',
-                borderRadius: '9999px',
-                padding: '0.5rem 1rem',
-                fontSize: '0.875rem',
-                fontWeight: '600',
-                marginBottom: '1rem'
-              }}>
-                <Award size={16} />
-                <span>Nuestra Diferencia</span>
-              </div>
 
               <h2 style={{
                 fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',

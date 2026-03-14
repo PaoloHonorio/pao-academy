@@ -372,43 +372,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             </div>
           )}
 
-          {activeTab === 'async' && (
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              background: 'rgba(139,92,246,0.1)',
-              color: '#8B5CF6',
-              border: '1px solid rgba(139,92,246,0.3)',
-              borderRadius: '9999px',
-              padding: '0.5rem 1rem',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              marginBottom: '1rem'
-            }}>
-              <BookOpen size={16} />
-              A TU RITMO
-            </div>
-          )}
 
-          {activeTab === 'corporate' && (
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              background: 'rgba(0,119,255,0.1)',
-              color: '#0077FF',
-              border: '1px solid rgba(0,119,255,0.25)',
-              borderRadius: '9999px',
-              padding: '0.5rem 1.5rem',
-              fontSize: '0.875rem',
-              fontWeight: '600',
-              marginBottom: '1rem'
-            }}>
-              <Building2 size={18} />
-              <span>Formación Corporativa</span>
-            </div>
-          )}
 
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)',
