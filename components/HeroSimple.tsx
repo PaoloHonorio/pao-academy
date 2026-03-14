@@ -26,7 +26,7 @@ export default function HeroSimple({
           </div>
 
           {/* Headline */}
-          <h1 className="text-[clamp(2.4rem,6vw,4.5rem)] font-black text-white mb-6 leading-[1.1] tracking-tight">
+          <h1 className="text-[clamp(2.4rem,6vw,4.5rem)] font-black text-white mb-6 leading-[1.05] tracking-tight uppercase">
             Aprende las habilidades que{' '}
             <span className="bg-clip-text text-transparent" style={{backgroundImage:'linear-gradient(90deg,#0077FF,#00F7EF)'}}>
               demandan las empresas
