@@ -416,15 +416,10 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             color: '#0F172A',
             marginBottom: '1rem'
           }}>
-            {activeTab === 'live' && <>Programas en vivo que <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>transforman tu carrera</span></>}
-            {activeTab === 'async' && <>Aprende <span style={{background:'rgba(0,247,239,0.18)',color:'#007A76',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>a tu propio ritmo</span></>}
+            {activeTab === 'live' && <>Programas en vivo que <span style={{background:'rgba(239,68,68,0.1)',color:'#C81E1E',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>transforman tu carrera</span></>}
+            {activeTab === 'async' && <>Aprende <span style={{background:'rgba(139,92,246,0.12)',color:'#6D28D9',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>a tu propio ritmo</span></>}
             {activeTab === 'corporate' && (
-              <>Formación a medida para <span style={{
-                background: 'linear-gradient(90deg, #0077FF, #00F7EF)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>empresas</span></>
+              <>Formación a medida para <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>empresas</span></>
             )}
           </h2>
 
