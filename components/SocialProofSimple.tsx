@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { Quote, Star, Award, TrendingUp, Users, Briefcase, Building2 } from 'lucide-react';
 
 export default function SocialProofSimple({
@@ -14,6 +15,13 @@ export default function SocialProofSimple({
   idx: number;
 }) {
   const test = testimonios[idx][lang];
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const stats = [
     {
@@ -77,7 +85,7 @@ export default function SocialProofSimple({
         {/* Stats Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
           gap: '1.5rem',
           marginBottom: '3rem'
         }}>
