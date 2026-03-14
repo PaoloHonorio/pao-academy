@@ -61,36 +61,36 @@ export default function HeroSimple({
             </button>
           </div>
 
-          {/* Credibilidad */}
-          <div className="flex flex-wrap justify-center gap-8 pt-8" style={{borderTop:'1px solid rgba(255,255,255,0.08)'}}>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{background:'rgba(0,119,255,0.15)'}}>
-                <Users size={18} color="#0077FF" />
-              </div>
-              <div className="text-left">
-                <div className="text-white font-bold text-lg leading-none">10,000+</div>
-                <div className="text-slate-500 text-xs mt-0.5">Estudiantes graduados</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{background:'rgba(0,247,239,0.12)'}}>
-                <Star size={18} color="#00F7EF" />
-              </div>
-              <div className="text-left">
-                <div className="text-white font-bold text-lg leading-none">4.9/5</div>
-                <div className="text-slate-500 text-xs mt-0.5">Calificación promedio</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{background:'rgba(0,119,255,0.15)'}}>
-                <Award size={18} color="#0077FF" />
-              </div>
-              <div className="text-left">
-                <div className="text-white font-bold text-lg leading-none">95%</div>
-                <div className="text-slate-500 text-xs mt-0.5">Consiguen empleo</div>
+          {/* Faja de empresas */}
+          <div className="pt-8" style={{borderTop:'1px solid rgba(255,255,255,0.08)'}}>
+            <p className="text-slate-500 text-xs uppercase tracking-widest mb-4">Empresas que confían en nuestros graduados</p>
+            <div style={{overflow:'hidden', position:'relative'}}>
+              {/* Fade izquierda */}
+              <div style={{position:'absolute',left:0,top:0,bottom:0,width:'80px',background:'linear-gradient(to right,#060d1f,transparent)',zIndex:1}}></div>
+              {/* Fade derecha */}
+              <div style={{position:'absolute',right:0,top:0,bottom:0,width:'80px',background:'linear-gradient(to left,#060d1f,transparent)',zIndex:1}}></div>
+              <div style={{
+                display:'flex',
+                gap:'3rem',
+                alignItems:'center',
+                animation:'marquee 20s linear infinite',
+                width:'max-content'
+              }}>
+                {['TechStart','DataCorp','RetailPro','FinanceMax','EduTech','LogiSur','Grupo Andino','TechCorp','RetailMax','InnovateLab'].map((company, i) => (
+                  <span key={i} style={{color:'rgba(255,255,255,0.35)',fontSize:'0.9375rem',fontWeight:600,whiteSpace:'nowrap',letterSpacing:'0.05em'}}>
+                    {company}
+                  </span>
+                ))}
+                {/* Duplicado para loop continuo */}
+                {['TechStart','DataCorp','RetailPro','FinanceMax','EduTech','LogiSur','Grupo Andino','TechCorp','RetailMax','InnovateLab'].map((company, i) => (
+                  <span key={`b${i}`} style={{color:'rgba(255,255,255,0.35)',fontSize:'0.9375rem',fontWeight:600,whiteSpace:'nowrap',letterSpacing:'0.05em'}}>
+                    {company}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
+          <style>{`@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }`}</style>
 
         </div>
       </div>
