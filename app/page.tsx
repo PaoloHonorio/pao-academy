@@ -231,9 +231,9 @@ ${lang==='es'?'Vengo desde la web de':'I come from the website of'} ${brandName}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <DialogContent className="bg-white border-[#E2E8F0] max-w-xl">
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold text-[#0F172A]">Reserva tu lugar</DialogTitle>
+            <DialogTitle className="text-xl font-semibold text-[#0F172A]">¡Asegurá tu lugar!</DialogTitle>
             <DialogDescription className="text-[#64748B]">
-              Completa tus datos y te contactamos para confirmar la inscripción.
+              Te contactamos en menos de 24hs para confirmar tu inscripción.
             </DialogDescription>
           </DialogHeader>
           <div className="mt-4">

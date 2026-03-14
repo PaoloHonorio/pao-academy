@@ -1,10 +1,12 @@
 'use client';
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
-import { Phone, User, Mail, Globe, Check } from 'lucide-react';
+import { Phone, User, Mail, BookOpen, Check, ChevronDown } from 'lucide-react';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -18,112 +20,138 @@ type Props = {
 type ReservationPayload = {
   name: string;
   email: string;
-  phone?: string;
+  phone: string;
   country?: string;
   course: string;
-  date?: string;
-  message?: string;
+  motivation: string;
   referralCode?: string | null;
 };
 
-// Textos internacionalizados
-const texts = {
-  es: {
-    name: 'Nombre y Apellido',
-    email: 'Email',
-    phone: 'Teléfono (opcional)',
-    country: 'País',
-    course: 'Curso o programa',
-    date: 'Fecha preferida',
-    message: 'Mensaje (opcional)',
-    submit: 'Reservar mi lugar',
-    submitting: 'Enviando...',
-    success: '¡Reserva recibida!',
-    successMessage: 'Te contactaremos a la brevedad para confirmar tu lugar.',
-    error: 'Error al enviar el formulario',
-    required: 'Este campo es obligatorio',
-    invalidEmail: 'Email inválido',
-    invalidPhone: 'Teléfono inválido',
-    minLength: 'Mínimo 2 caracteres'
-  },
-  en: {
-    name: 'Full Name',
-    email: 'Email',
-    phone: 'Phone (optional)',
-    country: 'Country',
-    course: 'Course or program',
-    date: 'Preferred date',
-    message: 'Message (optional)',
-    submit: 'Reserve my spot',
-    submitting: 'Sending...',
-    success: 'Reservation received!',
-    successMessage: 'We will contact you shortly to confirm your spot.',
-    error: 'Error sending form',
-    required: 'This field is required',
-    invalidEmail: 'Invalid email',
-    invalidPhone: 'Invalid phone',
-    minLength: 'Minimum 2 characters'
-  }
+const PROGRAMAS_EN_VIVO = [
+  'Ventas Consultivas',
+  'Liderazgo Ágil',
+  'Motivación y Hábitos',
+  'Marca Personal',
+  'Power BI desde Cero',
+  'Data Analytics Bootcamp',
+];
+
+const PROGRAMAS_ASYNC = [
+  'Excel Pro desde Cero',
+  'Power BI Express',
+  'Notion para la Productividad',
+  'Trello & Asana Ágil',
+  'Finanzas Smart',
+  'Excel para Finanzas',
+  'Inversiones para Principiantes',
+  'Contabilidad Sin Complicaciones',
+  'Productividad 10X',
+  'Comunicación Asertiva',
+  'Python desde Cero',
+  'IA Generativa para Todos',
+  'Marketing Digital Express',
+  'Redes Sociales Pro',
+  'Email Marketing con IA',
+  'Diseño con Canva',
+  'UX/UI Fundamentals',
+  'Photoshop Start',
+  'Ventas 101',
+  'Atención al Cliente 5⭐',
+  'Objeciones bajo Control',
+  'Comunicación Efectiva Pro',
+  'Presentaciones de Impacto',
+  'Trabajo en Equipo Remoto',
+  'Tu Marca Personal 360',
+  'Contenido para Redes con IA',
+  'LinkedIn Pro con IA',
+  'Reels y Shorts con IA',
+  'Edición Visual con IA',
+];
+
+const MOTIVACIONES = [
+  'Quiero cambiar de trabajo',
+  'Quiero ascender en mi empresa',
+  'Quiero emprender',
+  'Mi empresa me lo pidió',
+  'Quiero aprender algo nuevo',
+];
+
+const GENERIC_COURSES = ['programas', 'programs', 'formación corporativa', ''];
+
+// Prefijos telefónicos por país
+const PHONE_PREFIXES: Record<string, string> = {
+  AR: '+54', MX: '+52', CO: '+57', PE: '+51',
+  CL: '+56', UY: '+598', BR: '+55', US: '+1',
+  ES: '+34', BO: '+591', PY: '+595', EC: '+593',
 };
 
 type FieldStatus = 'idle' | 'valid' | 'invalid';
 
-export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' }: Props){
+export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' }: Props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [country, setCountry] = useState('');
+  const [phonePrefix, setPhonePrefix] = useState('+54');
   const [course, setCourse] = useState(defaultCourse || '');
-  const [date, setDate] = useState('');
-  const [message, setMessage] = useState('');
+  const [motivation, setMotivation] = useState('');
+  const [country, setCountry] = useState('AR');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [ok, setOk] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
-  const t = texts[lang];
+  const isGeneric = GENERIC_COURSES.includes((defaultCourse || '').toLowerCase());
 
-  useEffect(() => { if (defaultCourse) setCourse(defaultCourse); }, [defaultCourse]);
+  useEffect(() => {
+    if (defaultCourse) setCourse(defaultCourse);
+  }, [defaultCourse]);
+
+  // Auto-detectar país por IP
+  useEffect(() => {
+    fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(data => {
+        if (data.country_code) {
+          setCountry(data.country_code);
+          const prefix = PHONE_PREFIXES[data.country_code];
+          if (prefix) setPhonePrefix(prefix);
+        }
+      })
+      .catch(() => {}); // silencioso si falla
+  }, []);
 
   const validateField = useCallback((field: string, value: string): { error: string | null; status: FieldStatus } => {
     switch (field) {
       case 'name':
         if (!value.trim()) return { error: null, status: 'idle' };
-        if (value.trim().length < 2) return { error: t.minLength, status: 'invalid' };
+        if (value.trim().length < 2) return { error: 'Mínimo 2 caracteres', status: 'invalid' };
         return { error: null, status: 'valid' };
       case 'email':
         if (!value.trim()) return { error: null, status: 'idle' };
-        if (!/@/.test(value)) return { error: t.invalidEmail, status: 'invalid' };
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return { error: t.invalidEmail, status: 'invalid' };
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return { error: 'Email inválido', status: 'invalid' };
         return { error: null, status: 'valid' };
       case 'phone':
         if (!value.trim()) return { error: null, status: 'idle' };
-        if (!/^[\+]?[1-9][\d]{0,15}$/.test(value.replace(/\s/g, ''))) return { error: t.invalidPhone, status: 'invalid' };
-        return { error: null, status: 'valid' };
-      case 'course':
-        if (!value.trim()) return { error: null, status: 'idle' };
-        if (value.trim().length < 2) return { error: t.required, status: 'invalid' };
+        if (!/^[\d\s\-]{6,15}$/.test(value.trim())) return { error: 'Teléfono inválido', status: 'invalid' };
         return { error: null, status: 'valid' };
       default:
         return { error: null, status: 'idle' };
     }
-  }, [t]);
+  }, []);
 
-  // Validación en tiempo real
-  const nameValidation = useMemo(() => validateField('name', name), [name, validateField]);
-  const emailValidation = useMemo(() => validateField('email', email), [email, validateField]);
-  const phoneValidation = useMemo(() => validateField('phone', phone), [phone, validateField]);
+  const nameV = useMemo(() => validateField('name', name), [name, validateField]);
+  const emailV = useMemo(() => validateField('email', email), [email, validateField]);
+  const phoneV = useMemo(() => validateField('phone', phone), [phone, validateField]);
 
   const isValid = useMemo(() => {
-    return nameValidation.status === 'valid' &&
-           emailValidation.status === 'valid' &&
-           course.trim().length >= 2;
-  }, [nameValidation.status, emailValidation.status, course]);
+    return nameV.status === 'valid' &&
+      emailV.status === 'valid' &&
+      phoneV.status === 'valid' &&
+      course.trim().length >= 2 &&
+      motivation.length > 0;
+  }, [nameV.status, emailV.status, phoneV.status, course, motivation]);
 
-  const handleBlur = (field: string) => {
-    setTouched(prev => ({ ...prev, [field]: true }));
-  };
+  const handleBlur = (field: string) => setTouched(prev => ({ ...prev, [field]: true }));
 
   const getFieldClasses = (field: string, validation: { status: FieldStatus }) => {
     const base = 'input-modern input-with-icon transition-all duration-200';
@@ -133,51 +161,39 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
     return base;
   };
 
-  async function handleSubmit(e: React.FormEvent){
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
-    // Marcar todos los campos como tocados
-    setTouched({ name: true, email: true, phone: true, course: true });
-
+    setTouched({ name: true, email: true, phone: true });
     if (!isValid) return;
-
-    // Validar todos los campos
-    const errors: Record<string, string> = {};
-    if (nameValidation.error) errors.name = nameValidation.error;
-    if (emailValidation.error) errors.email = emailValidation.error;
-    if (phoneValidation.error) errors.phone = phoneValidation.error;
-
-    if (Object.keys(errors).length > 0) {
-      setFieldErrors(errors);
-      return;
-    }
 
     setLoading(true);
     setError(null);
-    setFieldErrors({});
 
-    try{
-      const referralCode = typeof window !== 'undefined' ? (localStorage.getItem('ref_code') || sessionStorage.getItem('ref_code')) : null;
+    try {
+      const referralCode = typeof window !== 'undefined'
+        ? (localStorage.getItem('ref_code') || sessionStorage.getItem('ref_code'))
+        : null;
+
       const payload: ReservationPayload = {
         name,
         email,
-        phone: phone || undefined,
-        country: country || undefined,
+        phone: `${phonePrefix} ${phone}`,
+        country,
         course,
-        date,
-        message,
-        referralCode
+        motivation,
+        referralCode,
       };
+
       const res = await fetch('/api/reservas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error(t.error);
+      if (!res.ok) throw new Error('Error al enviar el formulario');
       setOk(true);
       if (onSuccess) onSuccess();
-    } catch(err: any){
-      setError(err?.message || t.error);
+    } catch (err: any) {
+      setError(err?.message || 'Error al enviar el formulario');
     } finally {
       setLoading(false);
     }
@@ -191,120 +207,156 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">{t.success}</h3>
-        <p className="text-[var(--text-secondary)]">{t.successMessage}</p>
+        <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">¡Reserva recibida!</h3>
+        <p className="text-[var(--text-secondary)]">Te contactamos en menos de 24hs para confirmar tu lugar.</p>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+
       {/* Nombre */}
-      <div className={touched.name && nameValidation.status === 'invalid' ? 'field-error' : ''}>
+      <div>
         <div className="input-group relative">
           <User className="input-icon" />
           <input
-            className={getFieldClasses('name', nameValidation)}
-            placeholder={t.name}
+            className={getFieldClasses('name', nameV)}
+            placeholder="Nombre y Apellido"
             value={name}
             onChange={e => setName(e.target.value)}
             onBlur={() => handleBlur('name')}
-            aria-invalid={touched.name && nameValidation.status === 'invalid'}
-            aria-describedby={nameValidation.error ? 'name-error' : undefined}
           />
-          {touched.name && nameValidation.status === 'valid' && (
+          {touched.name && nameV.status === 'valid' && (
             <Check className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500" />
           )}
         </div>
-        {touched.name && nameValidation.error && (
-          <p id="name-error" className="text-red-500 text-xs mt-1" role="alert">{nameValidation.error}</p>
+        {touched.name && nameV.error && (
+          <p className="text-red-500 text-xs mt-1">{nameV.error}</p>
         )}
       </div>
 
       {/* Email */}
-      <div className={touched.email && emailValidation.status === 'invalid' ? 'field-error' : ''}>
+      <div>
         <div className="input-group relative">
           <Mail className="input-icon" />
           <input
             type="email"
-            className={getFieldClasses('email', emailValidation)}
-            placeholder={t.email}
+            className={getFieldClasses('email', emailV)}
+            placeholder="Email"
             value={email}
             onChange={e => setEmail(e.target.value)}
             onBlur={() => handleBlur('email')}
-            aria-invalid={touched.email && emailValidation.status === 'invalid'}
-            aria-describedby={emailValidation.error ? 'email-error' : undefined}
           />
-          {touched.email && emailValidation.status === 'valid' && (
+          {touched.email && emailV.status === 'valid' && (
             <Check className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500" />
           )}
         </div>
-        {touched.email && emailValidation.error && (
-          <p id="email-error" className="text-red-500 text-xs mt-1" role="alert">{emailValidation.error}</p>
+        {touched.email && emailV.error && (
+          <p className="text-red-500 text-xs mt-1">{emailV.error}</p>
         )}
       </div>
 
-      {/* Teléfono */}
-      <div className={touched.phone && phoneValidation.status === 'invalid' ? 'field-error' : ''}>
-        <div className="input-group relative">
-          <Phone className="input-icon" />
+      {/* Teléfono con prefijo */}
+      <div>
+        <div className="input-group relative flex gap-2">
+          <Phone className="input-icon" style={{ left: '0.75rem' }} />
+          <select
+            value={phonePrefix}
+            onChange={e => setPhonePrefix(e.target.value)}
+            style={{
+              paddingLeft: '2.5rem',
+              paddingRight: '0.5rem',
+              height: '44px',
+              border: '1px solid #E2E8F0',
+              borderRadius: '0.5rem',
+              fontSize: '0.875rem',
+              color: '#0F172A',
+              background: 'white',
+              flexShrink: 0,
+              width: '90px',
+              cursor: 'pointer',
+            }}
+          >
+            {Object.entries(PHONE_PREFIXES).map(([code, prefix]) => (
+              <option key={code} value={prefix}>{prefix}</option>
+            ))}
+          </select>
           <input
             type="tel"
-            className={getFieldClasses('phone', phoneValidation)}
-            placeholder={t.phone}
+            className={getFieldClasses('phone', phoneV).replace('input-with-icon', '')}
+            style={{ flex: 1 }}
+            placeholder="Número de teléfono"
             value={phone}
             onChange={e => setPhone(e.target.value)}
             onBlur={() => handleBlur('phone')}
-            aria-invalid={touched.phone && phoneValidation.status === 'invalid'}
-            aria-describedby={phoneValidation.error ? 'phone-error' : undefined}
           />
-          {touched.phone && phoneValidation.status === 'valid' && (
+          {touched.phone && phoneV.status === 'valid' && (
             <Check className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-500" />
           )}
         </div>
-        {touched.phone && phoneValidation.error && (
-          <p id="phone-error" className="text-red-500 text-xs mt-1" role="alert">{phoneValidation.error}</p>
+        {touched.phone && phoneV.error && (
+          <p className="text-red-500 text-xs mt-1">{phoneV.error}</p>
         )}
       </div>
 
-      {/* País */}
-      <div>
-        <Select value={country} onValueChange={setCountry}>
+      {/* Programa */}
+      {isGeneric ? (
+        <Select value={course} onValueChange={setCourse}>
           <SelectTrigger className="select-trigger-modern h-11 w-full">
             <div className="flex items-center gap-3">
-              <Globe className="w-4 h-4 text-[var(--text-tertiary)]" />
-              <SelectValue placeholder={t.country} />
+              <BookOpen className="w-4 h-4 text-[var(--text-tertiary)]" />
+              <SelectValue placeholder="Seleccioná un programa" />
             </div>
           </SelectTrigger>
-          <SelectContent className="select-content-modern">
-            <SelectItem value="AR" className="select-item-modern">Argentina</SelectItem>
-            <SelectItem value="MX" className="select-item-modern">México</SelectItem>
-            <SelectItem value="CO" className="select-item-modern">Colombia</SelectItem>
-            <SelectItem value="PE" className="select-item-modern">Perú</SelectItem>
-            <SelectItem value="CL" className="select-item-modern">Chile</SelectItem>
-            <SelectItem value="UY" className="select-item-modern">Uruguay</SelectItem>
-            <SelectItem value="BR" className="select-item-modern">Brasil</SelectItem>
-            <SelectItem value="US" className="select-item-modern">Estados Unidos</SelectItem>
-            <SelectItem value="ES" className="select-item-modern">España</SelectItem>
-            <SelectItem value="other" className="select-item-modern">Otro</SelectItem>
+          <SelectContent className="select-content-modern max-h-64">
+            <SelectGroup>
+              <SelectLabel>En Vivo</SelectLabel>
+              {PROGRAMAS_EN_VIVO.map(p => (
+                <SelectItem key={p} value={p} className="select-item-modern">{p}</SelectItem>
+              ))}
+            </SelectGroup>
+            <SelectGroup>
+              <SelectLabel>A Tu Ritmo</SelectLabel>
+              {PROGRAMAS_ASYNC.map(p => (
+                <SelectItem key={p} value={p} className="select-item-modern">{p}</SelectItem>
+              ))}
+            </SelectGroup>
+            <SelectGroup>
+              <SelectLabel>Corporativo</SelectLabel>
+              <SelectItem value="Formación Corporativa" className="select-item-modern">Formación Corporativa</SelectItem>
+            </SelectGroup>
           </SelectContent>
         </Select>
-      </div>
+      ) : (
+        <div className="input-group relative">
+          <BookOpen className="input-icon" />
+          <input
+            className="input-modern input-with-icon bg-slate-50"
+            value={course}
+            readOnly
+            style={{ cursor: 'default', color: '#475569' }}
+          />
+        </div>
+      )}
 
-      {/* Mensaje */}
-      <div>
-        <textarea
-          className="input-modern min-h-[100px] resize-y py-3"
-          placeholder={t.message}
-          value={message}
-          onChange={e => setMessage(e.target.value)}
-        />
-      </div>
+      {/* ¿Por qué te interesa? */}
+      <Select value={motivation} onValueChange={setMotivation}>
+        <SelectTrigger className="select-trigger-modern h-11 w-full">
+          <div className="flex items-center gap-3">
+            <ChevronDown className="w-4 h-4 text-[var(--text-tertiary)]" />
+            <SelectValue placeholder="¿Por qué te interesa este programa?" />
+          </div>
+        </SelectTrigger>
+        <SelectContent className="select-content-modern">
+          {MOTIVACIONES.map(m => (
+            <SelectItem key={m} value={m} className="select-item-modern">{m}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
       {error && (
-        <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg" role="alert">
-          {error}
-        </div>
+        <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg" role="alert">{error}</div>
       )}
 
       <button
@@ -315,10 +367,10 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
         {loading ? (
           <>
             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            {t.submitting}
+            Enviando...
           </>
         ) : (
-          t.submit
+          'Reservar mi lugar'
         )}
       </button>
     </form>
