@@ -315,20 +315,10 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
             </div>
           </SelectTrigger>
           <SelectContent className="select-content-modern max-h-72">
-            <SelectGroup>
-              <SelectLabel className="text-xs font-bold text-[#0077FF] uppercase tracking-wide px-2 py-1">
-                🔴 En Vivo — Con mentores
-              </SelectLabel>
-              {PROGRAMAS_EN_VIVO.map(p => (
-                <SelectItem key={p} value={p} className="select-item-modern pl-4">{p}</SelectItem>
-              ))}
-            </SelectGroup>
-            <SelectGroup>
-              <SelectLabel className="text-xs font-bold text-slate-500 uppercase tracking-wide px-2 py-1 mt-1">
-                🏢 Corporativo
-              </SelectLabel>
-              <SelectItem value="Formación Corporativa" className="select-item-modern pl-4">Formación Corporativa</SelectItem>
-            </SelectGroup>
+            {PROGRAMAS_EN_VIVO.map(p => (
+              <SelectItem key={p} value={p} className="select-item-modern">{p}</SelectItem>
+            ))}
+            <SelectItem value="Formación Corporativa" className="select-item-modern">Formación Corporativa</SelectItem>
           </SelectContent>
         </Select>
       ) : (
