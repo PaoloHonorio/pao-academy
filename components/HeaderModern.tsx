@@ -133,15 +133,23 @@ export default function HeaderModern({
     <>
       {/* Barra de Promoción */}
       {showPromo && (
-        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#0077FF,#00F7EF)'}}>
-          <div className="max-w-7xl mx-auto px-4 py-2.5 relative">
-            <div className="flex items-center justify-center gap-2">
-              <span className="font-black text-sm sm:text-base text-white">
-                🔥 {promoMessage}
+        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'#0F172A'}}>
+          <div className="max-w-7xl mx-auto px-4 py-2 relative">
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              <span className="text-sm text-white/80">
+                🔥 {promoMessage},
               </span>
-              <span className="hidden sm:inline text-sm sm:text-base font-semibold" style={{color:'#0F172A'}}>
-                — {promoSubMessage}
+              <span className="text-sm font-black" style={{color:'#00F7EF'}}>
+                {promoSubMessage}
               </span>
+              <span className="text-white/60 text-sm hidden sm:inline">→</span>
+              <button
+                onClick={onClickCTA}
+                className="text-sm font-black underline underline-offset-2 hidden sm:inline"
+                style={{color:'#00F7EF', background:'none', border:'none', cursor:'pointer', padding:0}}
+              >
+                Inscribirme ahora
+              </button>
             </div>
             <button
               onClick={() => setShowPromo(false)}
