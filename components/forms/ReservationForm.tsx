@@ -103,7 +103,11 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
   const isGeneric = GENERIC_COURSES.includes((defaultCourse || '').toLowerCase());
 
   useEffect(() => {
-    if (defaultCourse) setCourse(defaultCourse);
+    if (defaultCourse && !GENERIC_COURSES.includes(defaultCourse.toLowerCase())) {
+      setCourse(defaultCourse);
+    } else {
+      setCourse('');
+    }
   }, [defaultCourse]);
 
   // Auto-detectar país por IP
@@ -267,24 +271,21 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
               onChange={e => setPhonePrefix(e.target.value)}
               style={{
                 paddingLeft: '2.25rem',
-                paddingRight: '1.5rem',
+                paddingRight: '0.5rem',
                 height: '44px',
                 border: '1px solid #E2E8F0',
                 borderRadius: '0.5rem',
                 fontSize: '0.875rem',
                 color: '#0F172A',
                 background: 'white',
-                width: '85px',
+                width: '88px',
                 cursor: 'pointer',
-                appearance: 'none',
-                WebkitAppearance: 'none',
               }}
             >
               {Object.entries(PHONE_PREFIXES).map(([code, prefix]) => (
                 <option key={code} value={prefix}>{prefix}</option>
               ))}
             </select>
-            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
           </div>
           <div className="relative flex-1">
             <input
