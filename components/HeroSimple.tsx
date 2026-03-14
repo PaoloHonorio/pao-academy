@@ -19,10 +19,16 @@ export default function HeroSimple({
       <div className="relative max-w-5xl mx-auto w-full">
         <div className="text-center">
 
-          {/* Etiqueta de autoridad */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6" style={{background:'rgba(0,119,255,0.15)',color:'#0077FF',border:'1px solid rgba(0,119,255,0.3)'}}>
-            <Award size={13} />
-            Academia Profesional N°1 en Latinoamérica
+          {/* Línea de confianza */}
+          <div className="flex items-center justify-center gap-3 mb-6 flex-wrap" style={{color:'rgba(255,255,255,0.55)',fontSize:'0.875rem',fontWeight:500,letterSpacing:'0.02em'}}>
+            <span style={{display:'flex',alignItems:'center',gap:'0.3rem'}}>
+              {['★','★','★','★','★'].map((s,i) => <span key={i} style={{color:'#FBBF24',fontSize:'1rem'}}>{s}</span>)}
+              <span style={{color:'rgba(255,255,255,0.7)',marginLeft:'0.25rem'}}>4.9/5</span>
+            </span>
+            <span style={{color:'rgba(255,255,255,0.25)'}}>·</span>
+            <span>+10,000 graduados</span>
+            <span style={{color:'rgba(255,255,255,0.25)'}}>·</span>
+            <span>Academia N°1 en Latinoamérica</span>
           </div>
 
           {/* Headline */}
