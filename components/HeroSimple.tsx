@@ -77,13 +77,13 @@ export default function HeroSimple({
                 width:'max-content'
               }}>
                 {['TechStart','DataCorp','RetailPro','FinanceMax','EduTech','LogiSur','Grupo Andino','TechCorp','RetailMax','InnovateLab'].map((company, i) => (
-                  <span key={i} style={{color:'rgba(255,255,255,0.65)',fontSize:'1.125rem',fontWeight:700,whiteSpace:'nowrap',letterSpacing:'0.08em'}}>
+                  <span key={i} style={{color:'rgba(255,255,255,0.75)',fontSize:'2rem',fontWeight:800,whiteSpace:'nowrap',letterSpacing:'0.05em'}}>
                     {company}
                   </span>
                 ))}
                 {/* Duplicado para loop continuo */}
                 {['TechStart','DataCorp','RetailPro','FinanceMax','EduTech','LogiSur','Grupo Andino','TechCorp','RetailMax','InnovateLab'].map((company, i) => (
-                  <span key={`b${i}`} style={{color:'rgba(255,255,255,0.65)',fontSize:'1.125rem',fontWeight:700,whiteSpace:'nowrap',letterSpacing:'0.08em'}}>
+                  <span key={`b${i}`} style={{color:'rgba(255,255,255,0.75)',fontSize:'2rem',fontWeight:800,whiteSpace:'nowrap',letterSpacing:'0.05em'}}>
                     {company}
                   </span>
                 ))}
