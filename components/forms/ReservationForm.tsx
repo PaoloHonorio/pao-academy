@@ -157,6 +157,9 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
 
   const handleBlur = (field: string) => setTouched(prev => ({ ...prev, [field]: true }));
 
+  const courseError = touched.course && !course ? 'Seleccioná un programa' : null;
+  const motivationError = touched.motivation && !motivation.trim() ? 'Este campo es obligatorio' : null;
+
   const getFieldClasses = (field: string, validation: { status: FieldStatus }) => {
     const base = 'input-modern input-with-icon transition-all duration-200';
     if (!touched[field]) return base;
@@ -167,7 +170,7 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setTouched({ name: true, email: true, phone: true });
+    setTouched({ name: true, email: true, phone: true, course: true, motivation: true });
     if (!isValid) return;
 
     setLoading(true);
@@ -306,7 +309,7 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
       {/* Programa */}
       {isGeneric ? (
         <Select value={course} onValueChange={setCourse}>
-          <SelectTrigger className="select-trigger-modern h-11 w-full">
+          <SelectTrigger className={`select-trigger-modern h-11 w-full ${courseError ? 'border-red-500' : ''}`}>
             <div className="flex items-center gap-2 w-full overflow-hidden">
               <BookOpen className="w-4 h-4 text-slate-400 flex-shrink-0" />
               <span className="text-sm truncate text-slate-500">
@@ -321,6 +324,7 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
             <SelectItem value="Formación Corporativa" className="select-item-modern">Formación Corporativa</SelectItem>
           </SelectContent>
         </Select>
+        {courseError && <p className="text-red-500 text-xs mt-1">{courseError}</p>}
       ) : (
         <div className="input-group relative">
           <BookOpen className="input-icon" />
@@ -334,14 +338,18 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
       )}
 
       {/* ¿Por qué te interesa? */}
-      <textarea
-        className="input-modern resize-none py-3"
-        rows={4}
-        placeholder="¿Qué esperás aplicar de este programa en tu desarrollo profesional?"
-        value={motivation}
-        onChange={e => setMotivation(e.target.value)}
-        style={{ minHeight: '100px' }}
-      />
+      <div>
+        <textarea
+          className={`input-modern resize-none py-3 ${motivationError ? 'border-red-500' : ''}`}
+          rows={4}
+          placeholder="¿Qué esperás aplicar de este programa en tu desarrollo profesional?"
+          value={motivation}
+          onChange={e => setMotivation(e.target.value)}
+          onBlur={() => handleBlur('motivation')}
+          style={{ minHeight: '100px' }}
+        />
+        {motivationError && <p className="text-red-500 text-xs mt-1">{motivationError}</p>}
+      </div>
 
       {error && (
         <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg" role="alert">{error}</div>
