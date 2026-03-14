@@ -133,7 +133,7 @@ export default function HeaderModern({
     <>
       {/* Barra de Promoción */}
       {showPromo && (
-        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#F97316,#EA580C)'}}>
+        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'#0F172A'}}>
           <div className="max-w-7xl mx-auto px-4 py-2.5 relative">
             <div className="flex items-center justify-center gap-3">
               <span className="font-bold text-xs sm:text-sm text-white">
