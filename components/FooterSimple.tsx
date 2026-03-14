@@ -42,8 +42,8 @@ export default function FooterSimple({
           marginBottom: '3rem'
         }}>
 
-          {/* Brand Column */}
-          <div>
+          {/* Brand Column — full width */}
+          <div style={{ gridColumn: '1 / -1' }}>
             <div style={{
               display: 'flex',
               alignItems: 'center',
