@@ -1,10 +1,18 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { Linkedin, Instagram, Youtube, GraduationCap } from 'lucide-react';
 import type { Lang } from '../lib/i18n';
 
+const linkStyle = {
+  fontSize: '0.875rem',
+  color: '#64748B',
+  textDecoration: 'none' as const,
+  transition: 'color 0.2s',
+  whiteSpace: 'nowrap' as const,
+};
+
 export default function FooterSimple({
-  brandName,
-  t,
+  brandName, t,
   lang: _lang,
   setLang: _setLang
 }: {
@@ -14,375 +22,132 @@ export default function FooterSimple({
   setLang: (l: Lang) => void;
 }) {
   const year = new Date().getFullYear();
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const socialLinks = [
+    { href: 'https://www.linkedin.com/', label: 'LinkedIn', icon: <Linkedin size={18} />, hover: '#0077B5' },
+    { href: 'https://www.instagram.com/', label: 'Instagram', icon: <Instagram size={18} />, hover: '#E1306C' },
+    { href: 'https://www.youtube.com/', label: 'YouTube', icon: <Youtube size={18} />, hover: '#FF0000' },
+  ];
+
+  const cols = [
+    {
+      title: 'Cursos',
+      links: [
+        { label: 'Cursos en Vivo', href: '#cursos-en-vivo' },
+        { label: 'On Demand', href: '#cursos-en-vivo' },
+        { label: 'Corporate', href: '#corporate-training' },
+        { label: 'Beneficios', href: '#beneficios' },
+      ]
+    },
+    {
+      title: 'Información',
+      links: [
+        { label: 'Sobre Nosotros', href: '/sobre-nosotros' },
+        { label: 'FAQ', href: '/faq' },
+        { label: 'Contacto', href: 'https://wa.me/5493517601441' },
+      ]
+    },
+    {
+      title: 'Legal',
+      links: [
+        { label: 'Privacidad', href: '/politicas-privacidad' },
+        { label: 'Términos', href: '/terminos-condiciones' },
+        { label: 'Arrepentimiento', href: '/arrepentimiento' },
+      ]
+    },
+  ];
 
   return (
-    <footer style={{
-      background: '#F8FAFC',
-      padding: '3rem 1rem 2rem',
-      borderTop: '1px solid #E5E7EB'
-    }}>
-      <div style={{
-        maxWidth: '1280px',
-        margin: '0 auto'
-      }}>
+    <footer style={{ background: '#0F172A', padding: '3rem 1.5rem 1.5rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         {/* Top gradient line */}
-        <div style={{
-          height: '4px',
-          background: 'linear-gradient(90deg, #0077FF, #00F7EF, #00F7EF)',
-          borderRadius: '9999px',
-          marginBottom: '3rem'
-        }}></div>
+        <div style={{ height: '3px', background: 'linear-gradient(90deg, #0077FF, #00F7EF)', borderRadius: '9999px', marginBottom: '3rem' }} />
 
-        {/* Content Grid */}
+        {/* Main grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-          gap: '2rem',
-          marginBottom: '3rem'
+          gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr 1fr 1fr',
+          gap: isMobile ? '2rem' : '3rem',
+          marginBottom: '2.5rem'
         }}>
 
-          {/* Brand Column — full width */}
-          <div style={{ gridColumn: '1 / -1' }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.75rem',
-              marginBottom: '1rem'
-            }}>
-              <div style={{
-                width: '40px',
-                height: '40px',
-                background: 'linear-gradient(135deg, #0077FF, #00F7EF)',
-                borderRadius: '0.5rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 4px 6px -1px rgba(59, 130, 246, 0.3)'
-              }}>
-                <GraduationCap size={24} color="white" />
+          {/* Brand */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+              <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg, #0077FF, #00F7EF)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <GraduationCap size={20} color="white" />
               </div>
-              <span style={{
-                fontSize: '1.25rem',
-                fontWeight: '700',
-                color: '#0F172A'
-              }}>
-                {brandName}
-              </span>
+              <span style={{ fontSize: '1.125rem', fontWeight: '800', color: 'white', letterSpacing: '-0.01em' }}>{brandName}</span>
             </div>
-            <p style={{
-              fontSize: '0.875rem',
-              color: '#64748B',
-              lineHeight: '1.6',
-              marginBottom: '1.5rem'
-            }}>
+            <p style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.45)', lineHeight: '1.6', marginBottom: '1.5rem', maxWidth: '280px' }}>
               Formación en vivo y online para transformar tu futuro profesional
             </p>
-
-            {/* Social Links */}
-            <div style={{
-              display: 'flex',
-              gap: '0.75rem'
-            }}>
-              <a
-                href="https://www.linkedin.com/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: '#F1F5F9',
-                  borderRadius: '0.5rem',
-                  transition: 'all 0.2s',
-                  textDecoration: 'none'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#0077FF';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#F1F5F9';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <Linkedin size={20} color="#64748B" />
-              </a>
-              <a
-                href="https://www.instagram.com/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram"
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: '#F1F5F9',
-                  borderRadius: '0.5rem',
-                  transition: 'all 0.2s',
-                  textDecoration: 'none'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#E1306C';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#F1F5F9';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <Instagram size={20} color="#64748B" />
-              </a>
-              <a
-                href="https://www.youtube.com/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="YouTube"
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: '#F1F5F9',
-                  borderRadius: '0.5rem',
-                  transition: 'all 0.2s',
-                  textDecoration: 'none'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#FF0000';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#F1F5F9';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <Youtube size={20} color="#64748B" />
-              </a>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              {socialLinks.map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
+                  style={{ width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.07)', borderRadius: '8px', transition: 'all 0.2s', color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = s.hover; e.currentTarget.style.color = 'white'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; }}
+                >
+                  {s.icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Cursos Column */}
-          <div>
-            <h3 style={{
-              fontSize: '1rem',
-              fontWeight: '600',
-              color: '#0F172A',
-              marginBottom: '1rem'
-            }}>
-              Cursos
-            </h3>
-            <ul style={{
-              listStyle: 'none',
-              padding: 0,
-              margin: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.5rem'
-            }}>
-              <li>
-                <a
-                  href="#cursos-en-vivo"
-                  style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
-                >
-                  Cursos en Vivo
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#corporate-training"
-                  style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
-                >
-                  Formación Corporativa
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#beneficios"
-                  style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
-                >
-                  Beneficios
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Información Column */}
-          <div>
-            <h3 style={{
-              fontSize: '1rem',
-              fontWeight: '600',
-              color: '#0F172A',
-              marginBottom: '1rem'
-            }}>
-              Información
-            </h3>
-            <ul style={{
-              listStyle: 'none',
-              padding: 0,
-              margin: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.5rem'
-            }}>
-              <li>
-                <a
-                  href="/sobre-nosotros"
-                  style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
-                >
-                  Sobre Nosotros
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/faq"
-                  style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
-                >
-                  Preguntas Frecuentes
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://wa.me/5493517601441"
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
-                >
-                  Contacto
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal Column */}
-          <div>
-            <h3 style={{
-              fontSize: '1rem',
-              fontWeight: '600',
-              color: '#0F172A',
-              marginBottom: '1rem'
-            }}>
-              Legal
-            </h3>
-            <ul style={{
-              listStyle: 'none',
-              padding: 0,
-              margin: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.5rem'
-            }}>
-              <li>
-                <a
-                  href="/politicas-privacidad"
-                  style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
-                >
-                  {t('footerPrivacyPolicy') || 'Políticas de Privacidad'}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/terminos-condiciones"
-                  style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
-                >
-                  {t('footerTermsConditions') || 'Términos y Condiciones'}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/arrepentimiento"
-                  style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#0077FF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
-                >
-                  {t('footerWithdrawalButton') || 'Botón de Arrepentimiento'}
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Link columns */}
+          {isMobile ? (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+              {cols.map((col) => (
+                <div key={col.title}>
+                  <h3 style={{ fontSize: '0.75rem', fontWeight: '700', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>{col.title}</h3>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    {col.links.map((link) => (
+                      <li key={link.label}>
+                        <a href={link.href} style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}
+                          onMouseEnter={(e) => e.currentTarget.style.color = '#00F7EF'}
+                          onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
+                        >{link.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ) : (
+            cols.map((col) => (
+              <div key={col.title}>
+                <h3 style={{ fontSize: '0.75rem', fontWeight: '700', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>{col.title}</h3>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <a href={link.href} style={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s' }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = '#00F7EF'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
+                      >{link.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          )}
         </div>
 
-        {/* Bottom Bar */}
-        <div style={{
-          paddingTop: '2rem',
-          borderTop: '1px solid #E5E7EB',
-          textAlign: 'center'
-        }}>
-          <p style={{
-            fontSize: '0.875rem',
-            color: '#64748B',
-            margin: 0
-          }}>
-            © {year} {brandName}. {t('rights') || 'Todos los derechos reservados.'}
+        {/* Bottom bar */}
+        <div style={{ paddingTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)', margin: 0 }}>
+            © {year} {brandName}. Todos los derechos reservados.
           </p>
         </div>
+
       </div>
     </footer>
   );
