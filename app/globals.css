@@ -2064,3 +2064,14 @@ header .relative { overflow: visible !important; }
 /* Alias de utilidades */
 .hero-euro { background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%); }
 .neon-divider { height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent); }
+
+/* Mobile sticky bar — solo en mobile */
+.mobile-sticky-bar { display: flex; }
+@media (min-width: 768px) {
+  .mobile-sticky-bar { display: none !important; }
+}
+
+/* Ocultar WhatsApp float en mobile */
+@media (max-width: 767px) {
+  div[style*="bottom: 24px"][style*="left: 24px"] { display: none !important; }
+}

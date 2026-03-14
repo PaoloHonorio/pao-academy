@@ -27,6 +27,7 @@ const FAQSimple = dynamic(() => import('../components/FAQSimple'), {
   loading: () => <LoadingSpinner size="lg" />,
 });
 const CTASection = dynamic(() => import('../components/CTASection'));
+const MobileStickyBar = dynamic(() => import('../components/MobileStickyBar'));
 const NewsletterSectionSimple = dynamic(() => import('../components/NewsletterSectionSimple'), {
   loading: () => <LoadingSpinner size="lg" />,
 });
@@ -222,6 +223,9 @@ ${lang==='es'?'Vengo desde la web de':'I come from the website of'} ${brandName}
 
       {/* Footer con selector de idioma */}
       <FooterSimple brandName={brandName} t={t} lang={lang} setLang={setLang} />
+
+      {/* Sticky bar mobile */}
+      <MobileStickyBar onCTA={() => { setInteres(lang === 'es' ? 'programas' : 'programs'); setModalOpen(true); }} />
 
       {/* Modal + CTA flotante */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
