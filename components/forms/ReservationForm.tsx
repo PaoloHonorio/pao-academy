@@ -264,22 +264,19 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
       {/* Teléfono con prefijo */}
       <div>
         <div className="relative flex gap-2 items-center">
-          <div className="relative flex-shrink-0">
-            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-tertiary)] pointer-events-none" />
+          <div className="relative flex-shrink-0 flex items-center gap-1 border border-[#E2E8F0] rounded-lg bg-white px-3" style={{ height: '44px' }}>
+            <Phone className="w-4 h-4 text-slate-400 flex-shrink-0" />
             <select
               value={phonePrefix}
               onChange={e => setPhonePrefix(e.target.value)}
               style={{
-                paddingLeft: '2.25rem',
-                paddingRight: '0.5rem',
-                height: '44px',
-                border: '1px solid #E2E8F0',
-                borderRadius: '0.5rem',
+                border: 'none',
+                outline: 'none',
                 fontSize: '0.875rem',
                 color: '#0F172A',
-                background: 'white',
-                width: '88px',
+                background: 'transparent',
                 cursor: 'pointer',
+                width: '58px',
               }}
             >
               {Object.entries(PHONE_PREFIXES).map(([code, prefix]) => (
