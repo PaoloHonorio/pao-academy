@@ -3,9 +3,12 @@ import React from 'react';
 import { ArrowLeft, Clock, Award, CheckCircle2, Star, Play, PenTool, ArrowRight, Zap, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { type Lang } from '../../../lib/i18n';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import ReservationForm from '@/components/forms/ReservationForm';
 
 export default function ContenidoRedesIAPage() {
   const [lang, setLang] = React.useState<Lang>('es');
+  const [modalOpen, setModalOpen] = React.useState(false);
 
   const courseData = {
     es: {
@@ -205,6 +208,22 @@ export default function ContenidoRedesIAPage() {
           <button style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '1rem 2.5rem', fontSize: '1.125rem', fontWeight: 700, color: '#3B82F6', background: 'white', border: 'none', borderRadius: '0.75rem', cursor: 'pointer', boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)' }}>{lang === 'es' ? 'Comprar por USD $35' : 'Buy for USD $35'}<ArrowRight size={20} /></button>
         </div>
       </section>
+
+      {/* Modal inscripción */}
+      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+        <DialogContent className="bg-white border-[#E2E8F0] max-w-xl">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold text-[#0F172A]">¡Asegurá tu lugar!</DialogTitle>
+            <DialogDescription className="text-[#64748B]">
+              Te contactamos en menos de 24hs para confirmar tu inscripción.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-4">
+            <ReservationForm defaultCourse="Contenido para Redes con IA" onSuccess={() => setModalOpen(false)} />
+          </div>
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 }

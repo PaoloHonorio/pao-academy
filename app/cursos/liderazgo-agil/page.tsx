@@ -3,9 +3,12 @@ import React from 'react';
 import { ArrowLeft, Clock, Award, CheckCircle2, Star, Users, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { copy, type Lang } from '../../../lib/i18n';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import ReservationForm from '@/components/forms/ReservationForm';
 
 export default function LiderazgoAgilPage() {
   const [lang, setLang] = React.useState<Lang>('es');
+  const [modalOpen, setModalOpen] = React.useState(false);
   const t = (k: string) => copy[lang][k] || k;
 
   const courseData = {
@@ -229,7 +232,9 @@ export default function LiderazgoAgilPage() {
             {course.description}
           </p>
 
-          <button style={{
+          <button
+            onClick={() => setModalOpen(true)}
+            style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
@@ -237,11 +242,11 @@ export default function LiderazgoAgilPage() {
             fontSize: '1.125rem',
             fontWeight: 700,
             color: 'white',
-            background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+            background: '#0077FF',
             border: 'none',
             borderRadius: '0.75rem',
             cursor: 'pointer',
-            boxShadow: '0 10px 25px rgba(59, 130, 246, 0.3)'
+            boxShadow: '0 10px 25px rgba(0,119,255,0.4)'
           }}>
             {lang === 'es' ? 'Quiero inscribirme' : 'I want to enroll'}
             <ArrowRight size={20} />
@@ -530,7 +535,9 @@ export default function LiderazgoAgilPage() {
               ? 'Unete a cientos de lideres que ya aplican metodologias agiles para potenciar sus equipos.'
               : 'Join hundreds of leaders who already apply agile methodologies to empower their teams.'}
           </p>
-          <button style={{
+          <button
+            onClick={() => setModalOpen(true)}
+            style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
@@ -538,17 +545,31 @@ export default function LiderazgoAgilPage() {
             fontSize: '1.125rem',
             fontWeight: 700,
             color: 'white',
-            background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+            background: '#0077FF',
             border: 'none',
             borderRadius: '0.75rem',
             cursor: 'pointer',
-            boxShadow: '0 10px 25px rgba(59, 130, 246, 0.3)'
+            boxShadow: '0 10px 25px rgba(0,119,255,0.4)'
           }}>
             {lang === 'es' ? 'Inscribirme ahora' : 'Enroll now'}
             <ArrowRight size={20} />
           </button>
         </div>
       </section>
+      {/* Modal inscripción */}
+      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+        <DialogContent className="bg-white border-[#E2E8F0] max-w-xl">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold text-[#0F172A]">¡Asegurá tu lugar!</DialogTitle>
+            <DialogDescription className="text-[#64748B]">
+              Te contactamos en menos de 24hs para confirmar tu inscripción.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-4">
+            <ReservationForm defaultCourse="Liderazgo Agil" onSuccess={() => setModalOpen(false)} />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

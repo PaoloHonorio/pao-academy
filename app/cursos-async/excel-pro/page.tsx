@@ -3,9 +3,12 @@ import React from 'react';
 import { ArrowLeft, Clock, Award, CheckCircle2, Star, Play, FileSpreadsheet, ArrowRight, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { type Lang } from '../../../lib/i18n';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import ReservationForm from '@/components/forms/ReservationForm';
 
 export default function ExcelProPage() {
   const [lang, setLang] = React.useState<Lang>('es');
+  const [modalOpen, setModalOpen] = React.useState(false);
 
   const courseData = {
     es: {
@@ -586,6 +589,22 @@ export default function ExcelProPage() {
           </button>
         </div>
       </section>
+
+      {/* Modal inscripción */}
+      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+        <DialogContent className="bg-white border-[#E2E8F0] max-w-xl">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold text-[#0F172A]">¡Asegurá tu lugar!</DialogTitle>
+            <DialogDescription className="text-[#64748B]">
+              Te contactamos en menos de 24hs para confirmar tu inscripción.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-4">
+            <ReservationForm defaultCourse="Excel Pro desde Cero" onSuccess={() => setModalOpen(false)} />
+          </div>
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 }
