@@ -34,25 +34,25 @@ export default function HeroSimple({
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-row gap-4 justify-center mb-12 flex-wrap">
+          <div className="flex flex-row gap-3 justify-center mb-12" style={{flexWrap:'nowrap'}}>
             <button
               onClick={cta}
-              className="inline-flex items-center gap-2 px-10 py-4 text-lg font-bold text-white border-none rounded-xl cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0"
-              style={{background:'#0077FF', boxShadow:'0 12px 32px rgba(0,119,255,0.4)'}}
+              className="inline-flex items-center gap-2 py-4 text-base font-bold text-white border-none rounded-xl cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0"
+              style={{background:'#0077FF', boxShadow:'0 12px 32px rgba(0,119,255,0.4)', padding:'1rem 1.5rem', whiteSpace:'nowrap'}}
             >
               <span>Inscribirme Ahora</span>
-              <ArrowRight size={20} />
+              <ArrowRight size={18} />
             </button>
 
             <button
               onClick={() => {
                 document.getElementById('cursos-en-vivo')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2 px-10 py-4 text-lg font-semibold bg-transparent border-2 rounded-xl cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:border-white/50"
-              style={{color:'#fff',borderColor:'rgba(255,255,255,0.2)'}}
+              className="inline-flex items-center gap-2 py-4 text-base font-semibold bg-transparent border-2 rounded-xl cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:border-white/50"
+              style={{color:'#fff', borderColor:'rgba(255,255,255,0.2)', padding:'1rem 1.5rem', whiteSpace:'nowrap'}}
             >
               <Play size={18} />
-              <span>Ver todos los cursos</span>
+              <span>Ver cursos</span>
             </button>
           </div>
 
