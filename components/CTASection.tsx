@@ -59,20 +59,6 @@ export default function CTASection({ onCTA }: { onCTA: () => void }) {
             Inscribirme Ahora <ArrowRight size={20} />
           </button>
 
-          <a
-            href="#cursos-en-vivo"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              padding: '1rem 2rem', fontSize: '1.125rem', fontWeight: '600',
-              color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.07)',
-              border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.75rem',
-              textDecoration: 'none', transition: 'all 0.2s'
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)'; }}
-          >
-            Ver cursos
-          </a>
         </div>
 
       </div>
