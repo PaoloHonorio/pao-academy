@@ -2085,3 +2085,8 @@ header .relative { overflow: visible !important; }
 @media (max-width: 767px) {
   body { padding-bottom: 72px; }
 }
+
+/* Ocultar chatbot Zoho SalesIQ en mobile */
+@media (max-width: 767px) {
+  #zsiq_float, #zsiq_agtpic, .zsiq_flt_rel, div[id^="zsiq"] { display: none !important; }
+}

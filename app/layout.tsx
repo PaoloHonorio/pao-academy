@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 
 import BackToTop from "../components/BackToTop";
 import GoogleAnalytics from "../components/GoogleAnalytics";
+import LiveChat from "../components/LiveChat";
 import { defaultMetadata } from "../lib/metadata";
 
 export const metadata: Metadata = defaultMetadata;
@@ -25,7 +26,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <body className={inter.className}>
         <GoogleAnalytics />
-{children}
+        <LiveChat />
+        {children}
         <BackToTop />
         
         {/* Tracking de ref/utm_source - ejecuta después de cargar la página */}
