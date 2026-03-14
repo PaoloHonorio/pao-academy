@@ -145,15 +145,6 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
                 </span>?
               </h2>
 
-              <p style={{
-                fontSize: '1.125rem',
-                color: '#475569',
-                lineHeight: '1.7',
-                margin: 0
-              }}>
-                Formación práctica con mentores expertos que te preparan para los
-                desafíos reales del mercado laboral.
-              </p>
             </div>
 
             {/* Benefits List */}
@@ -222,31 +213,6 @@ export default function BenefitsSimple({ t }: { t: (k: string) => string }) {
               ))}
             </div>
 
-            {/* Additional Highlights */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: '0.75rem'
-            }}>
-              {highlights.map((highlight, index) => (
-                <div
-                  key={index}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem'
-                  }}
-                >
-                  <CheckCircle size={18} color="#0077FF" />
-                  <span style={{
-                    fontSize: '0.875rem',
-                    color: '#475569'
-                  }}>
-                    {highlight}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>

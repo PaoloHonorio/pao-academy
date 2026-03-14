@@ -30,14 +30,6 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
             {t('faq')} <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 10px'}}>resueltas</span>
           </h2>
 
-          <p style={{
-            fontSize: '1.125rem',
-            color: '#475569',
-            maxWidth: '700px',
-            margin: '0 auto'
-          }}>
-            Encuentra respuestas rápidas a las dudas más comunes sobre nuestros cursos
-          </p>
         </div>
 
         {/* FAQ Items */}
