@@ -136,7 +136,7 @@ export default function HeaderModern({
         <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#0055CC 0%,#0077FF 100%)', height:'32px', display:'flex', alignItems:'center'}}>
           <div className="max-w-7xl mx-auto px-4 w-full relative" style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
             {/* Mobile: texto corto + CTA inline */}
-            <span className="sm:hidden text-xs font-semibold" style={{color:'#fff', textAlign:'center', letterSpacing:'0.01em'}}>
+            <span className="sm:hidden text-xs font-semibold" style={{color:'#fff', textAlign:'center', letterSpacing:'0.01em', paddingRight:'2rem'}}>
               🔥 40% OFF ¡Aprovecha esta oferta limitada! →{' '}
               <button
                 onClick={onClickCTA}

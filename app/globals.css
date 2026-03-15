@@ -2110,6 +2110,11 @@ header .relative { overflow: visible !important; }
 
   /* ── HERO ──────────────────────────────────────────────── */
 
+  /* 100svh respeta la barra del navegador en Android/iOS */
+  .hero-section {
+    min-height: 100svh !important;
+  }
+
   /* Testimonial card mobile — visible solo en mobile */
   .hero-testimonial-mobile {
     display: flex !important;
@@ -2130,9 +2135,9 @@ header .relative { overflow: visible !important; }
     ) !important;
   }
 
-  /* Menos padding top (header más sticky bar = ~56px) */
+  /* Padding top: FOMO (32px) + header (64px) + respiro = ~7rem */
   .hero-content {
-    padding: 5.5rem 1.25rem 2.5rem !important;
+    padding: 7rem 1.25rem 6rem !important;
   }
 
   /* Título más chico y legible */
@@ -2172,10 +2177,17 @@ header .relative { overflow: visible !important; }
     display: none !important;
   }
 
-  /* Logos strip: menos margen */
+  /* Logos: pineados al fondo de la sección — siempre visibles al borde inferior */
   .hero-logos {
-    padding-top: 1.5rem !important;
-    margin-top: 1.5rem !important;
+    position: absolute !important;
+    bottom: 5rem !important; /* espacio sobre la sticky bar */
+    left: 0 !important;
+    right: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
   }
 
   /* ── BENEFITS ──────────────────────────────────────────── */
