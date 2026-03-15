@@ -231,6 +231,35 @@ export default function HeroSimple({
             </div>
           </div>
 
+          {/* Testimonial compacto — solo mobile */}
+          <div className="hero-testimonial-mobile" style={{
+            marginTop:'1rem',
+            background:'rgba(15,15,30,0.72)',
+            backdropFilter:'blur(18px)',
+            WebkitBackdropFilter:'blur(18px)',
+            border:'1px solid rgba(255,255,255,0.12)',
+            borderRadius:'0.875rem',
+            padding:'0.85rem 1rem',
+            display:'flex',
+            alignItems:'center',
+            gap:'0.75rem',
+          }}>
+            <div style={{flexShrink:0,width:'38px',height:'38px',borderRadius:'50%',overflow:'hidden',border:'2px solid rgba(0,247,239,0.35)'}}>
+              <Image src={TESTIMONIOS[activeCard].foto} alt={TESTIMONIOS[activeCard].nombre} width={38} height={38} style={{objectFit:'cover'}} />
+            </div>
+            <div style={{flex:1,minWidth:0}}>
+              <p style={{fontSize:'0.78rem',color:'rgba(255,255,255,0.78)',lineHeight:1.4,margin:0,fontStyle:'italic',
+                overflow:'hidden',display:'-webkit-box',WebkitLineClamp:2,WebkitBoxOrient:'vertical'
+              }}>
+                &ldquo;{TESTIMONIOS[activeCard].texto}&rdquo;
+              </p>
+              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:'0.3rem'}}>
+                <span style={{fontSize:'0.65rem',fontWeight:700,color:'rgba(255,255,255,0.5)'}}>{TESTIMONIOS[activeCard].nombre}</span>
+                <span style={{fontSize:'0.6rem',color:'#F59E0B',letterSpacing:'0.05em'}}>★★★★★</span>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         {/* Cards flotantes de testimonios */}

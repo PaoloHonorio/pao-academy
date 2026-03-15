@@ -2091,6 +2091,11 @@ header .relative { overflow: visible !important; }
   #zsiq_float, #zsiq_agtpic, .zsiq_flt_rel, div[id^="zsiq"] { display: none !important; }
 }
 
+/* Testimonial mobile: oculto en desktop */
+@media (min-width: 768px) {
+  .hero-testimonial-mobile { display: none !important; }
+}
+
 /* ==========================================================
    MOBILE RESPONSIVE — landing page sections
    Breakpoint: ≤767px   |   Desktop ≥768px: SIN CAMBIOS
@@ -2098,6 +2103,11 @@ header .relative { overflow: visible !important; }
 @media (max-width: 767px) {
 
   /* ── HERO ──────────────────────────────────────────────── */
+
+  /* Testimonial card mobile — visible solo en mobile */
+  .hero-testimonial-mobile {
+    display: flex !important;
+  }
 
   /* Imagen fullscreen con overlay fuerte */
   .hero-image {
