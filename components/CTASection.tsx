@@ -4,7 +4,7 @@ import { ArrowRight, Users, Star } from 'lucide-react';
 export default function CTASection({ onCTA }: { onCTA: () => void }) {
   return (
     <section style={{
-      background: 'linear-gradient(135deg, #060d1f 0%, #0a1628 50%, #0d1f3c 100%)',
+      background: 'linear-gradient(135deg, #07090E 0%, #080D18 50%, #09101C 100%)',
       padding: '5rem 1.5rem',
       position: 'relative',
       overflow: 'hidden'

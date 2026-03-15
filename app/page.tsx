@@ -189,6 +189,9 @@ ${lang==='es'?'Vengo desde la web de':'I come from the website of'} ${brandName}
         />
         */}
 
+        {/* Por qué Glomind360 - inmediatamente después del hero */}
+        <BenefitsSimple t={t} cta={()=>{ setInteres(lang==='es'?'programas':'programs'); setModalOpen(true); }} />
+
         {/* Cursos en Vivo - Cards blancas simples */}
         <LiveCoursesSimple
           t={t}
@@ -207,9 +210,6 @@ ${lang==='es'?'Vengo desde la web de':'I come from the website of'} ${brandName}
           testimonios={testimonios}
           idx={idxTestimonio}
         />
-
-        {/* Beneficios diferenciales - Diseño moderno claro */}
-        <BenefitsSimple t={t} />
 
         <CTASection onCTA={() => { setInteres(lang === 'es' ? 'programas' : 'programs'); setModalOpen(true); }} />
 

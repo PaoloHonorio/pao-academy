@@ -130,21 +130,16 @@ export default function Header({
     <>
       {/* Barra de Promoción */}
       {showPromo && (
-        <div className={`fixed top-0 left-0 right-0 z-[1001] announcement-bar transition-all duration-300 ${elevated ? 'elevated' : ''}`}>
-          <div className="full-width-content">
-            <div className="flex items-center justify-center gap-3 max-w-7xl mx-auto px-4 py-2 relative">
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-xs sm:text-sm drop-shadow-sm text-white">🎉 {promoMessage}</span>
-                <span className="hidden sm:inline text-xs sm:text-sm drop-shadow-sm text-white">{promoSubMessage}</span>
-              </div>
-              <button
-                onClick={() => setShowPromo(false)}
-                className="absolute right-4 p-1 rounded-full transition-all duration-200 hover:scale-110 text-white hover:bg-white/20"
-                aria-label="Cerrar promoción"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+        <div style={{position:'fixed',top:0,left:0,right:0,zIndex:1001,background:'linear-gradient(135deg,#FF6B00 0%,#FF9A00 100%)'}}>
+          <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'0.75rem',maxWidth:'1280px',margin:'0 auto',padding:'0.5rem 1rem',position:'relative'}}>
+            <span style={{fontWeight:700,fontSize:'0.875rem',color:'#fff'}}>🔥 {promoMessage},</span>
+            <span style={{fontSize:'0.875rem',color:'#fff',fontWeight:600}}>{promoSubMessage}</span>
+            <span style={{fontSize:'0.875rem',color:'#fff'}}>→ <span style={{textDecoration:'underline',fontWeight:700,cursor:'pointer'}}>Inscribirme ahora</span></span>
+            <button
+              onClick={() => setShowPromo(false)}
+              style={{position:'absolute',right:'1rem',background:'transparent',border:'none',color:'#fff',cursor:'pointer',fontSize:'1rem',lineHeight:1}}
+              aria-label="Cerrar promoción"
+            >✕</button>
           </div>
         </div>
       )}

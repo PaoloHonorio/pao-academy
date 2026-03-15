@@ -133,20 +133,20 @@ export default function HeaderModern({
     <>
       {/* Barra de Promoción */}
       {showPromo && (
-        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#00D4CC 0%,#00F7EF 100%)', height:'32px', display:'flex', alignItems:'center'}}>
+        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#0055CC 0%,#0077FF 100%)', height:'32px', display:'flex', alignItems:'center'}}>
           <div className="max-w-7xl mx-auto px-4 w-full relative" style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
             <div className="flex items-center justify-center gap-2">
-              <span className="text-sm font-semibold" style={{color:'#002D80'}}>
+              <span className="text-sm font-semibold" style={{color:'#fff'}}>
                 🔥 {promoMessage},
               </span>
-              <span className="text-sm font-black" style={{color:'#001A4D'}}>
+              <span className="text-sm font-black" style={{color:'#fff'}}>
                 {promoSubMessage}
               </span>
-              <span className="text-sm hidden sm:inline" style={{color:'#002D80'}}>→</span>
+              <span className="text-sm hidden sm:inline" style={{color:'#fff'}}>→</span>
               <button
                 onClick={onClickCTA}
                 className="text-sm font-black underline underline-offset-2 hidden sm:inline"
-                style={{color:'#000000', background:'none', border:'none', cursor:'pointer', padding:0}}
+                style={{color:'#fff', background:'none', border:'none', cursor:'pointer', padding:0}}
               >
                 Inscribirme ahora
               </button>
@@ -156,7 +156,7 @@ export default function HeaderModern({
               className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-black/10 transition-colors"
               aria-label="Cerrar promoción"
             >
-              <X className="w-4 h-4" style={{color:'#002D80'}} />
+              <X className="w-4 h-4" style={{color:'#fff'}} />
             </button>
           </div>
         </div>
@@ -265,7 +265,7 @@ export default function HeaderModern({
               {setLang && (
                 <button
                   onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/30 hover:border-white/50 hover:bg-white/10 transition-all duration-200"
                   aria-label="Change language"
                 >
                   <Globe className={`w-4 h-4 ${scrolled ? 'text-gray-600' : 'text-white/70'}`} />
@@ -294,7 +294,18 @@ export default function HeaderModern({
                     </Link>
                     <Link
                       href="/registro"
-                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-200 text-white text-sm font-semibold" style={{background:'linear-gradient(90deg,#0077FF,#005FCC)'}}
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg transition-all duration-200 text-white text-sm font-semibold"
+                      style={{background:'linear-gradient(90deg,#0066FF,#0044CC)'}}
+                      onMouseEnter={e=>{
+                        (e.currentTarget as HTMLElement).style.background='linear-gradient(90deg,#1a7fff,#0055ee)';
+                        (e.currentTarget as HTMLElement).style.boxShadow='0 8px 25px rgba(0,102,255,0.5)';
+                        (e.currentTarget as HTMLElement).style.transform='translateY(-1px)';
+                      }}
+                      onMouseLeave={e=>{
+                        (e.currentTarget as HTMLElement).style.background='linear-gradient(90deg,#0066FF,#0044CC)';
+                        (e.currentTarget as HTMLElement).style.boxShadow='';
+                        (e.currentTarget as HTMLElement).style.transform='';
+                      }}
                     >
                       <UserPlus className="w-4 h-4" />
                       Registrarse
@@ -460,7 +471,7 @@ export default function HeaderModern({
                 <Link
                   href="/registro"
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-all text-white font-semibold" style={{background:'linear-gradient(90deg,#0077FF,#005FCC)'}}
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-all text-white font-semibold" style={{background:'linear-gradient(90deg,#0066FF,#0044CC)'}}
                 >
                   <UserPlus className="w-4 h-4" />
                   Registrarse

@@ -295,7 +295,7 @@ header .relative { overflow: visible !important; }
 .icon-modern:hover{ color: var(--accent-purple); transform: scale(1.1); }
 
 /* Announcement bar */
-.announcement-bar{ background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%); animation: slideDown .3s ease-out; border: none; box-shadow: none; margin: 0; padding: 0; }
+.announcement-bar{ background: linear-gradient(135deg, #FF6B00 0%, #FF9A00 100%); animation: slideDown .3s ease-out; border: none; box-shadow: none; margin: 0; padding: 0; }
 .announcement-bar.elevated{ background: linear-gradient(135deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,.9) 100%); backdrop-filter: blur(10px); border: none; box-shadow: none; }
 @keyframes slideDown{ from{ transform: translateY(-100%);} to{ transform: translateY(0);} }
 .announcement-bar-close{ transition: all .2s ease; background: rgba(0,0,0,.05); }

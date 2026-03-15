@@ -281,7 +281,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
 
   return (
     <section id="cursos-en-vivo" style={{
-      background: 'linear-gradient(160deg,#0A1020 0%,#0D1830 50%,#0B1525 100%)',
+      background: 'linear-gradient(160deg,#06090F 0%,#080D18 50%,#070B14 100%)',
       padding: '5rem 2.5rem',
       position: 'relative',
       overflow: 'hidden',
@@ -380,14 +380,26 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
         {/* Tab badge */}
         <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           {activeTab === 'live' && (
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              background: 'rgba(204,0,0,0.15)', color: '#FF4444',
-              border: '1px solid rgba(204,0,0,0.3)',
-              borderRadius: '9999px', padding: '0.4rem 1rem',
-              fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em',
-            }}>
-              <span style={{width:'7px',height:'7px',background:'#FF4444',borderRadius:'50%',display:'inline-block',animation:'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite'}}/>
+            <div
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)',
+                color: 'rgba(255,255,255,0.85)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '8px', padding: '0.45rem 1rem',
+                fontSize: '0.78rem', fontWeight: 800, letterSpacing: '0.1em',
+                cursor: 'default', transition: 'all 0.25s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = 'rgba(0,247,239,0.5)';
+                e.currentTarget.style.boxShadow = '0 0 14px rgba(0,247,239,0.15)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <span style={{width:'7px',height:'7px',background:'#FF4444',borderRadius:'50%',display:'inline-block',flexShrink:0,animation:'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite',boxShadow:'0 0 6px rgba(255,68,68,0.8)'}}/>
               EN VIVO AHORA
             </div>
           )}
@@ -655,39 +667,37 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
+              {/* Accent line top */}
+              <div style={{height:'3px', background:`linear-gradient(90deg,${getCategoryColor(course.tag)},transparent)`}}/>
+
               {/* Image */}
-              <div style={{ height: '12rem', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ height: '11rem', position: 'relative', overflow: 'hidden' }}>
                 <img
                   src={course.image || getCategoryFallbackImage(course.tag)}
                   alt={`Imagen del curso: ${course.title}`}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
-                <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(10,10,18,0.2) 0%,rgba(10,10,18,0.65) 100%)'}}/>
-                {/* Live badge */}
+                <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(10,10,18,0.1) 0%,rgba(10,10,18,0.75) 100%)'}}/>
+                {/* Live indicator chip */}
                 <div style={{
-                  position: 'absolute', top: '0.75rem', left: '0.75rem',
-                  display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
-                  background: 'rgba(204,0,0,0.2)', color: '#FF4444',
-                  border: '1px solid rgba(204,0,0,0.4)',
-                  backdropFilter: 'blur(8px)',
-                  borderRadius: '9999px', padding: '0.3rem 0.7rem',
-                  fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.05em',
+                  position:'absolute', top:'0.75rem', left:'0.75rem',
+                  display:'inline-flex', alignItems:'center', gap:'0.4rem',
+                  background:'rgba(0,0,0,0.5)', backdropFilter:'blur(10px)',
+                  border:'1px solid rgba(255,255,255,0.1)',
+                  borderRadius:'6px', padding:'0.3rem 0.6rem',
                 }}>
-                  <span style={{width:'6px',height:'6px',background:'#FF4444',borderRadius:'50%',display:'inline-block',animation:'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite'}}/>
-                  EN VIVO
+                  <span style={{width:'7px',height:'7px',background:'#FF4444',borderRadius:'50%',display:'inline-block',flexShrink:0,animation:'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite',boxShadow:'0 0 6px rgba(255,68,68,0.8)'}}/>
+                  <span style={{fontSize:'0.65rem',fontWeight:800,color:'rgba(255,255,255,0.75)',letterSpacing:'0.08em'}}>EN VIVO</span>
                 </div>
-              </div>
-
-              {/* Content */}
-              <div style={{ padding: '1.25rem' }}>
-                {/* Category */}
+                {/* Category overlaid bottom-left */}
                 <div style={{
+                  position:'absolute', bottom:'0.75rem', left:'0.75rem',
                   display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
-                  padding: '0.2rem 0.65rem',
-                  background: 'rgba(0,119,255,0.12)', color: '#60A5FA',
-                  border: '1px solid rgba(0,119,255,0.2)',
+                  padding: '0.25rem 0.65rem',
+                  background: 'rgba(0,0,0,0.5)', backdropFilter:'blur(8px)',
+                  border: `1px solid ${getCategoryColor(course.tag)}40`,
                   borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 700,
-                  marginBottom: '0.65rem',
+                  color: '#fff',
                 }}>
                   {course.tag === 'Datos' && '📊'}
                   {course.tag === 'Liderazgo' && '👥'}
@@ -697,6 +707,11 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                   {course.tag === 'Desarrollo Personal' && '🎯'}
                   {' '}{course.tag}
                 </div>
+              </div>
+
+              {/* Content */}
+              <div style={{ padding: '1.25rem' }}>
+                {/* category pill removed — now on image */}
 
                 {/* Title */}
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.65rem', lineHeight: 1.35 }}>
