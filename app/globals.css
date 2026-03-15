@@ -2137,7 +2137,7 @@ header .relative { overflow: visible !important; }
 
   /* Padding top: FOMO (32px) + header (64px) + respiro = ~7rem */
   .hero-content {
-    padding: 7rem 1.25rem 6rem !important;
+    padding: 7rem 1.25rem 3rem !important;
   }
 
   /* Título más chico y legible */
@@ -2177,17 +2177,9 @@ header .relative { overflow: visible !important; }
     display: none !important;
   }
 
-  /* Logos: pineados al fondo de la sección — siempre visibles al borde inferior */
+  /* Logos: ocultos en mobile — primera pantalla limpia y potente */
   .hero-logos {
-    position: absolute !important;
-    bottom: 5rem !important; /* espacio sobre la sticky bar */
-    left: 0 !important;
-    right: 0 !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    border-top: none !important;
-    padding-left: 1.25rem !important;
-    padding-right: 1.25rem !important;
+    display: none !important;
   }
 
   /* ── BENEFITS ──────────────────────────────────────────── */
