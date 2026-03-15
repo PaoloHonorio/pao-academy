@@ -138,44 +138,56 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
     {
       id: 'analisis-datos',
       tag: 'Análisis de Datos',
+      categoria: 'Datos',
       image: '/analisis-datos.webp',
-      es: { titulo: 'Análisis de Datos', duracion: 'A tu ritmo', modalidad: 'Grabado', inicio: 'Disponible ahora' },
-      en: { titulo: 'Data Analysis', duracion: 'Self-paced', modalidad: 'Recorded', inicio: 'Available now' }
+      precio: 49900,
+      es: { titulo: 'Análisis de Datos', duracion: '12 horas', nivel: 'Intermedio', modalidad: 'Grabado', inicio: 'Disponible ahora' },
+      en: { titulo: 'Data Analysis', duracion: '12 hours', nivel: 'Intermediate', modalidad: 'Recorded', inicio: 'Available now' }
     },
     {
       id: 'negocios-finanzas',
       tag: 'Negocios y Finanzas',
+      categoria: 'Negocios',
       image: '/negocios-finanzas.webp',
-      es: { titulo: 'Negocios y Finanzas', duracion: 'A tu ritmo', modalidad: 'Grabado', inicio: 'Disponible ahora' },
-      en: { titulo: 'Business & Finance', duracion: 'Self-paced', modalidad: 'Recorded', inicio: 'Available now' }
+      precio: 44900,
+      es: { titulo: 'Negocios y Finanzas', duracion: '10 horas', nivel: 'Principiante', modalidad: 'Grabado', inicio: 'Disponible ahora' },
+      en: { titulo: 'Business & Finance', duracion: '10 hours', nivel: 'Beginner', modalidad: 'Recorded', inicio: 'Available now' }
     },
     {
       id: 'gestion-procesos',
       tag: 'Gestión de Procesos',
+      categoria: 'Procesos',
       image: '/gestion-procesos.webp',
-      es: { titulo: 'Gestión de Procesos', duracion: 'A tu ritmo', modalidad: 'Grabado', inicio: 'Disponible ahora' },
-      en: { titulo: 'Process Management', duracion: 'Self-paced', modalidad: 'Recorded', inicio: 'Available now' }
+      precio: 39900,
+      es: { titulo: 'Gestión de Procesos', duracion: '8 horas', nivel: 'Principiante', modalidad: 'Grabado', inicio: 'Disponible ahora' },
+      en: { titulo: 'Process Management', duracion: '8 hours', nivel: 'Beginner', modalidad: 'Recorded', inicio: 'Available now' }
     },
     {
       id: 'desarrollo-personal',
       tag: 'Desarrollo Personal',
+      categoria: 'Soft Skills',
       image: '/desarrollo-personal.webp',
-      es: { titulo: 'Desarrollo Personal', duracion: 'A tu ritmo', modalidad: 'Grabado', inicio: 'Disponible ahora' },
-      en: { titulo: 'Personal Development', duracion: 'Self-paced', modalidad: 'Recorded', inicio: 'Available now' }
+      precio: 34900,
+      es: { titulo: 'Desarrollo Personal', duracion: '6 horas', nivel: 'Todos los niveles', modalidad: 'Grabado', inicio: 'Disponible ahora' },
+      en: { titulo: 'Personal Development', duracion: '6 hours', nivel: 'All levels', modalidad: 'Recorded', inicio: 'Available now' }
     },
     {
       id: 'tecnologia',
       tag: 'Tecnología',
+      categoria: 'Tech',
       image: '/tecnologia.webp',
-      es: { titulo: 'Tecnología', duracion: 'A tu ritmo', modalidad: 'Grabado', inicio: 'Disponible ahora' },
-      en: { titulo: 'Technology', duracion: 'Self-paced', modalidad: 'Recorded', inicio: 'Available now' }
+      precio: 54900,
+      es: { titulo: 'Tecnología', duracion: '15 horas', nivel: 'Principiante', modalidad: 'Grabado', inicio: 'Disponible ahora' },
+      en: { titulo: 'Technology', duracion: '15 hours', nivel: 'Beginner', modalidad: 'Recorded', inicio: 'Available now' }
     },
     {
       id: 'marketing-digital',
       tag: 'Marketing Digital',
+      categoria: 'Marketing',
       image: '/marketing-digital.webp',
-      es: { titulo: 'Marketing Digital', duracion: 'A tu ritmo', modalidad: 'Grabado', inicio: 'Disponible ahora' },
-      en: { titulo: 'Digital Marketing', duracion: 'Self-paced', modalidad: 'Recorded', inicio: 'Available now' }
+      precio: 44900,
+      es: { titulo: 'Marketing Digital', duracion: '10 horas', nivel: 'Principiante', modalidad: 'Grabado', inicio: 'Disponible ahora' },
+      en: { titulo: 'Digital Marketing', duracion: '10 hours', nivel: 'Beginner', modalidad: 'Recorded', inicio: 'Available now' }
     },
   ], []);
 
@@ -186,12 +198,14 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
         id: c.id,
         title: data.titulo,
         tag: c.tag,
+        categoria: c.categoria,
         duration: data.duracion,
-        level: 'Todos los niveles',
+        level: data.nivel,
         nextStart: data.inicio,
         rating: 4.8,
         students: 180,
         image: c.image,
+        precio: c.precio,
       };
     });
   }, [lang, asyncCoursesData]);
@@ -214,18 +228,36 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
       'Mindset': 'Mindset',
     };
 
-    return dbCourses.map((c) => ({
-      id: c.id,
-      slug: c.slug,
-      title: c.title,
-      tag: categoryToTag[c.category] || c.category || 'General',
-      duration: c.duration_hours ? `${c.duration_hours} horas` : '4 semanas',
-      level: c.level === 'beginner' ? 'Principiante' : c.level === 'intermediate' ? 'Intermedio' : 'Avanzado',
-      nextStart: 'Febrero 2026',
-      rating: 4.9,
-      students: 250,
-      image: c.thumbnail_url || null,
-    }));
+    const tagToOutcome: Record<string, string> = {
+      'Comercial': 'Cerrá más ventas en 90 días',
+      'Liderazgo': 'Liderá equipos de alto rendimiento',
+      'Datos': 'Tomá decisiones basadas en datos',
+      'Mindset': 'Construí hábitos que transforman resultados',
+      'Branding': 'Posicioná tu marca y atraé clientes',
+      'Desarrollo Personal': 'Alcanzá tu máximo potencial profesional',
+    };
+
+    const now = new Date();
+    const mes = now.toLocaleString('es-AR', { month: 'long' });
+    const año = now.getFullYear();
+    const nextStart = `${mes.charAt(0).toUpperCase() + mes.slice(1)} ${año}`;
+
+    return dbCourses.map((c) => {
+      const tag = categoryToTag[c.category] || c.category || 'General';
+      return {
+        id: c.id,
+        slug: c.slug,
+        title: c.title,
+        tag,
+        outcome: tagToOutcome[tag] || '',
+        duration: c.duration_hours ? `${c.duration_hours} horas` : '4 semanas',
+        level: c.level === 'beginner' ? 'Principiante' : c.level === 'intermediate' ? 'Intermedio' : 'Avanzado',
+        nextStart,
+        rating: 4.9,
+        students: 250,
+        image: c.thumbnail_url || null,
+      };
+    });
   }, [dbCourses]);
 
   const tags = ['All', ...Array.from(new Set(courses.map((c) => c.tag)))];
@@ -248,6 +280,15 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
       'Marketing Digital': '#7C3AED',
     };
     return colors[tag] || '#0077FF';
+  };
+
+  const asyncOutcomes: Record<string, string> = {
+    'analisis-datos': 'Interpretá datos y tomá mejores decisiones',
+    'negocios-finanzas': 'Gestioná tus finanzas con criterio profesional',
+    'gestion-procesos': 'Optimizá procesos y ganás eficiencia real',
+    'desarrollo-personal': 'Construí hábitos que transforman resultados',
+    'tecnologia': 'Dominá herramientas tech con aplicación inmediata',
+    'marketing-digital': 'Atraé clientes y escalá tu presencia digital',
   };
 
   const getCategoryFallbackImage = (tag: string) => {
@@ -524,36 +565,33 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                 }}>
                   On Demand
                 </div>
+                {/* Category chip — bottom left, same style as live cards */}
+                <div style={{
+                  position:'absolute', bottom:'0.75rem', left:'0.75rem',
+                  display:'inline-flex', alignItems:'center', gap:'0.3rem',
+                  padding:'0.25rem 0.65rem',
+                  background:'rgba(0,0,0,0.5)', backdropFilter:'blur(8px)',
+                  border:`1px solid rgba(124,58,237,0.4)`,
+                  borderRadius:'9999px', fontSize:'0.72rem', fontWeight:700,
+                  color:'#fff',
+                }}>
+                  {getAsyncCategoryEmoji(course.tag)} {course.categoria}
+                </div>
               </div>
 
               {/* Content */}
               <div style={{ padding: '1.25rem' }}>
-                {/* Category tag */}
-                <div style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
-                  padding: '0.2rem 0.65rem',
-                  background: 'rgba(0,119,255,0.12)', color: '#60A5FA',
-                  border: '1px solid rgba(0,119,255,0.2)',
-                  borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 700,
-                  marginBottom: '0.65rem',
-                }}>
-                  {getAsyncCategoryEmoji(course.tag)} {course.tag}
-                </div>
-
                 {/* Title */}
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.65rem', lineHeight: 1.35 }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.25rem', lineHeight: 1.35 }}>
                   {course.title}
                 </h3>
 
-                {/* Meta */}
-                <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <Clock size={13} />{course.duration}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <UserCheck size={13} />{course.level}
-                  </div>
-                </div>
+                {/* Outcome */}
+                {asyncOutcomes[course.id] && (
+                  <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', fontWeight: 500, marginBottom: '0.65rem', lineHeight: 1.4 }}>
+                    {asyncOutcomes[course.id]}
+                  </p>
+                )}
 
                 {/* Rating */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.75rem' }}>
@@ -564,34 +602,47 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                   <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.35)' }}>({course.students}+)</span>
                 </div>
 
-                {/* Availability */}
-                <div style={{
-                  display: 'flex', alignItems: 'center', gap: '0.4rem',
-                  padding: '0.55rem 0.75rem',
-                  background: 'rgba(0,247,239,0.06)', border: '1px solid rgba(0,247,239,0.12)',
-                  borderRadius: '0.5rem', marginBottom: '1rem',
-                }}>
-                  <BookOpen size={13} color="#00F7EF" />
-                  <span style={{ fontSize: '0.8rem', color: 'rgba(0,247,239,0.85)', fontWeight: 600 }}>{course.nextStart}</span>
+                {/* Precio */}
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                  <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#FFFFFF', lineHeight: 1 }}>
+                    ${(course.precio as number).toLocaleString('es-AR')}
+                  </span>
+                  <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.35)', fontWeight: 500 }}>ARS</span>
                 </div>
 
-                {/* CTA */}
-                <Link
-                  href={`/cursos-async/${asyncCategoryCoursesMap[course.id]?.[0] || course.id}`}
-                  style={{
-                    width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                    padding: '0.7rem 1.25rem', fontSize: '0.875rem', fontWeight: 700,
-                    color: 'white', background: 'linear-gradient(135deg,#0066FF,#0044CC)',
-                    border: '1px solid rgba(0,102,255,0.4)', borderRadius: '0.6rem',
-                    cursor: 'pointer', transition: 'all 0.2s', textDecoration: 'none',
-                    boxShadow: '0 4px 14px rgba(0,102,255,0.25)',
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = 'linear-gradient(135deg,#1a7fff,#0055ee)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = 'linear-gradient(135deg,#0066FF,#0044CC)'; e.currentTarget.style.transform = 'translateY(0)'; }}
-                >
-                  <span>Ver curso</span>
-                  <ArrowRight size={16} />
-                </Link>
+                {/* Botones: Ver curso + Comprar */}
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <Link
+                    href={`/cursos-async/${asyncCategoryCoursesMap[course.id]?.[0] || course.id}`}
+                    style={{
+                      flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
+                      padding: '0.65rem 0.75rem', fontSize: '0.8rem', fontWeight: 700,
+                      color: 'rgba(255,255,255,0.75)', background: 'rgba(255,255,255,0.06)',
+                      border: '1px solid rgba(255,255,255,0.12)', borderRadius: '0.6rem',
+                      cursor: 'pointer', transition: 'all 0.2s', textDecoration: 'none',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; }}
+                  >
+                    <span>Ver curso</span>
+                  </Link>
+                  <button
+                    onClick={() => {/* TODO: agregar al carrito */}}
+                    style={{
+                      flex: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                      padding: '0.65rem 1rem', fontSize: '0.85rem', fontWeight: 700,
+                      color: 'white', background: 'linear-gradient(135deg,#0066FF,#0044CC)',
+                      border: '1px solid rgba(0,102,255,0.4)', borderRadius: '0.6rem',
+                      cursor: 'pointer', transition: 'all 0.2s',
+                      boxShadow: '0 4px 14px rgba(0,102,255,0.25)',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'linear-gradient(135deg,#1a7fff,#0055ee)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'linear-gradient(135deg,#0066FF,#0044CC)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+                  >
+                    <Award size={15} />
+                    <span>Comprar</span>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -711,22 +762,17 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
 
               {/* Content */}
               <div style={{ padding: '1.25rem' }}>
-                {/* category pill removed — now on image */}
-
                 {/* Title */}
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.65rem', lineHeight: 1.35 }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.25rem', lineHeight: 1.35 }}>
                   {course.title}
                 </h3>
 
-                {/* Meta */}
-                <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <Clock size={13} />{course.duration}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <UserCheck size={13} />{course.level}
-                  </div>
-                </div>
+                {/* Outcome */}
+                {course.outcome && (
+                  <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', fontWeight: 500, marginBottom: '0.65rem', lineHeight: 1.4 }}>
+                    {course.outcome}
+                  </p>
+                )}
 
                 {/* Rating */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.75rem' }}>
