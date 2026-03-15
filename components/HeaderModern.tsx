@@ -133,9 +133,9 @@ export default function HeaderModern({
     <>
       {/* Barra de Promoción */}
       {showPromo && (
-        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#0055CC 0%,#0077FF 100%)', minHeight:'32px', display:'flex', alignItems:'center'}}>
-          <div className="max-w-7xl mx-auto px-4 w-full relative" style={{display:'flex', alignItems:'center', justifyContent:'center', padding:'6px 2.5rem 6px 1rem'}}>
-            {/* Mobile: texto completo + CTA inline */}
+        <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#0055CC 0%,#0077FF 100%)', height:'32px', display:'flex', alignItems:'center'}}>
+          <div className="max-w-7xl mx-auto px-4 w-full relative" style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+            {/* Mobile: texto corto + CTA inline */}
             <span className="sm:hidden text-xs font-semibold" style={{color:'#fff', textAlign:'center', letterSpacing:'0.01em'}}>
               🔥 40% OFF ¡Aprovecha esta oferta limitada! →{' '}
               <button
@@ -146,7 +146,7 @@ export default function HeaderModern({
                 Más info
               </button>
             </span>
-            {/* Desktop: texto completo */}
+            {/* Desktop: idéntico al original */}
             <div className="hidden sm:flex items-center justify-center gap-2">
               <span className="text-sm font-semibold" style={{color:'#fff'}}>
                 🔥 {promoMessage},
@@ -157,7 +157,7 @@ export default function HeaderModern({
               <span className="text-sm" style={{color:'#fff'}}>→</span>
               <button
                 onClick={onClickCTA}
-                className="text-sm font-black underline underline-offset-2"
+                className="text-sm font-black underline underline-offset-2 hidden sm:inline"
                 style={{color:'#fff', background:'none', border:'none', cursor:'pointer', padding:0}}
               >
                 Inscribirme ahora
@@ -165,10 +165,10 @@ export default function HeaderModern({
             </div>
             <button
               onClick={() => setShowPromo(false)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-black/10 transition-colors"
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-black/10 transition-colors"
               aria-label="Cerrar promoción"
             >
-              <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" style={{color:'#fff'}} />
+              <X className="w-4 h-4" style={{color:'#fff'}} />
             </button>
           </div>
         </div>
