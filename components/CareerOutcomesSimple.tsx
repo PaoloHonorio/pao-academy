@@ -69,7 +69,7 @@ export default function CareerOutcomesSimple() {
   const visible = [ROLES[idx % total], ROLES[(idx + 1) % total]];
 
   return (
-    <section style={{
+    <section className="career-section" style={{
       background: 'linear-gradient(160deg,#0A0A12 0%,#0C0C18 50%,#0A0A12 100%)',
       padding: '5rem 2.5rem',
       position: 'relative',
@@ -100,7 +100,7 @@ export default function CareerOutcomesSimple() {
 
         {/* Carousel */}
         <div style={{position:'relative',marginBottom:'2rem'}}>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1.25rem'}}>
+          <div className="career-grid" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1.25rem'}}>
             {visible.map((r, i) => (
               <div key={`${idx}-${i}`}
                 style={{
@@ -162,11 +162,11 @@ export default function CareerOutcomesSimple() {
           </div>
 
           {/* Arrows */}
-          <button onClick={prev} style={{position:'absolute',left:'-22px',top:'50%',transform:'translateY(-50%)',width:'40px',height:'40px',borderRadius:'50%',border:'1px solid rgba(255,255,255,0.12)',background:'rgba(15,15,30,0.9)',backdropFilter:'blur(12px)',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
+          <button onClick={prev} className="career-arrow career-arrow-left" style={{position:'absolute',left:'-22px',top:'50%',transform:'translateY(-50%)',width:'40px',height:'40px',borderRadius:'50%',border:'1px solid rgba(255,255,255,0.12)',background:'rgba(15,15,30,0.9)',backdropFilter:'blur(12px)',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
             onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(0,119,255,0.4)';}} onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.12)';}}>
             <ArrowRight size={16} style={{transform:'rotate(180deg)',color:'rgba(255,255,255,0.7)'}}/>
           </button>
-          <button onClick={next} style={{position:'absolute',right:'-22px',top:'50%',transform:'translateY(-50%)',width:'40px',height:'40px',borderRadius:'50%',border:'1px solid rgba(255,255,255,0.12)',background:'rgba(15,15,30,0.9)',backdropFilter:'blur(12px)',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
+          <button onClick={next} className="career-arrow career-arrow-right" style={{position:'absolute',right:'-22px',top:'50%',transform:'translateY(-50%)',width:'40px',height:'40px',borderRadius:'50%',border:'1px solid rgba(255,255,255,0.12)',background:'rgba(15,15,30,0.9)',backdropFilter:'blur(12px)',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.2s'}}
             onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(0,119,255,0.4)';}} onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(255,255,255,0.12)';}}>
             <ArrowRight size={16} style={{color:'rgba(255,255,255,0.7)'}}/>
           </button>

@@ -2090,3 +2090,174 @@ header .relative { overflow: visible !important; }
 @media (max-width: 767px) {
   #zsiq_float, #zsiq_agtpic, .zsiq_flt_rel, div[id^="zsiq"] { display: none !important; }
 }
+
+/* ==========================================================
+   MOBILE RESPONSIVE — landing page sections
+   Breakpoint: ≤767px   |   Desktop ≥768px: SIN CAMBIOS
+   ========================================================== */
+@media (max-width: 767px) {
+
+  /* ── HERO ──────────────────────────────────────────────── */
+
+  /* Imagen fullscreen con overlay fuerte */
+  .hero-image {
+    width: 100% !important;
+    left: 0 !important;
+  }
+  /* Reemplazar fade lateral por overlay oscuro vertical */
+  .hero-img-overlay-left {
+    background: linear-gradient(
+      180deg,
+      rgba(12,12,20,0.55) 0%,
+      rgba(12,12,20,0.65) 40%,
+      rgba(12,12,20,0.90) 100%
+    ) !important;
+  }
+
+  /* Menos padding top (header más sticky bar = ~56px) */
+  .hero-content {
+    padding: 5.5rem 1.25rem 2.5rem !important;
+  }
+
+  /* Título más chico y legible */
+  .hero-title {
+    font-size: clamp(2.6rem, 11vw, 3.4rem) !important;
+    line-height: 0.92 !important;
+  }
+
+  /* Subtítulo compacto */
+  .hero-intro {
+    font-size: 0.9rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Botones a ancho completo para touch */
+  .hero-buttons {
+    width: 100% !important;
+  }
+  .hero-buttons > button {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.8rem 1rem !important;
+    min-height: 48px;
+  }
+
+  /* Ocultar testimonial card flotante */
+  .hero-testimonial {
+    display: none !important;
+  }
+
+  /* Logos strip: menos margen */
+  .hero-logos {
+    padding-top: 1.5rem !important;
+    margin-top: 1.5rem !important;
+  }
+
+  /* ── BENEFITS ──────────────────────────────────────────── */
+
+  .benefits-section {
+    padding: 3rem 1.25rem 3.5rem !important;
+  }
+
+  /* Una sola columna — columna de texto primero */
+  .benefits-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* Ocultar la columna de imagen en mobile (el contenido es suficiente) */
+  .benefits-image-col {
+    display: none !important;
+  }
+
+  /* ── CAREER OUTCOMES ───────────────────────────────────── */
+
+  .career-section {
+    padding: 3rem 1.25rem !important;
+  }
+
+  /* Mostrar una card por fila */
+  .career-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Traer flechas dentro del viewport */
+  .career-arrow-left {
+    left: 6px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .career-arrow-right {
+    right: 6px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  /* ── SOCIAL PROOF ──────────────────────────────────────── */
+
+  .socialproof-section {
+    padding: 3rem 1.25rem !important;
+  }
+
+  .testimonial-card {
+    padding: 1.75rem 1.25rem !important;
+  }
+
+  /* Quote más pequeño, más legible en pantalla chica */
+  .testimonial-quote {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* ── FAQ ───────────────────────────────────────────────── */
+
+  .faq-section {
+    padding: 3rem 1.25rem !important;
+  }
+
+  /* Agrandar ícono toggle a mínimo 44px táctil */
+  .faq-toggle-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+
+  /* CTA footer compacto */
+  .faq-cta {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  /* Botón WhatsApp ancho completo */
+  .faq-wa-btn {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    min-height: 48px;
+  }
+
+  /* ── CTA SECTION ───────────────────────────────────────── */
+
+  .cta-section {
+    padding: 3rem 1.25rem !important;
+  }
+
+  /* Botón CTA principal ancho completo */
+  .cta-content button {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 52px;
+  }
+
+  /* ── NEWSLETTER ────────────────────────────────────────── */
+
+  .newsletter-section {
+    padding: 2.5rem 1.25rem !important;
+  }
+
+  .newsletter-card {
+    padding: 2rem 1.25rem !important;
+  }
+
+}

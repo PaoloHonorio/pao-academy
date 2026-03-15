@@ -23,7 +23,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
   };
 
   return (
-    <section style={{
+    <section className="newsletter-section" style={{
       background: 'linear-gradient(160deg,#0C0C18 0%,#0A0A14 50%,#0E0E1C 100%)',
       padding: '4rem 2.5rem',
       position: 'relative',
@@ -35,7 +35,7 @@ export default function NewsletterSectionSimple({ t }: NewsletterSectionProps) {
       <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)',width:'600px',height:'300px',borderRadius:'50%',background:'radial-gradient(ellipse,rgba(0,119,255,0.07),transparent 70%)',pointerEvents:'none'}}/>
 
       <div style={{ maxWidth: '640px', margin: '0 auto', position:'relative', zIndex:1 }}>
-        <div style={{
+        <div className="newsletter-card" style={{
           background: 'rgba(255,255,255,0.03)',
           border: '1px solid rgba(0,119,255,0.2)',
           borderRadius: '1.5rem',

@@ -37,7 +37,7 @@ const STATS = [
 
 export default function BenefitsSimple({ t, cta }: { t: (k: string) => string; cta?: () => void }) {
   return (
-    <section style={{
+    <section className="benefits-section" style={{
       background: 'linear-gradient(160deg,#0A0A12 0%,#0E0E1C 50%,#0C0C18 100%)',
       padding: '4rem 2.5rem 6rem',
       position: 'relative',
@@ -68,7 +68,7 @@ export default function BenefitsSimple({ t, cta }: { t: (k: string) => string; c
         </div>
 
         {/* Layout dos columnas */}
-        <div style={{
+        <div className="benefits-grid" style={{
           display:'grid',
           gridTemplateColumns:'1fr 1fr',
           gap:'5rem',
@@ -150,7 +150,7 @@ export default function BenefitsSimple({ t, cta }: { t: (k: string) => string; c
           </div>
 
           {/* ── COLUMNA DERECHA — imagen + stats ── */}
-          <div style={{position:'relative'}}>
+          <div className="benefits-image-col" style={{position:'relative'}}>
 
             {/* Imagen */}
             <div style={{

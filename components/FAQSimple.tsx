@@ -11,7 +11,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section style={{
+    <section className="faq-section" style={{
       background: 'linear-gradient(160deg,#0A0A12 0%,#0E0E1C 50%,#0C0C18 100%)',
       padding: '5rem 2.5rem',
       position: 'relative',
@@ -70,7 +70,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
                 onMouseLeave={(e) => { e.currentTarget.style.color = openIndex === index ? '#FFFFFF' : 'rgba(255,255,255,0.8)'; }}
               >
                 <span style={{paddingRight:'1rem',lineHeight:1.5}}>{q}</span>
-                <div style={{
+                <div className="faq-toggle-icon" style={{
                   flexShrink:0, width:'30px', height:'30px',
                   display:'flex', alignItems:'center', justifyContent:'center',
                   borderRadius:'50%',
@@ -100,7 +100,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
         </div>
 
         {/* CTA Footer */}
-        <div style={{
+        <div className="faq-cta" style={{
           marginTop: '3rem', padding: '2rem 2.5rem',
           background: 'rgba(255,255,255,0.03)',
           border: '1px solid rgba(0,119,255,0.2)',
@@ -116,6 +116,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
           <a
             href="https://wa.me/5493517601441?text=¡Hola! Tengo algunas preguntas sobre los cursos de GLOMIND360."
             target="_blank" rel="noopener noreferrer"
+            className="faq-wa-btn"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
               padding: '0.7rem 1.5rem', fontSize: '0.9rem', fontWeight: 700,

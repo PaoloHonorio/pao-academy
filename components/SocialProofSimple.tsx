@@ -31,7 +31,7 @@ export default function SocialProofSimple({
   ];
 
   return (
-    <section style={{
+    <section className="socialproof-section" style={{
       background: 'linear-gradient(160deg,#0C0C18 0%,#0A0A14 50%,#0E0E1C 100%)',
       padding: '5rem 2.5rem',
       position: 'relative',
@@ -88,7 +88,7 @@ export default function SocialProofSimple({
         </div>
 
         {/* Testimonial Card */}
-        <div style={{
+        <div className="testimonial-card" style={{
           maxWidth: '860px',
           margin: '0 auto',
           background: 'rgba(255,255,255,0.03)',
@@ -128,7 +128,7 @@ export default function SocialProofSimple({
             </div>
 
             {/* Quote */}
-            <blockquote style={{
+            <blockquote className="testimonial-quote" style={{
               fontSize: '1.2rem', color: 'rgba(255,255,255,0.85)', fontWeight: 500,
               lineHeight: 1.65, textAlign: 'center', fontStyle: 'italic', margin: 0,
               maxWidth: '600px',

@@ -37,7 +37,7 @@ export default function HeroSimple({
   }, []);
 
   return (
-    <section style={{
+    <section className="hero-section" style={{
       position:'relative',
       minHeight:'100vh',
       overflow:'hidden',
@@ -50,7 +50,7 @@ export default function HeroSimple({
       <div style={{position:'absolute',inset:0,opacity:0.04,backgroundImage:'radial-gradient(circle,#0077FF 1px,transparent 1px)',backgroundSize:'36px 36px'}}></div>
 
       {/* ── IMAGEN — slideshow automático cada 5s ── */}
-      <div style={{position:'absolute',top:0,right:0,bottom:0,width:'58%',zIndex:0}}>
+      <div className="hero-image" style={{position:'absolute',top:0,right:0,bottom:0,width:'58%',zIndex:0}}>
         {HERO_IMAGES.map((src, i) => (
           <Image
             key={src}
@@ -69,7 +69,7 @@ export default function HeroSimple({
           />
         ))}
         {/* Fade desde la izquierda */}
-        <div style={{position:'absolute',inset:0,background:'linear-gradient(to right,#0C0C14 0%,rgba(12,12,20,0.95) 18%,rgba(12,12,20,0.55) 45%,rgba(12,12,20,0.15) 75%,rgba(12,12,20,0.35) 100%)',zIndex:1}}></div>
+        <div className="hero-img-overlay-left" style={{position:'absolute',inset:0,background:'linear-gradient(to right,#0C0C14 0%,rgba(12,12,20,0.95) 18%,rgba(12,12,20,0.55) 45%,rgba(12,12,20,0.15) 75%,rgba(12,12,20,0.35) 100%)',zIndex:1}}></div>
         {/* Fade inferior */}
         <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,#0C0C14 0%,transparent 45%)',zIndex:1}}></div>
         {/* Tinte frío sutil */}
@@ -80,7 +80,7 @@ export default function HeroSimple({
       <div style={{position:'absolute',bottom:'-150px',left:'-100px',width:'700px',height:'700px',borderRadius:'50%',background:'radial-gradient(circle,rgba(0,247,239,0.06),transparent 65%)',pointerEvents:'none',zIndex:1}}></div>
 
       {/* ── CONTENIDO — izquierda, sobre la imagen ── */}
-      <div style={{position:'relative',zIndex:2,width:'100%',maxWidth:'1300px',margin:'0 auto',padding:'9rem 2.5rem 3.5rem'}}>
+      <div className="hero-content" style={{position:'relative',zIndex:2,width:'100%',maxWidth:'1300px',margin:'0 auto',padding:'9rem 2.5rem 3.5rem'}}>
 
         {/* HEADLINE — ancho completo, texto fluye a la izquierda */}
         <div style={{marginBottom:'2rem'}}>
@@ -99,7 +99,7 @@ export default function HeroSimple({
           </p>
 
           {/* EVOLUCIONAR — masivo, se extiende hasta donde alcance */}
-          <h1 style={{
+          <h1 className="hero-title" style={{
             fontSize:'clamp(4rem,8vw,8rem)',
             fontWeight:800,
             letterSpacing:'-0.045em',
@@ -122,7 +122,7 @@ export default function HeroSimple({
         <div style={{maxWidth:'420px'}}>
 
           {/* Subtítulo */}
-          <p style={{
+          <p className="hero-intro" style={{
             fontSize:'1rem',
             color:'rgba(255,255,255,0.5)',
             lineHeight:1.75,
@@ -136,7 +136,7 @@ export default function HeroSimple({
           </p>
 
           {/* Botones flotantes */}
-          <div style={{display:'flex',flexDirection:'column',gap:'0.75rem',width:'fit-content',marginBottom:'2rem'}}>
+          <div className="hero-buttons" style={{display:'flex',flexDirection:'column',gap:'0.75rem',width:'fit-content',marginBottom:'2rem'}}>
 
             <button
               onClick={() => document.getElementById('cursos-en-vivo')?.scrollIntoView({behavior:'smooth'})}
@@ -234,7 +234,7 @@ export default function HeroSimple({
         </div>
 
         {/* Cards flotantes de testimonios */}
-        <div style={{position:'absolute',right:'38%',top:'46%',transform:'translateY(-50%)',zIndex:3,width:'220px'}}>
+        <div className="hero-testimonial" style={{position:'absolute',right:'38%',top:'46%',transform:'translateY(-50%)',zIndex:3,width:'220px'}}>
           {TESTIMONIOS.map((t, i) => (
             <div key={i} style={{
               position:'absolute',top:0,left:0,width:'100%',
@@ -265,7 +265,7 @@ export default function HeroSimple({
         </div>
 
         {/* Faja empresas — marquee infinito */}
-        <div style={{borderTop:'1px solid rgba(255,255,255,0.06)',paddingTop:'2rem',marginTop:'2.5rem',textAlign:'center'}}>
+        <div className="hero-logos" style={{borderTop:'1px solid rgba(255,255,255,0.06)',paddingTop:'2rem',marginTop:'2.5rem',textAlign:'center'}}>
           <span style={{display:'block',textAlign:'center',fontSize:'0.65rem',fontWeight:700,color:'rgba(255,255,255,0.22)',letterSpacing:'0.2em',textTransform:'uppercase',marginBottom:'1.5rem'}}>
             Confían en nuestros graduados
           </span>
@@ -299,6 +299,9 @@ export default function HeroSimple({
           animation: marquee 22s linear infinite;
         }
         .marquee-track:hover { animation-play-state: paused; }
+        @media (max-width: 767px) {
+          .marquee-track { gap: 2.5rem; animation-duration: 16s; }
+        }
       `}</style>
 
     </section>

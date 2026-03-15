@@ -3,7 +3,7 @@ import { ArrowRight, Users, Star } from 'lucide-react';
 
 export default function CTASection({ onCTA }: { onCTA: () => void }) {
   return (
-    <section style={{
+    <section className="cta-section" style={{
       background: 'linear-gradient(135deg, #07090E 0%, #080D18 50%, #09101C 100%)',
       padding: '5rem 1.5rem',
       position: 'relative',
@@ -12,7 +12,7 @@ export default function CTASection({ onCTA }: { onCTA: () => void }) {
       {/* Glow decorativo */}
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '600px', height: '300px', background: 'radial-gradient(ellipse, rgba(0,119,255,0.15) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
-      <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', position: 'relative' }}>
+      <div className="cta-content" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', position: 'relative' }}>
 
         {/* Trust line */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
