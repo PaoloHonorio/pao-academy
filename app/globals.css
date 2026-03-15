@@ -2179,9 +2179,10 @@ header .relative { overflow: visible !important; }
     display: none !important;
   }
 
-  /* Logos: ocultos en mobile — primera pantalla limpia y potente */
+  /* Logos: en flujo normal, debajo del testimonial */
   .hero-logos {
-    display: none !important;
+    margin-top: 1.5rem !important;
+    padding-top: 1rem !important;
   }
 
   /* ── BENEFITS ──────────────────────────────────────────── */
