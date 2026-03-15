@@ -2136,9 +2136,9 @@ header .relative { overflow: visible !important; }
     ) !important;
   }
 
-  /* Padding: top = offset header fijo, lados = aire, bottom = espacio sticky bar */
+  /* Padding: top = offset header fijo, lados = aire, bottom ajustado */
   .hero-content {
-    padding: 7rem 1.5rem 5rem !important;
+    padding: 7rem 1.5rem 2rem !important;
     width: 100% !important;
   }
 
@@ -2179,10 +2179,17 @@ header .relative { overflow: visible !important; }
     display: none !important;
   }
 
-  /* Logos: en flujo normal, debajo del testimonial */
+  /* Logos: en flujo normal, compactos en mobile */
   .hero-logos {
-    margin-top: 1.5rem !important;
-    padding-top: 1rem !important;
+    margin-top: 1rem !important;
+    padding-top: 0.75rem !important;
+  }
+  .hero-logos-track {
+    height: 48px !important;
+  }
+  .hero-logos img {
+    height: 30px !important;
+    width: auto !important;
   }
 
   /* ── BENEFITS ──────────────────────────────────────────── */
