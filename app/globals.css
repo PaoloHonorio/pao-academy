@@ -2096,6 +2096,11 @@ header .relative { overflow: visible !important; }
   .hero-testimonial-mobile { display: none !important; }
 }
 
+/* CTA entre cursos y social proof: oculto en desktop */
+@media (min-width: 768px) {
+  .courses-mobile-cta { display: none !important; }
+}
+
 /* Logos marquee — fade suave en ambos bordes (desktop + mobile) */
 .hero-logos-track {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);

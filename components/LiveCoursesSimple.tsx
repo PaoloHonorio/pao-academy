@@ -825,6 +825,37 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
         </div>
         )}
 
+        {/* CTA mobile — visible solo en mobile, entre cursos y social proof */}
+        <div className="courses-mobile-cta" style={{
+          marginTop: '2rem',
+          background: 'linear-gradient(135deg, rgba(0,102,255,0.12), rgba(0,68,204,0.06))',
+          border: '1px solid rgba(0,119,255,0.25)',
+          borderRadius: '1rem',
+          padding: '1.5rem 1.25rem',
+          textAlign: 'center',
+        }}>
+          <p style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.35rem' }}>
+            ¿Te interesa algún programa?
+          </p>
+          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.45)', marginBottom: '1.25rem', lineHeight: 1.5 }}>
+            Hablamos con vos y te orientamos sin compromiso.
+          </p>
+          <button
+            onClick={onCatalogClick}
+            style={{
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+              width: '100%', padding: '0.85rem 1rem',
+              fontSize: '0.95rem', fontWeight: 700, color: '#fff',
+              background: 'linear-gradient(135deg,#0066FF,#0044CC)',
+              border: '1px solid rgba(0,102,255,0.4)',
+              borderRadius: '0.75rem', cursor: 'pointer',
+              boxShadow: '0 8px 24px rgba(0,102,255,0.3)',
+            }}
+          >
+            Quiero que me asesoren <ArrowRight size={16} />
+          </button>
+        </div>
+
         {/* Corporate Training Content */}
         {activeTab === 'corporate' && (
           <>
