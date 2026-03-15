@@ -137,7 +137,7 @@ export default function HeaderModern({
           <div className="max-w-7xl mx-auto px-4 w-full relative" style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
             {/* Mobile: texto corto + CTA inline */}
             <span className="sm:hidden text-xs font-semibold" style={{color:'#fff', textAlign:'center', letterSpacing:'0.01em', paddingRight:'2rem'}}>
-              🔥 40% OFF ¡Aprovecha esta oferta limitada! →{' '}
+              🔥 40% OFF ¡Últimos cupos! →{' '}
               <button
                 onClick={onClickCTA}
                 className="font-black underline underline-offset-2"

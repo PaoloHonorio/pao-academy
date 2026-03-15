@@ -2113,6 +2113,7 @@ header .relative { overflow: visible !important; }
   /* 100svh respeta la barra del navegador en Android/iOS */
   .hero-section {
     min-height: 100svh !important;
+    align-items: flex-start !important;
   }
 
   /* Testimonial card mobile — visible solo en mobile */
@@ -2135,9 +2136,10 @@ header .relative { overflow: visible !important; }
     ) !important;
   }
 
-  /* Padding top: FOMO (32px) + header (64px) + respiro = ~7rem */
+  /* Padding: top = offset header fijo, lados = aire, bottom = espacio sticky bar */
   .hero-content {
-    padding: 7rem 1.25rem 3rem !important;
+    padding: 7rem 1.5rem 5rem !important;
+    width: 100% !important;
   }
 
   /* Título más chico y legible */
