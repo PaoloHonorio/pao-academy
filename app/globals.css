@@ -2129,7 +2129,7 @@ header .relative { overflow: visible !important; }
   /* Imagen fullscreen con overlay fuerte */
   .hero-image {
     width: 100% !important;
-    left: 0 !important;
+    left: -6% !important;
   }
   /* Reemplazar fade lateral por overlay oscuro vertical */
   .hero-img-overlay-left {
