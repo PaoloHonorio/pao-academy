@@ -2190,21 +2190,22 @@ header .relative { overflow: visible !important; }
   /* Logos: empujados al fondo del hero, centrados entre el contenido y el borde */
   .hero-logos {
     margin-top: auto !important;
-    padding-top: 1rem !important;
-    padding-bottom: 1.5rem !important;
+    padding-top: 3.5rem !important;
+    padding-bottom: 0.75rem !important;
   }
   .hero-logos-track {
-    height: 48px !important;
+    height: 56px !important;
+    justify-content: center !important;
   }
   .hero-logos img {
-    height: 30px !important;
+    height: 38px !important;
     width: auto !important;
   }
 
   /* ── BENEFITS ──────────────────────────────────────────── */
 
   .benefits-section {
-    padding: 1.5rem 1.25rem 3rem !important;
+    padding: 0 1.25rem 3rem !important;
   }
 
   /* Una sola columna — columna de texto primero */
@@ -2216,6 +2217,11 @@ header .relative { overflow: visible !important; }
   /* Ocultar la columna de imagen en mobile (el contenido es suficiente) */
   .benefits-image-col {
     display: none !important;
+  }
+
+  /* Título Benefits: line-height para que el highlight respire */
+  .benefits-title {
+    line-height: 1.35 !important;
   }
 
   /* ── CAREER OUTCOMES ───────────────────────────────────── */
@@ -2237,15 +2243,50 @@ header .relative { overflow: visible !important; }
     display: none !important;
   }
 
+  /* Glow sutil en borde top de cada card */
+  .career-grid > div:first-child {
+    box-shadow: 0 -2px 20px rgba(0, 119, 255, 0.12), 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+  }
+
   /* Flechas ocultas en mobile — auto-rotación + dots cubren la navegación */
+  /* Flechas: visibles en mobile, fuera del card en el padding de la sección */
   .career-arrow {
-    display: none !important;
+    display: flex !important;
+    width: 34px !important;
+    height: 34px !important;
+    background: rgba(8, 8, 20, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(0, 119, 255, 0.3) !important;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0,119,255,0.08) !important;
+  }
+  .career-arrow-left {
+    left: -17px !important;
+  }
+  .career-arrow-right {
+    right: -17px !important;
+  }
+
+  /* Dots del carrusel — tamaño fijo, sin estilos browser */
+  .career-dot {
+    min-width: unset !important;
+    min-height: unset !important;
+    max-width: unset !important;
+    height: 8px !important;
+    border-radius: 9999px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 
   /* ── SOCIAL PROOF ──────────────────────────────────────── */
 
   .socialproof-section {
-    padding: 3rem 1.25rem !important;
+    padding: 1.75rem 1.25rem 3rem !important;
   }
 
   .testimonial-card {
@@ -2258,7 +2299,13 @@ header .relative { overflow: visible !important; }
     line-height: 1.6 !important;
   }
 
-  /* ── CURSOS — título highlight sin clipping ────────────── */
+  /* ── CURSOS ─────────────────────────────────────────────── */
+  .courses-section {
+    padding-top: 2rem !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
   .courses-title {
     line-height: 1.35 !important;
   }
@@ -2267,6 +2314,21 @@ header .relative { overflow: visible !important; }
 
   .faq-section {
     padding: 3rem 1.25rem !important;
+  }
+
+  /* Título FAQ: aumentar line-height para que el highlight no invada la línea de arriba */
+  .faq-title {
+    line-height: 1.4 !important;
+  }
+
+  /* Reducir espacio entre título y preguntas */
+  .faq-title-wrap {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Padding compacto en botón de pregunta */
+  .faq-item-btn {
+    padding: 1rem 1.25rem !important;
   }
 
   /* Agrandar ícono toggle a mínimo 44px táctil */

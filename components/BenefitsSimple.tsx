@@ -79,18 +79,19 @@ export default function BenefitsSimple({ t, cta }: { t: (k: string) => string; c
           <div>
 
             {/* Título */}
-            <h2 style={{
+            <h2 className="benefits-title" style={{
               fontSize:'clamp(1.5rem,2.5vw,2.1rem)',
               fontWeight:900,
               color:'#FFFFFF',
-              lineHeight:1.1,
+              lineHeight:1.2,
               letterSpacing:'-0.03em',
-              marginBottom:'1.25rem',
+              marginBottom:'1.5rem',
             }}>
-              Formamos profesionales<br/>
-              que transforman empresas<br/>
-              <span style={{color:'rgba(255,255,255,0.4)'}}>y personas que evolucionan</span><br/>
-              <span style={{color:'rgba(255,255,255,0.4)'}}>para liderar el futuro.</span>
+              Formamos profesionales que{' '}
+              <span style={{background:'rgba(0,119,255,0.22)',color:'#fff',fontWeight:900,borderRadius:'6px',padding:'1px 8px'}}>transforman empresas</span>
+              <br/>
+              <span style={{color:'rgba(255,255,255,0.45)',fontWeight:700}}>y personas que evolucionan para </span>
+              <span style={{color:'#0077FF',fontWeight:900}}>liderar el futuro.</span>
             </h2>
 
             {/* Párrafo intro */}
@@ -101,7 +102,7 @@ export default function BenefitsSimple({ t, cta }: { t: (k: string) => string; c
               marginBottom:'2.5rem',
               maxWidth:'460px',
             }}>
-              En Glomind360 diseñamos programas ejecutivos enfocados en habilidades que generan
+              En <span style={{color:'rgba(255,255,255,0.75)',fontWeight:600}}>Glomind360</span> diseñamos programas ejecutivos enfocados en habilidades que generan
               impacto real en las empresas. Aprende con mentores activos, metodologías aplicadas
               y una comunidad profesional en crecimiento.
             </p>

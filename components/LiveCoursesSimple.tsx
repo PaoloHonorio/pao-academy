@@ -280,7 +280,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
   };
 
   return (
-    <section id="cursos-en-vivo" style={{
+    <section id="cursos-en-vivo" className="courses-section" style={{
       background: 'linear-gradient(160deg,#06090F 0%,#080D18 50%,#070B14 100%)',
       padding: '5rem 2.5rem',
       position: 'relative',

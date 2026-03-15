@@ -110,57 +110,54 @@ export default function CareerOutcomesSimple() {
             {visible.map((r, i) => (
               <div key={`${idx}-${i}`}
                 style={{
-                  background:'rgba(255,255,255,0.03)',
-                  border:'1px solid rgba(255,255,255,0.08)',
-                  borderLeft:'3px solid #0077FF',
+                  background:'linear-gradient(160deg,rgba(0,50,120,0.12) 0%,rgba(6,6,18,0.95) 60%)',
+                  border:'1px solid rgba(0,119,255,0.15)',
+                  borderTop:'2px solid #0077FF',
                   borderRadius:'1rem',
-                  padding:'2rem',
+                  padding:'1.75rem 1.5rem',
                   display:'flex',
                   flexDirection:'column',
                   gap:'1rem',
                   transition:'all 0.3s ease',
                   cursor:'default',
+                  boxShadow:'0 8px 32px rgba(0,0,0,0.35)',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.background='rgba(255,255,255,0.06)'; e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'; }}
-                onMouseLeave={e => { e.currentTarget.style.background='rgba(255,255,255,0.03)'; e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='none'; }}
+                onMouseEnter={e => { e.currentTarget.style.background='linear-gradient(160deg,rgba(0,80,180,0.18) 0%,rgba(6,6,18,0.98) 60%)'; e.currentTarget.style.transform='translateY(-4px)'; e.currentTarget.style.boxShadow='0 20px 48px rgba(0,0,0,0.4)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background='linear-gradient(160deg,rgba(0,50,120,0.12) 0%,rgba(6,6,18,0.95) 60%)'; e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='0 8px 32px rgba(0,0,0,0.35)'; }}
               >
-                {/* Icon */}
-                <div style={{
-                  width:'48px',height:'48px',borderRadius:'12px',
-                  background:'linear-gradient(135deg,rgba(0,102,255,0.2),rgba(0,68,204,0.1))',
-                  border:'1px solid rgba(0,119,255,0.2)',
-                  display:'flex',alignItems:'center',justifyContent:'center',
-                  boxShadow:'0 4px 16px rgba(0,102,255,0.15)',
-                }}>
-                  <r.Icon size={22} color="#60A5FA" strokeWidth={1.8}/>
+                {/* Icon + área en una fila */}
+                <div style={{display:'flex',alignItems:'center',gap:'0.75rem'}}>
+                  <div style={{
+                    width:'42px',height:'42px',borderRadius:'10px',flexShrink:0,
+                    background:'linear-gradient(135deg,rgba(0,102,255,0.25),rgba(0,68,204,0.12))',
+                    border:'1px solid rgba(0,119,255,0.25)',
+                    display:'flex',alignItems:'center',justifyContent:'center',
+                    boxShadow:'0 4px 14px rgba(0,102,255,0.18)',
+                  }}>
+                    <r.Icon size={20} color="#60A5FA" strokeWidth={1.8}/>
+                  </div>
+                  <div style={{fontSize:'0.72rem',fontWeight:700,color:'rgba(96,165,250,0.75)',textTransform:'uppercase',letterSpacing:'0.1em'}}>{r.area}</div>
                 </div>
 
-                {/* Cargo + área */}
-                <div>
-                  <div style={{fontSize:'1.2rem',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.02em',marginBottom:'0.2rem'}}>{r.cargo}</div>
-                  <div style={{fontSize:'0.78rem',fontWeight:600,color:'rgba(96,165,250,0.8)',textTransform:'uppercase',letterSpacing:'0.08em'}}>{r.area}</div>
-                </div>
+                {/* Cargo */}
+                <div style={{fontSize:'1.3rem',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.02em',lineHeight:1.2}}>{r.cargo}</div>
 
                 {/* Descripción */}
-                <p style={{fontSize:'0.85rem',color:'rgba(255,255,255,0.45)',lineHeight:1.65,margin:0}}>
+                <p style={{fontSize:'0.82rem',color:'rgba(255,255,255,0.42)',lineHeight:1.65,margin:0}}>
                   {r.desc}
                 </p>
 
-                {/* Salario + demanda */}
-                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:'0.5rem',paddingTop:'0.75rem',borderTop:'1px solid rgba(255,255,255,0.06)'}}>
-                  <div>
-                    <div style={{fontSize:'0.65rem',fontWeight:700,color:'rgba(255,255,255,0.3)',letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:'0.2rem'}}>Salario promedio / mes</div>
-                    <div style={{fontSize:'1rem',fontWeight:800,color:'#60A5FA'}}>{r.salario} <span style={{fontSize:'0.72rem',fontWeight:500,color:'rgba(255,255,255,0.35)'}}>USD</span></div>
+                {/* Salario — protagónico */}
+                <div style={{paddingTop:'0.75rem',borderTop:'1px solid rgba(255,255,255,0.07)'}}>
+                  <div style={{fontSize:'0.62rem',fontWeight:700,color:'rgba(255,255,255,0.28)',letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:'0.3rem'}}>Salario promedio / mes</div>
+                  <div style={{display:'flex',alignItems:'baseline',gap:'0.4rem'}}>
+                    <span style={{fontSize:'1.5rem',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.03em'}}>{r.salario}</span>
+                    <span style={{fontSize:'0.72rem',fontWeight:500,color:'rgba(96,165,250,0.6)'}}>USD</span>
                   </div>
-                  <div style={{
-                    display:'inline-flex',alignItems:'center',gap:'0.3rem',
-                    background:'rgba(0,119,255,0.08)',
-                    border:'1px solid rgba(0,119,255,0.2)',
-                    borderRadius:'6px',padding:'0.3rem 0.65rem',
-                    fontSize:'0.72rem',fontWeight:700,color:'rgba(96,165,250,0.9)',
-                  }}>
-                    <span style={{width:'5px',height:'5px',background:'#60A5FA',borderRadius:'50%',display:'inline-block'}}/>
-                    Demanda {r.demanda}
+                  {/* Demanda badge */}
+                  <div style={{marginTop:'0.6rem',display:'inline-flex',alignItems:'center',gap:'0.35rem',background:'rgba(0,119,255,0.1)',border:'1px solid rgba(0,119,255,0.22)',borderRadius:'20px',padding:'0.25rem 0.75rem'}}>
+                    <span style={{width:'6px',height:'6px',background:'#0077FF',borderRadius:'50%',display:'inline-block',boxShadow:'0 0 6px rgba(0,119,255,0.8)'}}/>
+                    <span style={{fontSize:'0.68rem',fontWeight:700,color:'rgba(96,165,250,0.9)',letterSpacing:'0.05em'}}>Demanda {r.demanda}</span>
                   </div>
                 </div>
               </div>
@@ -181,8 +178,8 @@ export default function CareerOutcomesSimple() {
         {/* Dots */}
         <div style={{display:'flex',justifyContent:'center',gap:'0.5rem',marginBottom:'3.5rem'}}>
           {Array.from({length: total}).map((_, i) => (
-            <button key={i} onClick={() => setIdx(i)}
-              style={{width:i===idx?'24px':'8px',height:'8px',borderRadius:'9999px',border:'none',cursor:'pointer',transition:'all 0.3s',background:i===idx?'#0077FF':'rgba(255,255,255,0.15)',padding:0}}/>
+            <button key={i} onClick={() => setIdx(i)} className="career-dot"
+              style={{width:i===idx?'24px':'8px',height:'8px',borderRadius:'9999px',border:'none',cursor:'pointer',transition:'all 0.3s',background:i===idx?'#0077FF':'rgba(255,255,255,0.15)',padding:0,margin:0,display:'block',flexShrink:0,outline:'none',appearance:'none'}}/>
           ))}
         </div>
 

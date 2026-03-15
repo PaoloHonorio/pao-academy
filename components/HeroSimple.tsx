@@ -329,7 +329,7 @@ export default function HeroSimple({
         }
         .marquee-track:hover { animation-play-state: paused; }
         @media (max-width: 767px) {
-          .marquee-track { gap: 2.5rem; animation-duration: 16s; }
+          .marquee-track { gap: 2.5rem; animation-duration: 8s; }
         }
       `}</style>
 

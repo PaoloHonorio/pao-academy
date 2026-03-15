@@ -34,10 +34,10 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
         </div>
 
         {/* Title */}
-        <div style={{textAlign:'center',marginBottom:'3rem'}}>
-          <h2 style={{fontSize:'clamp(1.6rem,3.5vw,2.4rem)',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.03em',lineHeight:1.1}}>
+        <div className="faq-title-wrap" style={{textAlign:'center',marginBottom:'3rem'}}>
+          <h2 className="faq-title" style={{fontSize:'clamp(1.6rem,3.5vw,2.4rem)',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.03em',lineHeight:1.1}}>
             {t('faq')}{' '}
-            <span style={{background:'rgba(0,119,255,0.25)',color:'#fff',fontWeight:900,borderRadius:'6px',padding:'2px 10px'}}>resueltas</span>
+            <span style={{background:'rgba(0,119,255,0.25)',color:'#fff',fontWeight:900,borderRadius:'20px',padding:'2px 12px'}}>resueltas</span>
           </h2>
         </div>
 
@@ -57,6 +57,7 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
             >
               {/* Question */}
               <button
+                className="faq-item-btn"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 style={{
                   width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -79,8 +80,8 @@ export default function FAQSimple({ t }: { t: (k: string) => string }) {
                   transition: 'all 0.3s',
                 }}>
                   {openIndex === index
-                    ? <Minus size={15} color="white" />
-                    : <Plus size={15} color="rgba(255,255,255,0.6)" />
+                    ? <Minus size={18} color="white" />
+                    : <Plus size={18} color="rgba(255,255,255,0.6)" />
                   }
                 </div>
               </button>
