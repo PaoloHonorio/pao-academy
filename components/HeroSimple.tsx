@@ -258,7 +258,7 @@ export default function HeroSimple({
                   <div style={{fontSize:'0.6rem',color:'rgba(255,255,255,0.4)'}}>{t.rol}</div>
                 </div>
               </div>
-              <p style={{fontSize:'0.75rem',color:'rgba(255,255,255,0.65)',lineHeight:1.5,margin:0}}>"{t.texto}"</p>
+              <p style={{fontSize:'0.75rem',color:'rgba(255,255,255,0.65)',lineHeight:1.5,margin:0}}>&ldquo;{t.texto}&rdquo;</p>
               <div style={{marginTop:'0.5rem',fontSize:'0.65rem',color:'#F59E0B'}}>★★★★★</div>
             </div>
           ))}
