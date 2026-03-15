@@ -306,7 +306,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
 
         {/* Title + subtitle */}
         <div style={{textAlign:'center',marginBottom:'3rem'}}>
-          <h2 style={{fontSize:'clamp(1.8rem,3.5vw,2.8rem)',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.03em',lineHeight:1.1,marginBottom:'1rem'}}>
+          <h2 className="courses-title" style={{fontSize:'clamp(1.8rem,3.5vw,2.8rem)',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.03em',lineHeight:1.1,marginBottom:'1rem'}}>
             Programas diseñados para{' '}
             <span style={{background:'rgba(0,119,255,0.25)',color:'#fff',fontWeight:900,borderRadius:'6px',padding:'2px 10px'}}>impacto real</span>
             {' '}en tu carrera

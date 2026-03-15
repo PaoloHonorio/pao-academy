@@ -89,7 +89,7 @@ export default function CareerOutcomesSimple() {
 
         {/* Title */}
         <div style={{textAlign:'center',marginBottom:'3rem'}}>
-          <h2 style={{fontSize:'clamp(1.8rem,3.5vw,2.8rem)',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.03em',lineHeight:1.1,marginBottom:'0.85rem'}}>
+          <h2 className="career-title" style={{fontSize:'clamp(1.8rem,3.5vw,2.8rem)',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.03em',lineHeight:1.1,marginBottom:'0.85rem'}}>
             ¿A dónde te lleva{' '}
             <span style={{background:'rgba(0,119,255,0.25)',color:'#fff',fontWeight:900,borderRadius:'6px',padding:'2px 10px'}}>Glomind360?</span>
           </h2>

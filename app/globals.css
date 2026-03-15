@@ -2199,7 +2199,7 @@ header .relative { overflow: visible !important; }
   /* ── BENEFITS ──────────────────────────────────────────── */
 
   .benefits-section {
-    padding: 3rem 1.25rem 3.5rem !important;
+    padding: 1.5rem 1.25rem 3rem !important;
   }
 
   /* Una sola columna — columna de texto primero */
@@ -2219,9 +2219,17 @@ header .relative { overflow: visible !important; }
     padding: 3rem 1.25rem !important;
   }
 
-  /* Mostrar una card por fila */
+  /* Título: más espacio entre líneas para que el highlight no tape */
+  .career-title {
+    line-height: 1.35 !important;
+  }
+
+  /* 1 sola card visible — carrusel de una */
   .career-grid {
     grid-template-columns: 1fr !important;
+  }
+  .career-grid > div:last-child {
+    display: none !important;
   }
 
   /* Traer flechas dentro del viewport */
@@ -2250,6 +2258,11 @@ header .relative { overflow: visible !important; }
   .testimonial-quote {
     font-size: 1rem !important;
     line-height: 1.6 !important;
+  }
+
+  /* ── CURSOS — título highlight sin clipping ────────────── */
+  .courses-title {
+    line-height: 1.35 !important;
   }
 
   /* ── FAQ ───────────────────────────────────────────────── */
@@ -2284,6 +2297,17 @@ header .relative { overflow: visible !important; }
 
   .cta-section {
     padding: 3rem 1.25rem !important;
+  }
+
+  /* Estrellas + texto en una sola fila compacta */
+  .cta-trust-row {
+    flex-wrap: nowrap !important;
+    gap: 0.3rem !important;
+  }
+  .cta-trust-text {
+    font-size: 0.75rem !important;
+    white-space: nowrap !important;
+    margin-left: 0.15rem !important;
   }
 
   /* Botón CTA principal ancho completo */

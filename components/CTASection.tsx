@@ -15,9 +15,9 @@ export default function CTASection({ onCTA }: { onCTA: () => void }) {
       <div className="cta-content" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center', position: 'relative' }}>
 
         {/* Trust line */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
+        <div className="cta-trust-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.5rem' }}>
           {[1,2,3,4,5].map(i => <span key={i} style={{ color: '#FBBF24', fontSize: '1.1rem' }}>★</span>)}
-          <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', marginLeft: '0.25rem' }}>+10,000 graduados en Latinoamérica</span>
+          <span className="cta-trust-text" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', marginLeft: '0.25rem' }}>+10,000 graduados en Latinoamérica</span>
         </div>
 
         {/* Título */}
