@@ -265,20 +265,20 @@ export default function HeroSimple({
         </div>
 
         {/* Faja empresas — marquee infinito */}
-        <div style={{borderTop:'1px solid rgba(255,255,255,0.05)',paddingTop:'1.25rem',marginTop:'1.25rem'}}>
-          <span style={{display:'block',textAlign:'center',fontSize:'0.6rem',fontWeight:600,color:'rgba(255,255,255,0.16)',letterSpacing:'0.15em',textTransform:'uppercase',marginBottom:'1rem'}}>
+        <div style={{borderTop:'1px solid rgba(255,255,255,0.06)',paddingTop:'2rem',marginTop:'2.5rem',textAlign:'center'}}>
+          <span style={{display:'block',textAlign:'center',fontSize:'0.65rem',fontWeight:700,color:'rgba(255,255,255,0.22)',letterSpacing:'0.2em',textTransform:'uppercase',marginBottom:'1.5rem'}}>
             Confían en nuestros graduados
           </span>
-          <div style={{overflow:'hidden',width:'100%',height:'48px',display:'flex',alignItems:'center'}}>
+          <div style={{overflow:'hidden',width:'100%',height:'72px',display:'flex',alignItems:'center'}}>
             <div className="marquee-track">
               {[...['techstart','datacorp','retailpro','financemax','edutech','logisur'],...['techstart','datacorp','retailpro','financemax','edutech','logisur']].map((slug,i) => (
                 <Image
                   key={i}
                   src={`/logos/${slug}.svg`}
                   alt={slug}
-                  width={150}
-                  height={38}
-                  style={{opacity:0.25,filter:'brightness(0) invert(1)',flexShrink:0}}
+                  width={200}
+                  height={52}
+                  style={{opacity:0.38,filter:'brightness(0) invert(1)',flexShrink:0}}
                 />
               ))}
             </div>
@@ -294,9 +294,9 @@ export default function HeroSimple({
         .marquee-track {
           display: flex;
           align-items: center;
-          gap: 3rem;
+          gap: 4.5rem;
           width: max-content;
-          animation: marquee 18s linear infinite;
+          animation: marquee 22s linear infinite;
         }
         .marquee-track:hover { animation-play-state: paused; }
       `}</style>

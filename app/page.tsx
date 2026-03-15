@@ -9,6 +9,7 @@ import HeroSimple from '../components/HeroSimple';
 // import HeroMinimal from '../components/Hero/variants/HeroMinimal';
 // import HeroPremium from '../components/Hero/variants/HeroPremium';
 import LiveCoursesSimple from '../components/LiveCoursesSimple';
+import CareerOutcomesSimple from '../components/CareerOutcomesSimple';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
 import ReservationForm from '../components/forms/ReservationForm';
@@ -191,6 +192,9 @@ ${lang==='es'?'Vengo desde la web de':'I come from the website of'} ${brandName}
 
         {/* Por qué Glomind360 - inmediatamente después del hero */}
         <BenefitsSimple t={t} cta={()=>{ setInteres(lang==='es'?'programas':'programs'); setModalOpen(true); }} />
+
+        {/* ¿A dónde te lleva Glomind360? */}
+        <CareerOutcomesSimple />
 
         {/* Cursos en Vivo - Cards blancas simples */}
         <LiveCoursesSimple
