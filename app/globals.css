@@ -2136,10 +2136,13 @@ header .relative { overflow: visible !important; }
     ) !important;
   }
 
-  /* Padding: top = offset header fijo, lados = aire, bottom ajustado */
+  /* Flex columna: logos se empujan al fondo con margin-top auto */
   .hero-content {
     padding: 7rem 1.5rem 2rem !important;
     width: 100% !important;
+    min-height: calc(100svh - 32px) !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   /* Título más chico y legible */
@@ -2179,10 +2182,11 @@ header .relative { overflow: visible !important; }
     display: none !important;
   }
 
-  /* Logos: en flujo normal, compactos en mobile */
+  /* Logos: empujados al fondo del hero, centrados entre el contenido y el borde */
   .hero-logos {
-    margin-top: 1rem !important;
-    padding-top: 0.75rem !important;
+    margin-top: auto !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1.5rem !important;
   }
   .hero-logos-track {
     height: 48px !important;
