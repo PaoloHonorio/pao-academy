@@ -281,7 +281,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
 
   return (
     <section id="cursos-en-vivo" style={{
-      background: 'linear-gradient(160deg,#0A0A12 0%,#0E0E1C 50%,#0C0C18 100%)',
+      background: 'linear-gradient(160deg,#0A1020 0%,#0D1830 50%,#0B1525 100%)',
       padding: '5rem 2.5rem',
       position: 'relative',
       overflow: 'hidden',
@@ -289,7 +289,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
       {/* Dot pattern */}
       <div style={{position:'absolute',inset:0,opacity:0.03,backgroundImage:'radial-gradient(circle,#0077FF 1px,transparent 1px)',backgroundSize:'36px 36px',pointerEvents:'none'}}/>
       {/* Glow top-right */}
-      <div style={{position:'absolute',top:'-200px',right:'-150px',width:'700px',height:'700px',borderRadius:'50%',background:'radial-gradient(circle,rgba(0,119,255,0.07),transparent 65%)',pointerEvents:'none'}}/>
+      <div style={{position:'absolute',top:'-200px',right:'-150px',width:'700px',height:'700px',borderRadius:'50%',background:'radial-gradient(circle,rgba(0,119,255,0.12),transparent 65%)',pointerEvents:'none'}}/>
       {/* Glow bottom-left */}
       <div style={{position:'absolute',bottom:'-100px',left:'-100px',width:'500px',height:'500px',borderRadius:'50%',background:'radial-gradient(circle,rgba(0,247,239,0.04),transparent 65%)',pointerEvents:'none'}}/>
 
