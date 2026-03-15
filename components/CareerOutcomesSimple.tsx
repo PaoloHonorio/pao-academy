@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRight, BarChart2, TrendingUp, LineChart, Target, Users, Zap } from 'lucide-react';
 
 const ROLES = [
@@ -67,6 +67,12 @@ export default function CareerOutcomesSimple() {
   const prev = () => setIdx(i => (i - 1 + total) % total);
   const next = () => setIdx(i => (i + 1) % total);
   const visible = [ROLES[idx % total], ROLES[(idx + 1) % total]];
+
+  // Auto-rotación cada 4 segundos
+  useEffect(() => {
+    const id = setInterval(() => setIdx(i => (i + 1) % total), 4000);
+    return () => clearInterval(id);
+  }, [total]);
 
   return (
     <section className="career-section" style={{
