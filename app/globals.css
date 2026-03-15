@@ -2292,10 +2292,24 @@ header .relative { overflow: visible !important; }
     padding: 3rem 1.25rem !important;
   }
 
-  /* Estrellas + texto en una sola fila compacta */
+  /* Flex columna para poder reordenar con order */
+  .cta-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  /* Orden mobile: título → estrellas → subtítulo → botón */
+  .cta-content > h2       { order: 1; margin-bottom: 0.75rem !important; }
+  .cta-trust-row          { order: 2; margin-bottom: 1.25rem !important; margin-top: 0 !important; }
+  .cta-content > p        { order: 3; }
+  .cta-content > div:last-of-type { order: 4; }
+
+  /* Estrellas centradas, una fila */
   .cta-trust-row {
     flex-wrap: nowrap !important;
     gap: 0.3rem !important;
+    justify-content: center !important;
   }
   .cta-trust-text {
     font-size: 0.75rem !important;
