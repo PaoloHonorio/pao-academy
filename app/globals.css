@@ -2141,15 +2141,24 @@ header .relative { overflow: visible !important; }
     margin-bottom: 1.5rem !important;
   }
 
-  /* Botones a ancho completo para touch */
+  /* Botones: primario full-width, secundario fit-content centrado */
   .hero-buttons {
     width: 100% !important;
+    align-items: center !important;
   }
-  .hero-buttons > button {
+  /* Primario — "Quiero empezar" */
+  .hero-buttons > button:last-child {
     width: 100% !important;
     justify-content: center !important;
-    padding: 0.8rem 1rem !important;
+    padding: 0.85rem 1rem !important;
     min-height: 48px;
+  }
+  /* Secundario — "Explorar programas" */
+  .hero-buttons > button:first-child {
+    width: auto !important;
+    align-self: center !important;
+    padding: 0.6rem 1.5rem !important;
+    min-height: 44px;
   }
 
   /* Ocultar testimonial card flotante */
