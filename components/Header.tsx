@@ -20,7 +20,7 @@ export default function Header({
   t,
   lang,
   setLang,        // si no lo pasás, no se muestra el selector (queda solo en footer)
-  promoMessage = "40% OFF en cursos y formaciones",
+  promoMessage = "35% OFF en cursos y formaciones",
   promoSubMessage = "¡Aprovecha esta oferta limitada!",
   showPromoBar = true,
 }: {
