@@ -231,16 +231,24 @@ ${lang==='es'?'Vengo desde la web de':'I come from the website of'} ${brandName}
       {/* Sticky bar mobile */}
       <MobileStickyBar onCTA={() => { setInteres(lang === 'es' ? 'programas' : 'programs'); setModalOpen(true); }} />
 
-      {/* Modal + CTA flotante */}
+      {/* Modal de conversión */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="bg-white border-[#E2E8F0] max-w-xl">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-semibold text-[#0F172A]">¡Asegurá tu lugar!</DialogTitle>
-            <DialogDescription className="text-[#64748B]">
-              Te contactamos en menos de 24hs para confirmar tu inscripción.
+        <DialogContent className="border-0 p-0 overflow-hidden max-w-lg" style={{background:'#0B0B18',border:'1px solid rgba(0,119,255,0.18)',borderRadius:'1.25rem',boxShadow:'0 32px 80px rgba(0,0,0,0.6)'}}>
+          {/* Header */}
+          <div style={{background:'linear-gradient(135deg,rgba(0,60,160,0.3),rgba(0,20,60,0.5))',borderBottom:'1px solid rgba(0,119,255,0.12)',padding:'1.5rem 1.5rem 1.25rem'}}>
+            {/* Título */}
+            <DialogTitle className="text-xl font-bold" style={{color:'#FFFFFF',letterSpacing:'-0.02em',lineHeight:1.2,marginBottom:'0.3rem',textAlign:'center'}}>
+              Reservá tu lugar
+            </DialogTitle>
+            <p style={{fontSize:'0.85rem',color:'rgba(255,255,255,0.45)',margin:0,textAlign:'center'}}>
+              Miles de profesionales ya dieron este paso.
+            </p>
+            <DialogDescription className="sr-only">
+              Completá tus datos y te contactamos en menos de 24hs.
             </DialogDescription>
-          </DialogHeader>
-          <div className="mt-4">
+          </div>
+          {/* Formulario */}
+          <div className="modal-dark-form" style={{padding:'1.25rem 1.5rem 1.5rem'}}>
             <ReservationForm defaultCourse={interes} onSuccess={()=>setModalOpen(false)} />
           </div>
         </DialogContent>

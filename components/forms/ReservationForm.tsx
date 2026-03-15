@@ -99,6 +99,7 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
   const [error, setError] = useState<string | null>(null);
   const [ok, setOk] = useState(false);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [showMotivation, setShowMotivation] = useState(false);
 
   const isGeneric = GENERIC_COURSES.includes((defaultCourse || '').toLowerCase());
 
@@ -151,9 +152,8 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
     return nameV.status === 'valid' &&
       emailV.status === 'valid' &&
       phoneV.status === 'valid' &&
-      course.trim().length >= 2 &&
-      motivation.length > 0;
-  }, [nameV.status, emailV.status, phoneV.status, course, motivation]);
+      course.trim().length >= 2;
+  }, [nameV.status, emailV.status, phoneV.status, course]);
 
   const handleBlur = (field: string) => setTouched(prev => ({ ...prev, [field]: true }));
 
@@ -339,18 +339,22 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
         </div>
       )}
 
-      {/* ¿Por qué te interesa? */}
+      {/* Campo motivación con incentivo */}
       <div>
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'0.4rem'}}>
+          <span style={{fontSize:'0.72rem',color:'rgba(255,255,255,0.35)'}}>¿Qué querés lograr? <span style={{color:'rgba(255,255,255,0.25)'}}>(opcional)</span></span>
+          <div style={{display:'inline-flex',alignItems:'center',gap:'0.3rem',background:'rgba(34,197,94,0.1)',border:'1px solid rgba(34,197,94,0.25)',borderRadius:'20px',padding:'0.15rem 0.6rem'}}>
+            <span style={{fontSize:'0.65rem',fontWeight:700,color:'#4ADE80'}}>✦ +5% OFF al completar</span>
+          </div>
+        </div>
         <textarea
-          className={`input-modern resize-none py-3 ${motivationError ? 'border-red-500' : ''}`}
-          rows={4}
+          className="input-modern resize-none py-3"
+          rows={3}
           placeholder="¿Qué esperás aplicar de este programa en tu desarrollo profesional?"
           value={motivation}
           onChange={e => setMotivation(e.target.value)}
-          onBlur={() => handleBlur('motivation')}
-          style={{ minHeight: '100px' }}
+          style={{ minHeight: '80px' }}
         />
-        {motivationError && <p className="text-red-500 text-xs mt-1">{motivationError}</p>}
       </div>
 
       {error && (
@@ -360,7 +364,8 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
       <button
         type="submit"
         disabled={!isValid || loading}
-        className="btn-primary w-full h-12 text-base"
+        className="btn-primary w-full h-14 text-base"
+        style={{fontSize:'1.05rem',fontWeight:800,letterSpacing:'-0.01em',borderRadius:'0.875rem',background:'linear-gradient(135deg,#0066FF,#0044CC)',boxShadow:'0 8px 32px rgba(0,102,255,0.45)'}}
       >
         {loading ? (
           <>
@@ -368,9 +373,17 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
             Enviando...
           </>
         ) : (
-          'Reservar mi lugar'
+          'Reservar mi lugar →'
         )}
       </button>
+
+      <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'1rem',marginTop:'0.6rem'}}>
+        <span style={{fontSize:'0.68rem',color:'rgba(255,255,255,0.25)',display:'flex',alignItems:'center',gap:'0.3rem'}}>🔒 Datos protegidos</span>
+        <span style={{width:'3px',height:'3px',background:'rgba(255,255,255,0.15)',borderRadius:'50%',display:'inline-block'}}/>
+        <span style={{fontSize:'0.68rem',color:'rgba(255,255,255,0.25)'}}>Sin spam</span>
+        <span style={{width:'3px',height:'3px',background:'rgba(255,255,255,0.15)',borderRadius:'50%',display:'inline-block'}}/>
+        <span style={{fontSize:'0.68rem',color:'rgba(255,255,255,0.25)'}}>Respuesta en 24hs</span>
+      </div>
     </form>
   );
 }
