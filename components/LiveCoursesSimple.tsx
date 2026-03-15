@@ -280,15 +280,48 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
   };
 
   return (
-    <section style={{ background: '#F8FAFC', padding: '5rem 1rem' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+    <section id="cursos-en-vivo" style={{
+      background: 'linear-gradient(160deg,#0A0A12 0%,#0E0E1C 50%,#0C0C18 100%)',
+      padding: '5rem 2.5rem',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
+      {/* Dot pattern */}
+      <div style={{position:'absolute',inset:0,opacity:0.03,backgroundImage:'radial-gradient(circle,#0077FF 1px,transparent 1px)',backgroundSize:'36px 36px',pointerEvents:'none'}}/>
+      {/* Glow top-right */}
+      <div style={{position:'absolute',top:'-200px',right:'-150px',width:'700px',height:'700px',borderRadius:'50%',background:'radial-gradient(circle,rgba(0,119,255,0.07),transparent 65%)',pointerEvents:'none'}}/>
+      {/* Glow bottom-left */}
+      <div style={{position:'absolute',bottom:'-100px',left:'-100px',width:'500px',height:'500px',borderRadius:'50%',background:'radial-gradient(circle,rgba(0,247,239,0.04),transparent 65%)',pointerEvents:'none'}}/>
+
+      <div style={{ maxWidth: '1280px', margin: '0 auto', position:'relative', zIndex:1 }}>
+
+        {/* Section label */}
+        <div style={{display:'flex',alignItems:'center',gap:'1.5rem',marginBottom:'2.5rem'}}>
+          <div style={{flex:1,height:'1px',background:'linear-gradient(to right,transparent,rgba(255,255,255,0.1))'}}/>
+          <span style={{fontSize:'0.72rem',fontWeight:700,color:'rgba(255,255,255,0.35)',letterSpacing:'0.2em',textTransform:'uppercase',whiteSpace:'nowrap'}}>
+            Nuestros Programas
+          </span>
+          <div style={{flex:1,height:'1px',background:'linear-gradient(to left,transparent,rgba(255,255,255,0.1))'}}/>
+        </div>
+
+        {/* Title + subtitle */}
+        <div style={{textAlign:'center',marginBottom:'3rem'}}>
+          <h2 style={{fontSize:'clamp(1.8rem,3.5vw,2.8rem)',fontWeight:900,color:'#FFFFFF',letterSpacing:'-0.03em',lineHeight:1.1,marginBottom:'1rem'}}>
+            Programas diseñados para{' '}
+            <span style={{background:'rgba(0,119,255,0.25)',color:'#fff',fontWeight:900,borderRadius:'6px',padding:'2px 10px'}}>impacto real</span>
+            {' '}en tu carrera
+          </h2>
+          <p style={{fontSize:'1.05rem',color:'rgba(255,255,255,0.45)',maxWidth:'560px',margin:'0 auto',lineHeight:1.7}}>
+            Aprende con mentores activos, metodología aplicada y una comunidad profesional que impulsa tu crecimiento.
+          </p>
+        </div>
 
         {/* Tabs Navigation */}
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           gap: '0.5rem',
-          marginBottom: '2rem',
+          marginBottom: '2.5rem',
           flexWrap: 'wrap'
         }}>
           {[
@@ -306,117 +339,80 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                padding: '0.75rem 1.5rem',
-                fontSize: '1rem',
-                fontWeight: '600',
+                padding: '0.65rem 1.4rem',
+                fontSize: '0.9rem',
+                fontWeight: 700,
                 borderRadius: '0.75rem',
                 cursor: 'pointer',
-                transition: 'all 0.2s',
-                border: 'none',
+                transition: 'all 0.25s',
                 ...(activeTab === tab.id ? {
-                  background: tab.color,
+                  background: 'linear-gradient(135deg,#0066FF,#0044CC)',
                   color: 'white',
-                  boxShadow: `0 4px 14px ${tab.color}40`
+                  border: '1px solid rgba(0,102,255,0.4)',
+                  boxShadow: `0 4px 20px rgba(0,102,255,0.4)`
                 } : {
-                  background: '#F1F5F9',
-                  color: '#64748B',
-                  border: '1px solid transparent'
+                  background: 'rgba(255,255,255,0.04)',
+                  color: 'rgba(255,255,255,0.5)',
+                  border: '1px solid rgba(255,255,255,0.1)',
                 })
               }}
               onMouseEnter={(e) => {
                 if (activeTab !== tab.id) {
-                  e.currentTarget.style.background = `${tab.color}18`;
-                  e.currentTarget.style.color = tab.color;
-                  e.currentTarget.style.borderColor = `${tab.color}40`;
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.85)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (activeTab !== tab.id) {
-                  e.currentTarget.style.background = '#F1F5F9';
-                  e.currentTarget.style.color = '#64748B';
-                  e.currentTarget.style.borderColor = 'transparent';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.5)';
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
                 }
               }}
             >
-              <tab.icon size={18} />
+              <tab.icon size={16} />
               {tab.label}
             </button>
           ))}
         </div>
 
-        {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        {/* Tab badge */}
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
           {activeTab === 'live' && (
             <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.625rem',
-              background: '#CC0000',
-              color: '#ffffff',
-              borderRadius: '9999px',
-              padding: '0.5rem 1.25rem',
-              fontSize: '0.875rem',
-              fontWeight: '800',
-              marginBottom: '1rem',
-              letterSpacing: '0.05em',
-              boxShadow: '0 4px 16px rgba(204,0,0,0.35)'
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              background: 'rgba(204,0,0,0.15)', color: '#FF4444',
+              border: '1px solid rgba(204,0,0,0.3)',
+              borderRadius: '9999px', padding: '0.4rem 1rem',
+              fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em',
             }}>
-              <span style={{
-                width: '9px',
-                height: '9px',
-                background: '#ffffff',
-                borderRadius: '50%',
-                display: 'inline-block',
-                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-              }}></span>
+              <span style={{width:'7px',height:'7px',background:'#FF4444',borderRadius:'50%',display:'inline-block',animation:'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite'}}/>
               EN VIVO AHORA
             </div>
           )}
-
           {activeTab === 'async' && (
             <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.625rem',
-              background: '#7C3AED',
-              color: '#ffffff',
-              borderRadius: '9999px',
-              padding: '0.5rem 1.25rem',
-              fontSize: '0.875rem',
-              fontWeight: '800',
-              marginBottom: '1rem',
-              letterSpacing: '0.05em',
-              boxShadow: '0 4px 16px rgba(124,58,237,0.35)'
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              background: 'rgba(0,247,239,0.1)', color: '#00F7EF',
+              border: '1px solid rgba(0,247,239,0.2)',
+              borderRadius: '9999px', padding: '0.4rem 1rem',
+              fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em',
             }}>
               A TU RITMO
             </div>
           )}
-
-          <h2 style={{
-            fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)',
-            fontWeight: '900',
-            color: '#0F172A',
-            marginBottom: '1rem',
-            textTransform: 'uppercase',
-            letterSpacing: '-0.01em'
-          }}>
-            {activeTab === 'live' && <>Programas en vivo que <span style={{background:'rgba(0,119,255,0.1)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>transforman tu carrera</span></>}
-            {activeTab === 'async' && <>Aprende <span style={{background:'rgba(124,58,237,0.1)',color:'#7C3AED',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>a tu propio ritmo</span></>}
-            {activeTab === 'corporate' && (
-              <>Formación a medida para <span style={{background:'rgba(0,119,255,0.12)',color:'#0055CC',fontWeight:800,borderRadius:'6px',padding:'2px 8px'}}>empresas</span></>
-            )}
-          </h2>
-
-          <p style={{
-            fontSize: '1.125rem',
-            color: '#475569',
-            maxWidth: '700px',
-            margin: '0 auto'
-          }}>
-            {activeTab === 'live' && 'Aprende junto a mentores que aplican lo que enseñan y llevá cada concepto directo a tu trabajo real.'}
-            {activeTab === 'async' && 'Accede a contenido grabado de alta calidad, disponible 24/7 para que avances cuando quieras.'}
-            {activeTab === 'corporate' && 'Programas in-company diseñados para potenciar a tus equipos en ventas, liderazgo, datos y más.'}
-          </p>
+          {activeTab === 'corporate' && (
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              background: 'rgba(0,119,255,0.12)', color: '#0077FF',
+              border: '1px solid rgba(0,119,255,0.25)',
+              borderRadius: '9999px', padding: '0.4rem 1rem',
+              fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.1em',
+            }}>
+              CORPORATE
+            </div>
+          )}
         </div>
 
         {/* Filters */}
@@ -428,16 +424,16 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             ? { bg: '#0077FF', shadow: 'rgba(0,119,255,0.5)' }
             : { bg: '#7C3AED', shadow: 'rgba(124,58,237,0.5)' };
           return (
-            <div className="filter-scroll" style={{ display: 'flex', flexWrap: isMobile ? 'nowrap' : 'wrap', overflowX: isMobile ? 'auto' : 'visible', justifyContent: isMobile ? 'flex-start' : 'center', gap: '0.625rem', marginBottom: '2.5rem', paddingBottom: '0.5rem', paddingLeft: isMobile ? '0.25rem' : 0, paddingRight: isMobile ? '1rem' : 0, WebkitOverflowScrolling: 'touch' as any, scrollbarWidth: 'none' as any }}>
+            <div className="filter-scroll" style={{ display: 'flex', flexWrap: isMobile ? 'nowrap' : 'wrap', overflowX: isMobile ? 'auto' : 'visible', justifyContent: isMobile ? 'flex-start' : 'center', gap: '0.5rem', marginBottom: '2.5rem', paddingBottom: '0.5rem', paddingLeft: isMobile ? '0.25rem' : 0, paddingRight: isMobile ? '1rem' : 0, WebkitOverflowScrolling: 'touch' as any, scrollbarWidth: 'none' as any }}>
               {filterTags.map((tag) => (
                 <button
                   key={tag}
                   onClick={() => setSelectedTag(tag)}
                   style={{
-                    padding: '0.5rem 1rem',
+                    padding: '0.45rem 1rem',
                     borderRadius: '9999px',
-                    fontSize: '0.875rem',
-                    fontWeight: '600',
+                    fontSize: '0.8rem',
+                    fontWeight: 700,
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                     whiteSpace: 'nowrap',
@@ -445,14 +441,16 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                     ...(selectedTag === tag ? {
                       background: activeColor.bg,
                       color: 'white',
-                      border: 'none',
+                      border: '1px solid transparent',
                       boxShadow: `0 4px 14px ${activeColor.shadow}`
                     } : {
-                      background: 'white',
-                      color: '#374151',
-                      border: '2px solid #E5E7EB'
+                      background: 'rgba(255,255,255,0.05)',
+                      color: 'rgba(255,255,255,0.55)',
+                      border: '1px solid rgba(255,255,255,0.1)',
                     })
                   }}
+                  onMouseEnter={(e) => { if(selectedTag !== tag){ e.currentTarget.style.background='rgba(255,255,255,0.1)'; e.currentTarget.style.color='rgba(255,255,255,0.85)'; }}}
+                  onMouseLeave={(e) => { if(selectedTag !== tag){ e.currentTarget.style.background='rgba(255,255,255,0.05)'; e.currentTarget.style.color='rgba(255,255,255,0.55)'; }}}
                 >
                   {tag === 'All' ? 'Destacados' : tag}
                 </button>
@@ -475,158 +473,112 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             <div
               key={course.id}
               style={{
-                background: 'white',
-                border: '1px solid #E5E7EB',
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '1rem',
                 overflow: 'hidden',
-                transition: 'all 0.3s',
+                transition: 'all 0.3s ease',
                 cursor: 'pointer',
-                position: 'relative'
+                position: 'relative',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
-                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.border = '1px solid rgba(0,119,255,0.35)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,119,255,0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
                 e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.border = '1px solid rgba(255,255,255,0.08)';
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              {/* Color bar */}
-              <div style={{
-                height: '0.5rem',
-                background: getCategoryColor(course.tag)
-              }}></div>
-
               {/* Course image */}
-              <div style={{
-                height: '12rem',
-                background: '#F1F5F9',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
+              <div style={{ height: '12rem', position: 'relative', overflow: 'hidden' }}>
                 <img
                   src={course.image || getCategoryFallbackImage(course.tag)}
                   alt={`Imagen del curso: ${course.title}`}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
+                <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(10,10,18,0.2) 0%,rgba(10,10,18,0.6) 100%)'}}/>
+                {/* Modality badge */}
+                <div style={{
+                  position:'absolute', top:'0.75rem', left:'0.75rem',
+                  display:'inline-flex', alignItems:'center', gap:'0.375rem',
+                  background:'rgba(0,247,239,0.15)', color:'#00F7EF',
+                  border:'1px solid rgba(0,247,239,0.3)',
+                  backdropFilter:'blur(8px)',
+                  borderRadius:'9999px', padding:'0.3rem 0.7rem',
+                  fontSize:'0.7rem', fontWeight:800, letterSpacing:'0.05em',
+                }}>
+                  On Demand
+                </div>
               </div>
 
               {/* Content */}
-              <div style={{ padding: '1.5rem' }}>
+              <div style={{ padding: '1.25rem' }}>
                 {/* Category tag */}
                 <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.375rem',
-                  padding: '0.25rem 0.75rem',
-                  background: 'rgba(0,184,176,0.08)',
-                  color: '#7C3AED',
-                  border: '1px solid rgba(0,184,176,0.2)',
-                  borderRadius: '9999px',
-                  fontSize: '0.75rem',
-                  fontWeight: '600',
-                  marginBottom: '0.75rem'
+                  display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+                  padding: '0.2rem 0.65rem',
+                  background: 'rgba(0,119,255,0.12)', color: '#60A5FA',
+                  border: '1px solid rgba(0,119,255,0.2)',
+                  borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 700,
+                  marginBottom: '0.65rem',
                 }}>
-                  {getAsyncCategoryEmoji(course.tag)}
-                  {' '}{course.tag}
+                  {getAsyncCategoryEmoji(course.tag)} {course.tag}
                 </div>
 
                 {/* Title */}
-                <h3 style={{
-                  fontSize: '1.25rem',
-                  fontWeight: '700',
-                  color: '#0F172A',
-                  marginBottom: '0.75rem',
-                  lineHeight: '1.4'
-                }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.65rem', lineHeight: 1.35 }}>
                   {course.title}
                 </h3>
 
-                {/* Meta info */}
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '0.75rem',
-                  fontSize: '0.875rem',
-                  color: '#64748B',
-                  marginBottom: '1rem'
-                }}>
+                {/* Meta */}
+                <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <Clock size={16} />
-                    {course.duration}
+                    <Clock size={13} />{course.duration}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <UserCheck size={16} />
-                    {course.level}
+                    <UserCheck size={13} />{course.level}
                   </div>
                 </div>
 
                 {/* Rating */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  marginBottom: '1rem'
-                }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.75rem' }}>
                   <div style={{ display: 'flex' }}>
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} fill="#FBBF24" color="#FBBF24" />
-                    ))}
+                    {[...Array(5)].map((_, i) => <Star key={i} size={13} fill="#FBBF24" color="#FBBF24" />)}
                   </div>
-                  <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#0F172A' }}>
-                    {course.rating}
-                  </span>
-                  <span style={{ fontSize: '0.875rem', color: '#64748B' }}>
-                    ({course.students}+)
-                  </span>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#fff' }}>{course.rating}</span>
+                  <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.35)' }}>({course.students}+)</span>
                 </div>
 
-                {/* Availability info */}
+                {/* Availability */}
                 <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.75rem',
-                  background: '#EDE9FE',
-                  borderRadius: '0.5rem',
-                  marginBottom: '1rem'
+                  display: 'flex', alignItems: 'center', gap: '0.4rem',
+                  padding: '0.55rem 0.75rem',
+                  background: 'rgba(0,247,239,0.06)', border: '1px solid rgba(0,247,239,0.12)',
+                  borderRadius: '0.5rem', marginBottom: '1rem',
                 }}>
-                  <BookOpen size={16} color="#00F7EF" />
-                  <span style={{ fontSize: '0.875rem', color: '#005FCC', fontWeight: '500' }}>
-                    {course.nextStart}
-                  </span>
+                  <BookOpen size={13} color="#00F7EF" />
+                  <span style={{ fontSize: '0.8rem', color: 'rgba(0,247,239,0.85)', fontWeight: 600 }}>{course.nextStart}</span>
                 </div>
 
                 {/* CTA */}
                 <Link
                   href={`/cursos-async/${asyncCategoryCoursesMap[course.id]?.[0] || course.id}`}
                   style={{
-                    width: '100%',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.5rem',
-                    padding: '0.75rem 1.5rem',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    color: 'white',
-                    background: '#7C3AED',
-                    border: 'none',
-                    borderRadius: '0.5rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    textDecoration: 'none'
+                    width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                    padding: '0.7rem 1.25rem', fontSize: '0.875rem', fontWeight: 700,
+                    color: 'white', background: 'linear-gradient(135deg,#0066FF,#0044CC)',
+                    border: '1px solid rgba(0,102,255,0.4)', borderRadius: '0.6rem',
+                    cursor: 'pointer', transition: 'all 0.2s', textDecoration: 'none',
+                    boxShadow: '0 4px 14px rgba(0,102,255,0.25)',
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#7C3AED';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#7C3AED';
-                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = 'linear-gradient(135deg,#1a7fff,#0055ee)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'linear-gradient(135deg,#0066FF,#0044CC)'; e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
-                  <span>Ver cursos</span>
-                  <ArrowRight size={20} />
+                  <span>Ver curso</span>
+                  <ArrowRight size={16} />
                 </Link>
               </div>
             </div>
@@ -637,17 +589,17 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '1.5rem' }}>
             {asyncCourses.map((_, i) => (
               <button key={i} onClick={() => { setAsyncCarouselIndex(i); resetAsyncCarouselTimer(asyncCourses); }}
-                style={{ width: i === idx ? '24px' : '8px', height: '8px', borderRadius: '9999px', border: 'none', cursor: 'pointer', transition: 'all 0.3s', background: i === idx ? '#7C3AED' : '#E5E7EB', padding: 0 }} />
+                style={{ width: i === idx ? '24px' : '8px', height: '8px', borderRadius: '9999px', border: 'none', cursor: 'pointer', transition: 'all 0.3s', background: i === idx ? '#0077FF' : 'rgba(255,255,255,0.15)', padding: 0 }} />
             ))}
           </div>
           {/* Arrows */}
           <button onClick={() => { setAsyncCarouselIndex(i => (i - 1 + total) % total); resetAsyncCarouselTimer(asyncCourses); }}
-            style={{ position: 'absolute', left: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '2px solid #E5E7EB', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-            <ArrowRight size={18} style={{ transform: 'rotate(180deg)', color: '#1E1E1E' }} />
+            style={{ position: 'absolute', left: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(15,15,30,0.9)', backdropFilter:'blur(12px)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <ArrowRight size={16} style={{ transform: 'rotate(180deg)', color: 'rgba(255,255,255,0.7)' }} />
           </button>
           <button onClick={() => { setAsyncCarouselIndex(i => (i + 1) % total); resetAsyncCarouselTimer(asyncCourses); }}
-            style={{ position: 'absolute', right: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '2px solid #E5E7EB', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-            <ArrowRight size={18} style={{ color: '#1E1E1E' }} />
+            style={{ position: 'absolute', right: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(15,15,30,0.9)', backdropFilter:'blur(12px)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <ArrowRight size={16} style={{ color: 'rgba(255,255,255,0.7)' }} />
           </button>
         </div>
           );
@@ -660,8 +612,8 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           </div>
         )}
         {activeTab === 'live' && !loadingCourses && filteredCourses.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B' }}>
-            <BookOpen size={48} style={{ margin: '0 auto 1rem', opacity: 0.5 }} />
+          <div style={{ textAlign: 'center', padding: '3rem', color: 'rgba(255,255,255,0.35)' }}>
+            <BookOpen size={48} style={{ margin: '0 auto 1rem', opacity: 0.3 }} />
             <p>No hay cursos publicados aún.</p>
           </div>
         )}
@@ -684,155 +636,101 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
             <div
               key={course.id}
               style={{
-                background: 'white',
-                border: '1px solid #E5E7EB',
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '1rem',
                 overflow: 'hidden',
-                transition: 'all 0.3s',
+                transition: 'all 0.3s ease',
                 cursor: 'pointer',
-                position: 'relative'
+                position: 'relative',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
-                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.border = '1px solid rgba(0,119,255,0.35)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,119,255,0.15)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
                 e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.border = '1px solid rgba(255,255,255,0.08)';
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              {/* Color bar */}
-              <div style={{
-                height: '0.5rem',
-                background: getCategoryColor(course.tag)
-              }}></div>
-
-              {/* Course image */}
-              <div style={{
-                height: '12rem',
-                background: '#F1F5F9',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
+              {/* Image */}
+              <div style={{ height: '12rem', position: 'relative', overflow: 'hidden' }}>
                 <img
                   src={course.image || getCategoryFallbackImage(course.tag)}
                   alt={`Imagen del curso: ${course.title}`}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
-                {/* Badge - Live */}
+                <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(10,10,18,0.2) 0%,rgba(10,10,18,0.65) 100%)'}}/>
+                {/* Live badge */}
                 <div style={{
-                  position: 'absolute',
-                  top: '1rem',
-                  left: '1rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.375rem',
-                  background: '#CC0000',
-                  color: 'white',
-                  padding: '0.375rem 0.75rem',
-                  borderRadius: '9999px',
-                  fontSize: '0.75rem',
-                  fontWeight: '600',
-                  boxShadow: '0 4px 10px rgba(239,68,68,0.4)'
+                  position: 'absolute', top: '0.75rem', left: '0.75rem',
+                  display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+                  background: 'rgba(204,0,0,0.2)', color: '#FF4444',
+                  border: '1px solid rgba(204,0,0,0.4)',
+                  backdropFilter: 'blur(8px)',
+                  borderRadius: '9999px', padding: '0.3rem 0.7rem',
+                  fontSize: '0.7rem', fontWeight: 800, letterSpacing: '0.05em',
                 }}>
-                  <span style={{
-                    width: '6px',
-                    height: '6px',
-                    background: 'white',
-                    borderRadius: '50%',
-                    display: 'inline-block',
-                    animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-                  }}></span>
+                  <span style={{width:'6px',height:'6px',background:'#FF4444',borderRadius:'50%',display:'inline-block',animation:'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite'}}/>
                   EN VIVO
                 </div>
               </div>
 
               {/* Content */}
-              <div style={{ padding: '1.5rem', color: '#1E1E1E' }}>
-                {/* Category tag */}
+              <div style={{ padding: '1.25rem' }}>
+                {/* Category */}
                 <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.375rem',
-                  padding: '0.25rem 0.75rem',
-                  background: 'rgba(0,119,255,0.08)',
-                  color: '#0077FF',
+                  display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+                  padding: '0.2rem 0.65rem',
+                  background: 'rgba(0,119,255,0.12)', color: '#60A5FA',
                   border: '1px solid rgba(0,119,255,0.2)',
-                  borderRadius: '9999px',
-                  fontSize: '0.75rem',
-                  fontWeight: '600',
-                  marginBottom: '0.75rem'
+                  borderRadius: '9999px', fontSize: '0.72rem', fontWeight: 700,
+                  marginBottom: '0.65rem',
                 }}>
                   {course.tag === 'Datos' && '📊'}
                   {course.tag === 'Liderazgo' && '👥'}
                   {course.tag === 'Comercial' && '💼'}
                   {course.tag === 'Mindset' && '🧠'}
                   {course.tag === 'Branding' && '🎨'}
+                  {course.tag === 'Desarrollo Personal' && '🎯'}
                   {' '}{course.tag}
                 </div>
 
                 {/* Title */}
-                <h3 style={{
-                  fontSize: '1.25rem',
-                  fontWeight: '700',
-                  color: '#0F172A',
-                  marginBottom: '0.75rem',
-                  lineHeight: '1.4'
-                }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.65rem', lineHeight: 1.35 }}>
                   {course.title}
                 </h3>
 
-                {/* Meta info */}
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '0.75rem',
-                  fontSize: '0.875rem',
-                  color: '#64748B',
-                  marginBottom: '1rem'
-                }}>
+                {/* Meta */}
+                <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <Clock size={16} />
-                    {course.duration}
+                    <Clock size={13} />{course.duration}
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <UserCheck size={16} />
-                    {course.level}
+                    <UserCheck size={13} />{course.level}
                   </div>
                 </div>
 
                 {/* Rating */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  marginBottom: '1rem'
-                }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.75rem' }}>
                   <div style={{ display: 'flex' }}>
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} fill="#FBBF24" color="#FBBF24" />
-                    ))}
+                    {[...Array(5)].map((_, i) => <Star key={i} size={13} fill="#FBBF24" color="#FBBF24" />)}
                   </div>
-                  <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#0F172A' }}>
-                    {course.rating}
-                  </span>
-                  <span style={{ fontSize: '0.875rem', color: '#64748B' }}>
-                    ({course.students}+)
-                  </span>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#fff' }}>{course.rating}</span>
+                  <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.35)' }}>({course.students}+)</span>
                 </div>
 
                 {/* Next start */}
                 <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.75rem',
-                  background: 'rgba(0,119,255,0.06)',
-                  borderRadius: '0.5rem',
-                  marginBottom: '1rem'
+                  display: 'flex', alignItems: 'center', gap: '0.4rem',
+                  padding: '0.55rem 0.75rem',
+                  background: 'rgba(0,119,255,0.08)', border: '1px solid rgba(0,119,255,0.18)',
+                  borderRadius: '0.5rem', marginBottom: '1rem',
                 }}>
-                  <Calendar size={16} color="#0077FF" />
-                  <span style={{ fontSize: '0.875rem', color: '#0055CC', fontWeight: '500' }}>
+                  <Calendar size={13} color="#60A5FA" />
+                  <span style={{ fontSize: '0.8rem', color: 'rgba(96,165,250,0.9)', fontWeight: 600 }}>
                     Próximo inicio: {course.nextStart}
                   </span>
                 </div>
@@ -841,34 +739,18 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
                 <Link
                   href={`/cursos/${course.slug || course.id}`}
                   style={{
-                    width: '100%',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.5rem',
-                    padding: '0.75rem 1.5rem',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    color: 'white',
-                    background: '#0077FF',
-                    border: 'none',
-                    borderRadius: '0.5rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    textDecoration: 'none',
-                    boxShadow: '0 4px 14px rgba(0,119,255,0.25)'
+                    width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                    padding: '0.7rem 1.25rem', fontSize: '0.875rem', fontWeight: 700,
+                    color: 'white', background: 'linear-gradient(135deg,#0066FF,#0044CC)',
+                    border: '1px solid rgba(0,102,255,0.4)', borderRadius: '0.6rem',
+                    cursor: 'pointer', transition: 'all 0.2s', textDecoration: 'none',
+                    boxShadow: '0 4px 14px rgba(0,102,255,0.25)',
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#0055CC';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#0077FF';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = 'linear-gradient(135deg,#1a7fff,#0055ee)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'linear-gradient(135deg,#0066FF,#0044CC)'; e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
                   <span>Ver curso</span>
-                  <ArrowRight size={20} />
+                  <ArrowRight size={16} />
                 </Link>
               </div>
             </div>
@@ -880,19 +762,19 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '1.5rem' }}>
             {filteredCourses.map((_, i) => (
               <button key={i} onClick={() => { setCarouselIndex(i); resetCarouselTimer(filteredCourses); }}
-                style={{ width: i === idx ? '24px' : '8px', height: '8px', borderRadius: '9999px', border: 'none', cursor: 'pointer', transition: 'all 0.3s', background: i === idx ? '#0077FF' : '#E5E7EB', padding: 0 }}
+                style={{ width: i === idx ? '24px' : '8px', height: '8px', borderRadius: '9999px', border: 'none', cursor: 'pointer', transition: 'all 0.3s', background: i === idx ? '#0077FF' : 'rgba(255,255,255,0.15)', padding: 0 }}
               />
             ))}
           </div>
 
           {/* Arrow buttons */}
           <button onClick={() => { setCarouselIndex(i => (i - 1 + total) % total); resetCarouselTimer(filteredCourses); }}
-            style={{ position: 'absolute', left: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '2px solid #E5E7EB', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-            <ArrowRight size={18} style={{ transform: 'rotate(180deg)', color: '#1E1E1E' }} />
+            style={{ position: 'absolute', left: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(15,15,30,0.9)', backdropFilter:'blur(12px)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <ArrowRight size={16} style={{ transform: 'rotate(180deg)', color: 'rgba(255,255,255,0.7)' }} />
           </button>
           <button onClick={() => { setCarouselIndex(i => (i + 1) % total); resetCarouselTimer(filteredCourses); }}
-            style={{ position: 'absolute', right: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '2px solid #E5E7EB', background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-            <ArrowRight size={18} style={{ color: '#1E1E1E' }} />
+            style={{ position: 'absolute', right: '-20px', top: '40%', transform: 'translateY(-50%)', width: '40px', height: '40px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(15,15,30,0.9)', backdropFilter:'blur(12px)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <ArrowRight size={16} style={{ color: 'rgba(255,255,255,0.7)' }} />
           </button>
         </div>
           );
@@ -900,34 +782,30 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
 
         {/* Ver todos CTA */}
         {(activeTab === 'live' || activeTab === 'async') && (
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
           <button
             onClick={onCatalogClick}
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '1rem 2rem',
-              fontSize: '1.125rem',
-              fontWeight: '600',
-              color: '#0F172A',
-              background: 'white',
-              border: '2px solid #E5E7EB',
-              borderRadius: '0.5rem',
-              cursor: 'pointer',
-              transition: 'all 0.2s'
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              padding: '0.8rem 2rem', fontSize: '0.9rem', fontWeight: 700,
+              color: 'rgba(255,255,255,0.75)',
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.12)',
+              borderRadius: '0.75rem', cursor: 'pointer', transition: 'all 0.25s',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#0077FF';
-              e.currentTarget.style.background = '#F9FAFB';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
+              e.currentTarget.style.color = '#fff';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = '#E5E7EB';
-              e.currentTarget.style.background = 'white';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
+              e.currentTarget.style.color = 'rgba(255,255,255,0.75)';
             }}
           >
             <span>Ver todos los cursos</span>
-            <ArrowRight size={20} />
+            <ArrowRight size={16} />
           </button>
         </div>
         )}
@@ -936,334 +814,98 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
         {activeTab === 'corporate' && (
           <>
             {/* Metrics */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '1.5rem',
-              marginBottom: '3rem'
-            }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '3rem' }}>
               {corporateMetrics.map((metric, index) => (
-                <div
-                  key={index}
-                  style={{
-                    textAlign: 'center',
-                    padding: '1.5rem',
-                    background: '#F9FAFB',
-                    border: '1px solid #E5E7EB',
-                    borderRadius: '1rem',
-                    transition: 'all 0.3s'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                    e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
-                    e.currentTarget.style.borderColor = metric.color;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = 'none';
-                    e.currentTarget.style.borderColor = '#E5E7EB';
-                  }}
+                <div key={index}
+                  style={{ textAlign: 'center', padding: '1.5rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderLeft: `3px solid ${metric.color}`, borderRadius: '1rem', transition: 'all 0.3s' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    margin: '0 auto 0.75rem',
-                    background: `${metric.color}22`,
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <metric.icon size={24} color={metric.color} />
+                  <div style={{ width: '44px', height: '44px', margin: '0 auto 0.75rem', background: `${metric.color}18`, borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <metric.icon size={22} color={metric.color} />
                   </div>
-                  <div style={{
-                    fontSize: '2rem',
-                    fontWeight: '700',
-                    color: metric.color,
-                    marginBottom: '0.25rem'
-                  }}>
-                    {metric.number}
-                  </div>
-                  <div style={{
-                    fontSize: '0.875rem',
-                    color: '#64748B'
-                  }}>
-                    {metric.label}
-                  </div>
+                  <div style={{ fontSize: '1.9rem', fontWeight: 900, color: '#FFFFFF', marginBottom: '0.25rem', letterSpacing: '-0.03em' }}>{metric.number}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)' }}>{metric.label}</div>
                 </div>
               ))}
             </div>
 
             {/* Content Grid */}
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '2rem',
-              marginBottom: '3rem'
-            }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
               {/* Benefits */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {corporateBenefits.map((benefit, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'start',
-                      gap: '1rem',
-                      padding: '1rem',
-                      background: '#F9FAFB',
-                      border: '1px solid #E5E7EB',
-                      borderRadius: '0.75rem',
-                      transition: 'all 0.3s'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'white';
-                      e.currentTarget.style.borderColor = '#0077FF';
-                      e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '#F9FAFB';
-                      e.currentTarget.style.borderColor = '#E5E7EB';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
+                  <div key={index}
+                    style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderLeft: '3px solid #0077FF', borderRadius: '0.75rem', transition: 'all 0.25s' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.transform = 'translateX(4px)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.transform = 'translateX(0)'; }}
                   >
-                    <div style={{
-                      flexShrink: 0,
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #0077FF, #00F7EF)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 4px 6px -1px rgba(59, 130, 246, 0.3)'
-                    }}>
-                      <benefit.icon size={20} color="white" />
+                    <div style={{ flexShrink: 0, width: '40px', height: '40px', borderRadius: '10px', background: 'rgba(0,119,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <benefit.icon size={20} color="#0077FF" />
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <p style={{
-                        margin: 0,
-                        fontSize: '0.9375rem',
-                        fontWeight: '500',
-                        color: '#0F172A',
-                        lineHeight: '1.5'
-                      }}>
-                        {benefit.text}
-                      </p>
-                    </div>
+                    <p style={{ margin: 0, fontSize: '0.9rem', fontWeight: 600, color: 'rgba(255,255,255,0.85)', lineHeight: 1.5 }}>{benefit.text}</p>
                   </div>
                 ))}
               </div>
 
               {/* Visual + CTA */}
               <div>
-                <div style={{
-                  width: '100%',
-                  height: '280px',
-                  borderRadius: '1rem',
-                  overflow: 'hidden',
-                  marginBottom: '1.5rem',
-                  position: 'relative'
-                }}>
+                <div style={{ width: '100%', height: '280px', borderRadius: '1rem', overflow: 'hidden', marginBottom: '1.5rem', position: 'relative', border: '1px solid rgba(255,255,255,0.08)' }}>
                   <img
                     src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&h=400&fit=crop&auto=format&q=80"
                     alt="Equipo de trabajo en capacitación corporativa"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover'
-                    }}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      const fallback = target.nextElementSibling as HTMLElement;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    onError={(e) => { const t = e.target as HTMLImageElement; t.style.display='none'; }}
                   />
-                  <div style={{
-                    display: 'none',
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(135deg, #DBEAFE, #E9D5FF)',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0
-                  }}>
-                    <div style={{ textAlign: 'center' }}>
-                      <Building2 size={64} color="#0077FF" style={{ opacity: 0.5, margin: '0 auto 1rem' }} />
-                      <p style={{ fontSize: '1.125rem', fontWeight: '600', color: '#0055CC', margin: 0 }}>
-                        Formación Corporativa
-                      </p>
-                    </div>
-                  </div>
+                  <div style={{position:'absolute',inset:0,background:'linear-gradient(180deg,rgba(10,10,18,0.2) 0%,rgba(10,10,18,0.6) 100%)'}}/>
                 </div>
-
-                <button
-                  onClick={onCorporateCTA}
-                  style={{
-                    width: '100%',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.5rem',
-                    padding: '1rem 2rem',
-                    fontSize: '1.125rem',
-                    fontWeight: '600',
-                    color: 'white',
-                    background: 'linear-gradient(135deg, #0077FF, #00F7EF)',
-                    border: 'none',
-                    borderRadius: '0.75rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 10px 15px -3px rgba(59, 130, 246, 0.3)',
-                    transition: 'all 0.3s'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.05)';
-                    e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(59, 130, 246, 0.4)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(59, 130, 246, 0.3)';
-                  }}
+                <button onClick={onCorporateCTA}
+                  style={{ width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '0.9rem 2rem', fontSize: '1rem', fontWeight: 700, color: 'white', background: 'linear-gradient(135deg,#0066FF,#0044CC)', border: '1px solid rgba(0,102,255,0.4)', borderRadius: '0.75rem', cursor: 'pointer', boxShadow: '0 8px 32px rgba(0,102,255,0.35)', transition: 'all 0.3s' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,102,255,0.5)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,102,255,0.35)'; }}
                 >
                   <span>Habla con Ventas</span>
-                  <ArrowRight size={20} />
+                  <ArrowRight size={18} />
                 </button>
               </div>
             </div>
 
             {/* Success Cases */}
             <div>
-              <h3 style={{
-                fontSize: '2rem',
-                fontWeight: '700',
-                color: '#0F172A',
-                textAlign: 'center',
-                marginBottom: '2rem'
-              }}>
-                Casos de Éxito <span style={{
-                  background: 'linear-gradient(90deg, #00F7EF, #00C4BE)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}>Reales</span>
+              <h3 style={{ fontSize: '1.8rem', fontWeight: 900, color: '#FFFFFF', textAlign: 'center', marginBottom: '2rem', letterSpacing: '-0.03em' }}>
+                Casos de Éxito{' '}
+                <span style={{ background: 'linear-gradient(90deg,#00F7EF,#0077FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Reales</span>
               </h3>
-
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '1.5rem'
-              }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.5rem' }}>
                 {successCases.map((case_, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      background: 'white',
-                      border: '1px solid #E5E7EB',
-                      borderRadius: '1rem',
-                      padding: '1.5rem',
-                      transition: 'all 0.3s'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = '#00F7EF';
-                      e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(16, 185, 129, 0.2)';
-                      e.currentTarget.style.transform = 'scale(1.02)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = '#E5E7EB';
-                      e.currentTarget.style.boxShadow = 'none';
-                      e.currentTarget.style.transform = 'scale(1)';
-                    }}
+                  <div key={index}
+                    style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '1rem', padding: '1.5rem', transition: 'all 0.3s' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(0,247,239,0.3)'; e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,247,239,0.08)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.transform = 'translateY(0)'; }}
                   >
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'start',
-                      marginBottom: '1rem'
-                    }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
                       <div>
-                        <h4 style={{
-                          fontSize: '1.125rem',
-                          fontWeight: '700',
-                          color: '#0F172A',
-                          marginBottom: '0.25rem'
-                        }}>
-                          {case_.company}
-                        </h4>
-                        <p style={{
-                          fontSize: '0.875rem',
-                          color: '#64748B',
-                          margin: 0
-                        }}>
-                          {case_.industry}
-                        </p>
+                        <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#FFFFFF', marginBottom: '0.2rem' }}>{case_.company}</h4>
+                        <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', margin: 0 }}>{case_.industry}</p>
                       </div>
                       <div style={{ textAlign: 'right' }}>
-                        <div style={{
-                          fontSize: '0.75rem',
-                          color: '#64748B'
-                        }}>
-                          Duración
-                        </div>
-                        <div style={{
-                          fontSize: '0.875rem',
-                          fontWeight: '600',
-                          color: '#00F7EF'
-                        }}>
-                          {case_.duration}
-                        </div>
+                        <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.3)' }}>Duración</div>
+                        <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#00F7EF' }}>{case_.duration}</div>
                       </div>
                     </div>
-
                     <div style={{ marginBottom: '1rem' }}>
-                      <div style={{
-                        fontSize: '0.875rem',
-                        color: '#475569',
-                        marginBottom: '0.5rem'
-                      }}>
-                        <strong style={{ color: '#0F172A' }}>Desafío:</strong> {case_.challenge}
+                      <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.5)', marginBottom: '0.4rem' }}>
+                        <strong style={{ color: 'rgba(255,255,255,0.75)' }}>Desafío:</strong> {case_.challenge}
                       </div>
-                      <div style={{
-                        fontSize: '0.875rem',
-                        color: '#475569'
-                      }}>
-                        <strong style={{ color: '#0F172A' }}>Solución:</strong> {case_.solution}
+                      <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.5)' }}>
+                        <strong style={{ color: 'rgba(255,255,255,0.75)' }}>Solución:</strong> {case_.solution}
                       </div>
                     </div>
-
-                    <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(3, 1fr)',
-                      gap: '0.75rem'
-                    }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.6rem' }}>
                       {case_.results.map((result, resultIndex) => (
-                        <div
-                          key={resultIndex}
-                          style={{
-                            textAlign: 'center',
-                            padding: '0.75rem',
-                            background: '#F0FDF4',
-                            border: '1px solid #BBF7D0',
-                            borderRadius: '0.5rem'
-                          }}
-                        >
-                          <div style={{
-                            fontSize: '1.25rem',
-                            fontWeight: '700',
-                            color: '#00F7EF',
-                            marginBottom: '0.25rem'
-                          }}>
-                            {result.metric}
-                          </div>
-                          <div style={{
-                            fontSize: '0.75rem',
-                            color: '#065F46',
-                            lineHeight: '1.2'
-                          }}>
-                            {result.label}
-                          </div>
+                        <div key={resultIndex} style={{ textAlign: 'center', padding: '0.65rem', background: 'rgba(0,247,239,0.06)', border: '1px solid rgba(0,247,239,0.12)', borderRadius: '0.5rem' }}>
+                          <div style={{ fontSize: '1.2rem', fontWeight: 900, color: '#00F7EF', marginBottom: '0.2rem', letterSpacing: '-0.02em' }}>{result.metric}</div>
+                          <div style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.3 }}>{result.label}</div>
                         </div>
                       ))}
                     </div>
