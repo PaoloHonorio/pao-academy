@@ -135,15 +135,15 @@ export default function HeaderModern({
       {showPromo && (
         <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#0055CC 0%,#0077FF 100%)', minHeight:'32px', display:'flex', alignItems:'center'}}>
           <div className="max-w-7xl mx-auto px-4 w-full relative" style={{display:'flex', alignItems:'center', justifyContent:'center', padding:'6px 2.5rem 6px 1rem'}}>
-            {/* Mobile: texto corto + CTA inline */}
+            {/* Mobile: texto completo + CTA inline */}
             <span className="sm:hidden text-xs font-semibold" style={{color:'#fff', textAlign:'center', letterSpacing:'0.01em'}}>
-              🔥 40% OFF —{' '}
+              🔥 40% OFF ¡Aprovecha esta oferta limitada! →{' '}
               <button
                 onClick={onClickCTA}
                 className="font-black underline underline-offset-2"
                 style={{color:'#fff', background:'none', border:'none', cursor:'pointer', padding:0, fontSize:'inherit'}}
               >
-                Inscribirme aquí
+                Más info
               </button>
             </span>
             {/* Desktop: texto completo */}
