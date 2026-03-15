@@ -298,7 +298,7 @@ export default function HeroSimple({
           <span style={{display:'block',textAlign:'center',fontSize:'0.65rem',fontWeight:700,color:'rgba(255,255,255,0.22)',letterSpacing:'0.2em',textTransform:'uppercase',marginBottom:'1.5rem'}}>
             Confían en nuestros graduados
           </span>
-          <div style={{overflow:'hidden',width:'100%',height:'72px',display:'flex',alignItems:'center'}}>
+          <div className="hero-logos-track" style={{overflow:'hidden',width:'100%',height:'72px',display:'flex',alignItems:'center'}}>
             <div className="marquee-track">
               {[...['techstart','datacorp','retailpro','financemax','edutech','logisur'],...['techstart','datacorp','retailpro','financemax','edutech','logisur']].map((slug,i) => (
                 <Image

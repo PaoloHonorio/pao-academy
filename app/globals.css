@@ -2096,6 +2096,12 @@ header .relative { overflow: visible !important; }
   .hero-testimonial-mobile { display: none !important; }
 }
 
+/* Logos marquee — fade suave en ambos bordes (desktop + mobile) */
+.hero-logos-track {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+}
+
 /* ==========================================================
    MOBILE RESPONSIVE — landing page sections
    Breakpoint: ≤767px   |   Desktop ≥768px: SIN CAMBIOS
@@ -2138,7 +2144,7 @@ header .relative { overflow: visible !important; }
   /* Subtítulo compacto */
   .hero-intro {
     font-size: 0.9rem !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 1rem !important;
   }
 
   /* Botones: primario full-width, secundario fit-content centrado */
