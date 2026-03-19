@@ -167,7 +167,7 @@ export default function ProfessionalRoadmap() {
             Tu crecimiento no es solo académico. Es evolutivo, estratégico y humano.
             <br />
             <em style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.95rem' }}>
-              "No enseñamos herramientas. Despertamos capacidades."
+              &ldquo;No enseñamos herramientas. Despertamos capacidades.&rdquo;
             </em>
           </p>
         </div>
