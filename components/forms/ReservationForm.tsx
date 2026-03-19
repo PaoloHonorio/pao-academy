@@ -309,22 +309,28 @@ export default function ReservationForm({ defaultCourse, onSuccess, lang = 'es' 
       {/* Programa */}
       {isGeneric ? (
         <div>
-          <Select value={course} onValueChange={val => { setCourse(val); handleBlur('course'); }}>
-            <SelectTrigger className={`select-trigger-modern h-11 w-full ${courseError ? 'border-red-500' : ''}`}>
-              <div className="flex items-center gap-2 w-full overflow-hidden">
-                <BookOpen className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                <span className="text-sm truncate text-slate-500">
-                  {course || 'Seleccioná un programa'}
-                </span>
-              </div>
-            </SelectTrigger>
-            <SelectContent className="select-content-modern max-h-72">
+          <div className="relative flex items-center" style={{border:`1px solid ${courseError ? '#ef4444' : 'rgba(255,255,255,0.12)'}`,borderRadius:'0.75rem',background:'rgba(255,255,255,0.05)',height:'44px'}}>
+            <BookOpen className="w-4 h-4 text-slate-400 flex-shrink-0" style={{position:'absolute',left:'0.75rem',pointerEvents:'none',zIndex:1}} />
+            <select
+              value={course}
+              onChange={e => { setCourse(e.target.value); handleBlur('course'); }}
+              onBlur={() => handleBlur('course')}
+              style={{
+                width:'100%', height:'100%',
+                paddingLeft:'2.25rem', paddingRight:'1rem',
+                background:'transparent', border:'none', outline:'none',
+                color: course ? '#fff' : 'rgba(255,255,255,0.35)',
+                fontSize:'0.875rem', cursor:'pointer', appearance:'none',
+              }}
+            >
+              <option value="" disabled style={{color:'#475569'}}>Seleccioná un programa</option>
               {PROGRAMAS_EN_VIVO.map(p => (
-                <SelectItem key={p} value={p} className="select-item-modern">{p}</SelectItem>
+                <option key={p} value={p} style={{color:'#0F172A',background:'#fff'}}>{p}</option>
               ))}
-              <SelectItem value="Formación Corporativa" className="select-item-modern">Formación Corporativa</SelectItem>
-            </SelectContent>
-          </Select>
+              <option value="Formación Corporativa" style={{color:'#0F172A',background:'#fff'}}>Formación Corporativa</option>
+            </select>
+            <ChevronDown className="w-4 h-4 text-slate-400 flex-shrink-0" style={{position:'absolute',right:'0.75rem',pointerEvents:'none'}} />
+          </div>
           {courseError && <p className="text-red-500 text-xs mt-1">{courseError}</p>}
         </div>
       ) : (
