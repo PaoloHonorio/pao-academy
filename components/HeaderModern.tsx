@@ -136,7 +136,7 @@ export default function HeaderModern({
         <div className="fixed top-0 left-0 right-0 z-[1001]" style={{background:'linear-gradient(90deg,#0055CC 0%,#0077FF 100%)', height:'32px', display:'flex', alignItems:'center'}}>
           <div className="max-w-7xl mx-auto px-4 w-full relative" style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
             {/* Mobile: texto corto + CTA inline */}
-            <span className="sm:hidden text-xs font-semibold" style={{color:'#fff', textAlign:'center', letterSpacing:'0.01em', paddingRight:'2rem'}}>
+            <span className="sm:hidden text-xs font-semibold" style={{color:'#fff', textAlign:'center', letterSpacing:'0.01em', maxWidth:'calc(100% - 2.5rem)', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap'}}>
               🔥 35% OFF ¡Últimos cupos! →{' '}
               <button
                 onClick={onClickCTA}
@@ -198,7 +198,8 @@ export default function HeaderModern({
             </a>
 
             {/* Desktop Navigation con shadcn NavigationMenu */}
-            <NavigationMenu className="hidden lg:flex">
+            <div className="hidden lg:flex items-center">
+            <NavigationMenu className="">
               <NavigationMenuList>
                 {/* Inicio */}
                 <NavigationMenuItem>
@@ -271,6 +272,7 @@ export default function HeaderModern({
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
+            </div>
 
             {/* Desktop CTAs */}
             <div className="hidden lg:flex items-center gap-3">

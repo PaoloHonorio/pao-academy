@@ -235,6 +235,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
       'Mindset': 'Construí hábitos que transforman resultados',
       'Branding': 'Posicioná tu marca y atraé clientes',
       'Desarrollo Personal': 'Alcanzá tu máximo potencial profesional',
+      'IA': 'Dominá la IA y transformá tu trabajo',
     };
 
     const now = new Date();
@@ -242,7 +243,26 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
     const año = now.getFullYear();
     const nextStart = `${mes.charAt(0).toUpperCase() + mes.slice(1)} ${año}`;
 
-    return dbCourses.map((c) => {
+    const staticCourses = [
+      {
+        id: 'static-ia-en-la-practica',
+        slug: 'ia-en-la-practica',
+        title: 'IA en la Práctica',
+        tag: 'IA',
+        outcome: 'Dominá la IA y transformá tu trabajo',
+        duration: '24 horas',
+        level: 'Todos los niveles',
+        nextStart,
+        rating: 4.9,
+        students: 0,
+        image: null,
+      },
+    ];
+
+    const dbSlugs = new Set(dbCourses.map((c) => c.slug));
+    const filteredStatic = staticCourses.filter((c) => !dbSlugs.has(c.slug));
+
+    const mappedDb = dbCourses.map((c) => {
       const tag = categoryToTag[c.category] || c.category || 'General';
       return {
         id: c.id,
@@ -258,6 +278,8 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
         image: c.thumbnail_url || null,
       };
     });
+
+    return [...filteredStatic, ...mappedDb];
   }, [dbCourses]);
 
   const tags = ['All', ...Array.from(new Set(courses.map((c) => c.tag)))];
@@ -271,6 +293,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
       'Datos': '#0077FF',
       'Mindset': '#00C4BE',
       'Branding': '#00F7EF',
+      'IA': '#0077FF',
       // Async courses
       'Análisis de Datos': '#7C3AED',
       'Negocios y Finanzas': '#7C3AED',
@@ -299,6 +322,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
       'Liderazgo': '/liderazgo-agil.webp',
       'Datos': '/analisis-datos.webp',
       'Mindset': '/motivacion-habitos.webp',
+      'IA': '/tecnologia.webp',
       'Análisis de Datos': '/analisis-datos.webp',
       'Negocios y Finanzas': '/negocios-finanzas.webp',
       'Gestión de Procesos': '/gestion-procesos.webp',
