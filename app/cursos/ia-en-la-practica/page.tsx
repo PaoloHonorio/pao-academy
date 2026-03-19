@@ -670,7 +670,7 @@ export default function IaEnLaPracticaPage() {
           <h2 style={sectionTitle}>Método Glomind360</h2>
           <p style={sectionSubtitle}>
             <em style={{ fontStyle: 'italic', color: 'rgba(255,255,255,0.35)' }}>
-              "Aprender haciendo, sentir comprendiendo, aplicar transformando."
+              &ldquo;Aprender haciendo, sentir comprendiendo, aplicar transformando.&rdquo;
             </em>
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '2.5rem' }}>

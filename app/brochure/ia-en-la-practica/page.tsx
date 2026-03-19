@@ -418,7 +418,7 @@ function PageSalMethod() {
 
       <Rule />
       <Label text="Método Glomind360" />
-      <div style={{ fontSize: '10px', fontStyle: 'italic', color: C.faint, marginBottom: '10px' }}>"No enseñamos herramientas. Despertamos capacidades."</div>
+      <div style={{ fontSize: '10px', fontStyle: 'italic', color: C.faint, marginBottom: '10px' }}>&ldquo;No enseñamos herramientas. Despertamos capacidades.&rdquo;</div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
         {[
