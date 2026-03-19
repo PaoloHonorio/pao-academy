@@ -2081,6 +2081,12 @@ header .relative { overflow: visible !important; }
   z-index: 99999 !important;
 }
 
+/* Prevenir scroll horizontal en toda la página */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 /* Espacio para que el footer no quede tapado por la sticky bar en mobile */
 @media (max-width: 767px) {
   body { padding-bottom: 72px; }
@@ -2188,10 +2194,10 @@ header .relative { overflow: visible !important; }
     display: none !important;
   }
 
-  /* Logos: empujados al fondo del hero, centrados entre el contenido y el borde */
+  /* Logos: margen controlado, sin espacio vacío enorme */
   .hero-logos {
-    margin-top: auto !important;
-    padding-top: 3.5rem !important;
+    margin-top: 1.5rem !important;
+    padding-top: 1.5rem !important;
     padding-bottom: 0.75rem !important;
   }
   .hero-logos-track {
