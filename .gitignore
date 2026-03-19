@@ -8,6 +8,7 @@ pnpm-debug.log*
 .next/
 out/
 .turbo/
+tsconfig.tsbuildinfo
 .vercel/
 dist/
 
