@@ -28,6 +28,7 @@ type ReservationPayload = {
 };
 
 const PROGRAMAS_EN_VIVO = [
+  'IA en la Práctica',
   'Ventas Consultivas',
   'Liderazgo Ágil',
   'Motivación y Hábitos',
