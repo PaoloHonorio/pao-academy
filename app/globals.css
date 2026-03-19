@@ -2092,6 +2092,17 @@ html, body {
   body { padding-bottom: 72px; }
 }
 
+/* Modal del formulario en mobile: desde arriba, scrollable, compatible con teclado */
+@media (max-width: 767px) {
+  [role="dialog"][aria-modal="true"] {
+    top: 1rem !important;
+    transform: translateX(-50%) !important;
+    max-height: calc(100dvh - 5rem) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+}
+
 /* Ocultar chatbot Zoho SalesIQ en mobile */
 @media (max-width: 767px) {
   #zsiq_float, #zsiq_agtpic, .zsiq_flt_rel, div[id^="zsiq"] { display: none !important; }
