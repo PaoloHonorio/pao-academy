@@ -2,14 +2,15 @@
 import React, { useState, useEffect } from 'react';
 import {
   ArrowLeft, ArrowRight, Play, Clock, Award, CheckCircle2, Star,
-  Cpu, ChevronDown, ChevronUp, Compass, MessageSquare, BarChart2,
+  Cpu, ChevronDown, BarChart2,
   Palette, Zap, Shield, Trophy, Users, Briefcase, GraduationCap,
-  TrendingUp, Download, BookOpen, Target, Lightbulb, RefreshCw, Heart
+  TrendingUp, Download, Target, RefreshCw, Heart
 } from 'lucide-react';
 import Link from 'next/link';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import ReservationForm from '@/components/forms/ReservationForm';
 import ProfessionalRoadmap from '@/components/ProfessionalRoadmap';
+import { useCarouselNavigation } from '@/components/LiveCourses/hooks/useCarouselNavigation';
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -90,8 +91,6 @@ const salaries = [
     currency: 'USD / mes',
     growth: '+35%',
     growthBar: 25,
-    color: '#3B82F6',
-    bg: 'rgba(59,130,246,0.06)',
     skills: ['Prompting profesional', 'Redacción con IA', 'Contenido digital'],
   },
   {
@@ -101,8 +100,6 @@ const salaries = [
     currency: 'USD / mes',
     growth: '+90%',
     growthBar: 50,
-    color: '#8B5CF6',
-    bg: 'rgba(139,92,246,0.06)',
     skills: ['Análisis con IA', 'Dashboards inteligentes', 'Diseño visual IA'],
   },
   {
@@ -112,8 +109,6 @@ const salaries = [
     currency: 'USD / mes',
     growth: '+160%',
     growthBar: 72,
-    color: '#10B981',
-    bg: 'rgba(16,185,129,0.06)',
     skills: ['Automatización sin código', 'Flujos inteligentes', 'Integración IA'],
   },
   {
@@ -123,8 +118,6 @@ const salaries = [
     currency: 'USD / mes',
     growth: '+300%',
     growthBar: 100,
-    color: '#F59E0B',
-    bg: 'rgba(255,215,0,0.06)',
     skills: ['Diseño de soluciones IA', 'Liderazgo estratégico', 'Visión ejecutiva'],
     final: true,
   },
@@ -154,7 +147,7 @@ const certTabs = [
     ],
   },
   {
-    id: 2, color: '#8B5CF6',
+    id: 2, color: '#0EA5E9',
     label: 'Diseño, Datos y Productividad',
     modules: 'Módulos 3–4', hours: '20 h',
     encounters: [
@@ -181,7 +174,7 @@ const certTabs = [
     ],
   },
   {
-    id: 3, color: '#10B981',
+    id: 3, color: '#00F7EF',
     label: 'Automatización y Ética IA',
     modules: 'Módulos 5–6', hours: '20 h',
     encounters: [
@@ -241,7 +234,7 @@ const testimonials = [
     quote: 'Aprendí a hablarle bien a la IA. Eso parece simple pero marca toda la diferencia entre resultados mediocres y resultados extraordinarios.',
     result: 'Automatizó su área de reportes al 80%',
     avatar: 'DF',
-    color: '#00C4BE',
+    color: '#0077FF',
   },
   {
     name: 'Valeria Ramos',
@@ -269,8 +262,58 @@ const relatedCourses = [
 export default function IaEnLaPracticaPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [openModule, setOpenModule] = useState<number | null>(null);
-  const [openEncounter, setOpenEncounter] = useState<number | null>(null);
+
   const [showSticky, setShowSticky] = useState(false);
+  const { currentSlide: salaryIdx, nextSlide: salaryNext, prevSlide: salaryPrev, setCurrentSlide: setSalaryIdx } = useCarouselNavigation(salaries.length);
+  const { currentSlide: testimonialIdx, nextSlide: testimonialNext, prevSlide: testimonialPrev, setCurrentSlide: setTestimonialIdx } = useCarouselNavigation(testimonials.length);
+  const { currentSlide: relatedIdx, nextSlide: relatedNext, prevSlide: relatedPrev, setCurrentSlide: setRelatedIdx } = useCarouselNavigation(relatedCourses.length);
+
+  useEffect(() => {
+    const s = setInterval(salaryNext, 4000);
+    return () => clearInterval(s);
+  }, [salaryNext]);
+
+  useEffect(() => {
+    const t = setInterval(testimonialNext, 5000);
+    return () => clearInterval(t);
+  }, [testimonialNext]);
+
+  useEffect(() => {
+    const r = setInterval(relatedNext, 4500);
+    return () => clearInterval(r);
+  }, [relatedNext]);
+
+  const [brochureOpen, setBrochureOpen] = useState(false);
+  const [brochureName, setBrochureName] = useState('');
+  const [brochureEmail, setBrochureEmail] = useState('');
+  const [brochureLoading, setBrochureLoading] = useState(false);
+  const [brochureDone, setBrochureDone] = useState(false);
+
+  async function handleBrochureSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!brochureName.trim() || !brochureEmail.trim()) return;
+    setBrochureLoading(true);
+    try {
+      await fetch('/api/reservas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: brochureName,
+          email: brochureEmail,
+          course: 'Brochure - IA en la Práctica',
+        }),
+      });
+    } catch {}
+    // Trigger download regardless of API result
+    const link = document.createElement('a');
+    link.href = '/brochures/ia-en-la-practica.pdf';
+    link.download = 'brochure-ia-en-la-practica.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setBrochureDone(true);
+    setBrochureLoading(false);
+  }
 
   useEffect(() => {
     const onScroll = () => setShowSticky(window.scrollY > 500);
@@ -337,17 +380,17 @@ export default function IaEnLaPracticaPage() {
         <div style={{ position: 'absolute', top: '-10%', left: '40%', width: '55%', height: '90%', background: 'radial-gradient(ellipse, rgba(0,119,255,0.07) 0%, transparent 60%)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', top: '20%', right: '-5%', width: '35%', height: '60%', background: 'radial-gradient(ellipse, rgba(0,247,239,0.05) 0%, transparent 60%)', pointerEvents: 'none' }} />
 
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 0 4rem', position: 'relative' }}>
+        <div className="hero-landing" style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 0 4rem', position: 'relative' }}>
 
           {/* Social proof bar */}
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.875rem',
             padding: '0.6rem 1rem', borderRadius: '9999px',
             background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)',
-            marginBottom: '2.5rem',
+            marginBottom: '2rem', flexWrap: 'wrap' as const,
           }}>
             <div style={{ display: 'flex' }}>
-              {['#0077FF', '#00C4BE', '#00F7EF', '#8B5CF6'].map((c, i) => (
+              {['#0077FF', '#00F7EF', '#0077FF', '#00F7EF'].map((c, i) => (
                 <div key={i} style={{
                   width: '2.1rem', height: '2.1rem', borderRadius: '50%',
                   background: `${c}25`, border: `2px solid #020817`,
@@ -445,6 +488,7 @@ export default function IaEnLaPracticaPage() {
                   Sin compromiso · Cupos limitados · Te contactamos en 24 hs
                 </span>
               </div>
+
             </div>
 
             {/* Right: video */}
@@ -514,7 +558,7 @@ export default function IaEnLaPracticaPage() {
                       <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#00F7EF', boxShadow: '0 0 10px #00F7EF', animation: 'dot-pulse 2s ease-in-out infinite' }} />
                       <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.55)', fontWeight: 600 }}>Próxima cohorte</span>
                     </div>
-                    <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>Marzo 2025</span>
+                    <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>Marzo 2026</span>
                   </div>
                 </div>
               </div>
@@ -530,6 +574,17 @@ export default function IaEnLaPracticaPage() {
           @keyframes dot-pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
+          }
+          @media (max-width: 640px) {
+            /* Hero */
+            .hero-landing { padding: 2.5rem 0 2rem !important; }
+            .hero-social-bar { flex-wrap: wrap !important; gap: 0.5rem !important; font-size: 0.75rem !important; }
+            .hero-stats { width: 100% !important; }
+            .hero-stats > div { flex: 1 !important; }
+            /* Secciones */
+            .section-mobile { padding: 3rem 1rem !important; }
+            /* Encounter cards — una columna en mobile */
+            .encounter-grid { grid-template-columns: 1fr !important; }
           }
         `}</style>
       </section>
@@ -586,7 +641,6 @@ export default function IaEnLaPracticaPage() {
           <p style={sectionSubtitle}>Al terminar este programa, vas a poder...</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem', marginTop: '2.5rem' }}>
             {outcomes.map((o, i) => {
-              const Icon = o.icon;
               return (
                 <div key={i} style={{
                   display: 'flex', gap: '1rem', alignItems: 'flex-start',
@@ -612,50 +666,42 @@ export default function IaEnLaPracticaPage() {
           <h2 style={sectionTitle}>Lo que vale en el mercado</h2>
           <p style={sectionSubtitle}>A mayor certificación, mayor proyección. Rangos reales del mercado tech LATAM & remoto.</p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem', marginTop: '2.5rem' }}>
-            {salaries.map((s, i) => (
-              <div key={i} style={{
-                padding: '1.75rem',
-                borderRadius: '1.125rem',
-                background: s.final ? 'linear-gradient(160deg, #0F0A00 0%, #0A0F1E 100%)' : 'rgba(255,255,255,0.025)',
-                border: `1px solid ${s.color}30`,
-                position: 'relative', overflow: 'hidden',
-                display: 'flex', flexDirection: 'column', gap: '1rem',
-              }}>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '3px', background: `linear-gradient(90deg, ${s.color}, ${s.color}33)` }} />
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: s.bg, pointerEvents: 'none' }} />
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'relative' }}>
-                  <span style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: s.color, padding: '0.2rem 0.6rem', borderRadius: '9999px', background: `${s.color}12`, border: `1px solid ${s.color}28` }}>
-                    {s.level}
-                  </span>
-                  {s.final && <Trophy size={15} color='#F59E0B' />}
-                </div>
-                <div style={{ position: 'relative', minHeight: '2.8rem', display: 'flex', alignItems: 'flex-start' }}>
+          {/* Carrusel salarios */}
+          <div style={{ marginTop: '2.5rem', position: 'relative' }}>
+            <div style={{ overflow: 'hidden' }}>
+              {(() => { const s = salaries[salaryIdx]; return (
+                <div style={{ padding: '1.75rem', borderRadius: '1.125rem', background: 'rgba(255,255,255,0.025)', border: s.final ? '1px solid rgba(255,215,0,0.2)' : '1px solid rgba(0,119,255,0.15)', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '480px', margin: '0 auto', transition: 'all 0.3s' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: s.final ? 'linear-gradient(90deg, rgba(255,215,0,0.6), rgba(255,215,0,0.1))' : 'linear-gradient(90deg, rgba(0,119,255,0.7), rgba(0,119,255,0.1))' }} />
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: s.final ? 'rgba(255,215,0,0.8)' : 'rgba(0,119,255,0.9)', padding: '0.2rem 0.6rem', borderRadius: '9999px', background: s.final ? 'rgba(255,215,0,0.08)' : 'rgba(0,119,255,0.08)', border: s.final ? '1px solid rgba(255,215,0,0.2)' : '1px solid rgba(0,119,255,0.2)' }}>{s.level}</span>
+                    {s.final && <Trophy size={15} color='rgba(255,215,0,0.7)' />}
+                  </div>
                   <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1.35 }}>{s.role}</div>
-                </div>
-                <div style={{ position: 'relative', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1rem' }}>
-                  <div style={{ fontSize: '1.6rem', fontWeight: 900, color: s.color, lineHeight: 1, letterSpacing: '-0.02em' }}>{s.range}</div>
-                  <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.22)', marginTop: '0.3rem', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>{s.currency}</div>
-                </div>
-                <div style={{ position: 'relative' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>vs. mercado</span>
-                    <span style={{ fontSize: '0.88rem', fontWeight: 800, color: s.color }}>{s.growth}</span>
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1rem' }}>
+                    <div style={{ fontSize: '2rem', fontWeight: 900, color: '#FFFFFF', lineHeight: 1, letterSpacing: '-0.02em' }}>{s.range}</div>
+                    <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', marginTop: '0.3rem', fontWeight: 600, textTransform: 'uppercase' }}>{s.currency}</div>
                   </div>
-                  <div style={{ height: '4px', borderRadius: '9999px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
-                    <div style={{ height: '100%', width: `${s.growthBar}%`, borderRadius: '9999px', background: `linear-gradient(90deg, ${s.color}66, ${s.color})` }} />
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', position: 'relative' }}>
-                  {s.skills.map((sk, j) => (
-                    <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <CheckCircle2 size={13} color={s.color} style={{ opacity: 0.6, flexShrink: 0 }} />
-                      <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)' }}>{sk}</span>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                      <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase' }}>vs. mercado</span>
+                      <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#0077FF' }}>{s.growth}</span>
                     </div>
-                  ))}
+                    <div style={{ height: '3px', borderRadius: '9999px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${s.growthBar}%`, borderRadius: '9999px', background: 'linear-gradient(90deg, rgba(0,119,255,0.5), #0077FF)', transition: 'width 0.5s' }} />
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    {s.skills.map((sk, j) => (
+                      <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <CheckCircle2 size={13} color='rgba(0,119,255,0.6)' style={{ flexShrink: 0 }} />
+                        <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.45)' }}>{sk}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ); })()}
+            </div>
+            <CarouselControls total={salaries.length} current={salaryIdx} onPrev={salaryPrev} onNext={salaryNext} onDot={setSalaryIdx} />
           </div>
           <p style={{ textAlign: 'center', fontSize: '0.7rem', color: 'rgba(255,255,255,0.18)', marginTop: '1.25rem' }}>
             * Datos de mercado basados en plataformas de empleo tech LATAM. Los resultados individuales dependen de la experiencia y el mercado local.
@@ -676,7 +722,7 @@ export default function IaEnLaPracticaPage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '2.5rem' }}>
             {metodoPillars.map((p, i) => {
               const Icon = p.icon;
-              const colors = [categoryColor, '#00C4BE', '#00F7EF', categoryColor, '#00C4BE'];
+              const colors = [categoryColor, '#00F7EF', categoryColor, '#00F7EF', categoryColor];
               const c = colors[i];
               return (
                 <div key={i} style={{
@@ -704,7 +750,7 @@ export default function IaEnLaPracticaPage() {
           <div style={{ marginTop: '2.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {modules.map((m) => {
               const isOpen = openModule === m.num;
-              const certColor = m.num <= 2 ? '#0077FF' : m.num <= 4 ? '#8B5CF6' : m.num <= 6 ? '#10B981' : '#F59E0B';
+              const certColor = m.num <= 2 ? '#0077FF' : m.num <= 4 ? '#0EA5E9' : m.num <= 6 ? '#00F7EF' : '#F59E0B';
               const certAfter = certTabs.find((_, i) => [2, 4, 6, 7][i] === m.num);
               return (
                 <React.Fragment key={m.num}>
@@ -736,7 +782,11 @@ export default function IaEnLaPracticaPage() {
                         </span>
                         <div>
                           <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#FFFFFF' }}>{m.title}</div>
-                          <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', marginTop: '0.15rem' }}>{m.duration}</div>
+                          <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', marginTop: '0.15rem' }}>
+                            <span style={{ color: certColor, fontWeight: 700, opacity: 0.7 }}>Módulo {m.num}</span>
+                            <span style={{ margin: '0 0.35rem', opacity: 0.3 }}>·</span>
+                            {m.duration}
+                          </div>
                         </div>
                       </div>
                       <div style={{
@@ -755,77 +805,69 @@ export default function IaEnLaPracticaPage() {
                       <div style={{ padding: '0 1.25rem 1.25rem' }}>
                         <p style={{ fontSize: '0.83rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, margin: '0 0.25rem 1rem', paddingBottom: '1rem', borderBottom: `1px solid rgba(255,255,255,0.05)` }}>{m.desc}</p>
 
-                        {/* Nested encounter rows */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                          {(moduleEncounters[m.num] || []).map((enc) => {
-                            const encOpen = openEncounter === enc.num;
-                            return (
-                              <div key={enc.num} style={{
-                                borderRadius: '0.75rem', overflow: 'hidden',
-                                border: encOpen ? `1px solid ${certColor}45` : `1px solid ${certColor}22`,
-                                background: encOpen ? `${certColor}0F` : 'rgba(255,255,255,0.03)',
-                                transition: 'all 0.2s',
+                        {/* Encounter cards — always visible, no second click */}
+                        <div className="encounter-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.75rem' }}>
+                          {(moduleEncounters[m.num] || []).map((enc) => (
+                            <div key={enc.num} style={{
+                              borderRadius: '0.875rem',
+                              border: `1px solid ${certColor}25`,
+                              background: `${certColor}08`,
+                              overflow: 'hidden',
+                            }}>
+                              {/* Card header */}
+                              <div style={{
+                                padding: '0.875rem 1rem',
+                                borderBottom: `1px solid ${certColor}15`,
+                                display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem',
                               }}>
-                                {/* Encounter header button */}
-                                <button
-                                  onClick={() => setOpenEncounter(encOpen ? null : enc.num)}
-                                  style={{
-                                    width: '100%', background: 'none', border: 'none', cursor: 'pointer',
-                                    padding: '0.75rem 1rem', display: 'flex', alignItems: 'center',
-                                    justifyContent: 'space-between', gap: '0.75rem', textAlign: 'left',
-                                  }}
-                                >
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                    <span style={{
-                                      flexShrink: 0, padding: '0.18rem 0.55rem', borderRadius: '9999px',
-                                      fontSize: '0.6rem', fontWeight: 800, letterSpacing: '0.06em',
-                                      background: encOpen ? `${certColor}25` : `${certColor}15`,
-                                      color: certColor, border: `1px solid ${certColor}30`,
-                                    }}>E{enc.num}</span>
-                                    <span style={{ fontSize: '0.85rem', fontWeight: 700, color: encOpen ? '#fff' : 'rgba(255,255,255,0.75)' }}>
-                                      {enc.title}
-                                    </span>
-                                  </div>
-                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexShrink: 0 }}>
-                                    <span style={{ fontSize: '0.7rem', color: certColor, fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                                      <Clock size={10} color={certColor} />{enc.hours}
-                                    </span>
-                                    <div style={{
-                                      width: '1.4rem', height: '1.4rem', borderRadius: '50%',
-                                      background: encOpen ? `${certColor}20` : 'rgba(255,255,255,0.04)',
-                                      border: `1px solid ${encOpen ? certColor + '40' : 'rgba(255,255,255,0.08)'}`,
-                                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    }}>
-                                      {encOpen
-                                        ? <ChevronDown size={11} color={certColor} />
-                                        : <ArrowRight size={11} color='rgba(255,255,255,0.35)' />}
-                                    </div>
-                                  </div>
-                                </button>
-
-                                {/* Topic cards inside encounter */}
-                                {encOpen && (
-                                  <div style={{ padding: '0 1rem 1rem' }}>
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '0.4rem', alignItems: 'stretch' }}>
-                                      {enc.topics.map((topic, ti) => (
-                                        <div key={ti} style={{
-                                          padding: '0.65rem 0.875rem',
-                                          borderRadius: '0.5rem',
-                                          borderLeft: `3px solid ${certColor}`,
-                                          background: `${certColor}12`,
-                                          border: `1px solid ${certColor}20`,
-                                          borderLeftWidth: '3px',
-                                          display: 'flex', alignItems: 'center',
-                                        }}>
-                                          <span style={{ fontSize: '0.76rem', color: 'rgba(255,255,255,0.75)', fontWeight: 500, lineHeight: 1.4 }}>{topic}</span>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                )}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                                  <span style={{
+                                    flexShrink: 0,
+                                    width: '2rem', height: '2rem', borderRadius: '0.5rem',
+                                    background: `${certColor}20`, border: `1px solid ${certColor}40`,
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    fontSize: '0.6rem', fontWeight: 900, color: certColor, letterSpacing: '0.04em',
+                                  }}>E{enc.num}</span>
+                                  <span style={{ fontSize: '0.875rem', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.3 }}>
+                                    {enc.title}
+                                  </span>
+                                </div>
+                                <span style={{
+                                  flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.25rem',
+                                  fontSize: '0.72rem', fontWeight: 700, color: certColor,
+                                  background: `${certColor}15`, border: `1px solid ${certColor}25`,
+                                  padding: '0.2rem 0.6rem', borderRadius: '9999px',
+                                }}>
+                                  <Clock size={10} color={certColor} />{enc.hours}
+                                </span>
                               </div>
-                            );
-                          })}
+
+                              {/* Topics list */}
+                              <div style={{ padding: '0.75rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                                {enc.topics.map((topic, ti) => (
+                                  <div key={ti} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+                                    <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: certColor, flexShrink: 0, marginTop: '0.45rem', opacity: 0.7 }} />
+                                    <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>{topic}</span>
+                                  </div>
+                                ))}
+                              </div>
+
+                              {/* Deliverable */}
+                              <div style={{
+                                margin: '0 1rem 0.875rem',
+                                padding: '0.5rem 0.75rem',
+                                borderRadius: '0.5rem',
+                                background: 'rgba(255,255,255,0.03)',
+                                border: '1px solid rgba(255,255,255,0.07)',
+                                display: 'flex', alignItems: 'center', gap: '0.5rem',
+                              }}>
+                                <CheckCircle2 size={12} color={certColor} style={{ flexShrink: 0, opacity: 0.8 }} />
+                                <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.4 }}>
+                                  {enc.deliverable}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )}
@@ -872,7 +914,7 @@ export default function IaEnLaPracticaPage() {
           {/* Download CTA */}
           <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
             <button
-              onClick={() => setModalOpen(true)}
+              onClick={() => { setBrochureDone(false); setBrochureName(''); setBrochureEmail(''); setBrochureOpen(true); }}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '0.6rem',
                 padding: '0.875rem 2rem', fontSize: '0.9rem', fontWeight: 700,
@@ -892,42 +934,21 @@ export default function IaEnLaPracticaPage() {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <SectionLabel label="Testimonios" />
           <h2 style={sectionTitle}>Transformaciones reales</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.25rem', marginTop: '2.5rem' }}>
-            {testimonials.map((t, i) => (
-              <div key={i} style={{
-                padding: '1.75rem', borderRadius: '1.25rem',
-                background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
-                display: 'flex', flexDirection: 'column', gap: '1.25rem',
-              }}>
-                {/* Stars */}
+          {/* Carrusel testimonios */}
+          <div style={{ marginTop: '2.5rem' }}>
+            {(() => { const t = testimonials[testimonialIdx]; return (
+              <div style={{ padding: '1.75rem', borderRadius: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '560px', margin: '0 auto', transition: 'all 0.3s' }}>
                 <div style={{ display: 'flex', gap: '0.2rem' }}>
                   {[...Array(5)].map((_, j) => <Star key={j} size={14} fill='#FBBF24' color='#FBBF24' />)}
                 </div>
-
-                <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, fontStyle: 'italic', margin: 0 }}>
+                <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.75, fontStyle: 'italic', margin: 0 }}>
                   &ldquo;{t.quote}&rdquo;
                 </p>
-
-                {/* Result badge */}
-                <div style={{
-                  padding: '0.5rem 0.875rem', borderRadius: '0.5rem',
-                  background: `${t.color}12`, border: `1px solid ${t.color}25`,
-                  fontSize: '0.75rem', fontWeight: 700, color: t.color,
-                }}>
+                <div style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', background: `${t.color}12`, border: `1px solid ${t.color}25`, fontSize: '0.75rem', fontWeight: 700, color: t.color, width: 'fit-content' }}>
                   ✓ {t.result}
                 </div>
-
-                {/* Author */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
-                  <div style={{
-                    width: '2.75rem', height: '2.75rem', borderRadius: '50%', flexShrink: 0,
-                    background: `linear-gradient(135deg, ${t.color}40, ${t.color}15)`,
-                    border: `1.5px solid ${t.color}50`,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: '0.72rem', fontWeight: 900, color: '#FFFFFF',
-                    letterSpacing: '0.02em',
-                    boxShadow: `0 0 12px ${t.color}25`,
-                  }}>
+                  <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', flexShrink: 0, background: `linear-gradient(135deg, ${t.color}40, ${t.color}15)`, border: `1.5px solid ${t.color}50`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.72rem', fontWeight: 900, color: '#FFFFFF' }}>
                     {t.avatar}
                   </div>
                   <div>
@@ -936,7 +957,8 @@ export default function IaEnLaPracticaPage() {
                   </div>
                 </div>
               </div>
-            ))}
+            ); })()}
+            <CarouselControls total={testimonials.length} current={testimonialIdx} onPrev={testimonialPrev} onNext={testimonialNext} onDot={setTestimonialIdx} />
           </div>
         </div>
       </section>
@@ -1001,32 +1023,110 @@ export default function IaEnLaPracticaPage() {
           <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'rgba(255,255,255,0.6)', marginBottom: '1.5rem', textAlign: 'center' }}>
             También te puede interesar
           </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-            {relatedCourses.map((c) => (
-              <Link key={c.slug} href={`/cursos/${c.slug}`} style={{ textDecoration: 'none' }}>
-                <div style={{
-                  padding: '1.5rem', borderRadius: '1rem',
-                  background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)',
-                  transition: 'border-color 0.2s',
-                }}>
-                  <span style={{
-                    display: 'inline-block', padding: '0.25rem 0.6rem', borderRadius: '9999px', fontSize: '0.65rem',
-                    fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em',
-                    background: `${c.color}15`, color: c.color, marginBottom: '0.75rem',
-                  }}>
+          {/* Carrusel cursos sugeridos */}
+          <div>
+            {(() => { const c = relatedCourses[relatedIdx]; return (
+              <Link href={`/cursos/${c.slug}`} style={{ textDecoration: 'none', display: 'block', maxWidth: '420px', margin: '0 auto' }}>
+                <div style={{ padding: '1.75rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', transition: 'border-color 0.2s, background 0.2s' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(0,119,255,0.3)'; (e.currentTarget as HTMLDivElement).style.background = 'rgba(0,119,255,0.04)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.08)'; (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,0.03)'; }}
+                >
+                  <span style={{ display: 'inline-block', padding: '0.25rem 0.6rem', borderRadius: '9999px', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.08em', background: `${c.color}15`, color: c.color, marginBottom: '0.875rem' }}>
                     {c.tag}
                   </span>
-                  <div style={{ fontSize: '1rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.5rem' }}>{c.title}</div>
-                  <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.5, marginBottom: '1rem' }}>{c.desc}</div>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', fontWeight: 600, color: c.color }}>
+                  <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.5rem' }}>{c.title}</div>
+                  <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.6, marginBottom: '1.25rem' }}>{c.desc}</div>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem', fontWeight: 600, color: c.color }}>
                     Ver programa <ArrowRight size={14} />
                   </span>
                 </div>
               </Link>
-            ))}
+            ); })()}
+            <CarouselControls total={relatedCourses.length} current={relatedIdx} onPrev={relatedPrev} onNext={relatedNext} onDot={setRelatedIdx} />
           </div>
         </div>
       </section>
+
+      {/* ── MODAL BROCHURE ── */}
+      <Dialog open={brochureOpen} onOpenChange={setBrochureOpen}>
+        <DialogContent className="border-0 p-0 max-w-sm" style={{ background: '#0B0B18', border: '1px solid rgba(0,119,255,0.2)', borderRadius: '1.25rem' }}>
+          <div style={{ padding: '1.75rem' }}>
+            {!brochureDone ? (
+              <>
+                <div style={{ marginBottom: '1.25rem' }}>
+                  <DialogTitle style={{ color: '#FFFFFF', fontSize: '1.1rem', fontWeight: 800, marginBottom: '0.35rem' }}>
+                    Descargá el brochure
+                  </DialogTitle>
+                  <DialogDescription style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>
+                    Dejanos tu nombre y mail — la descarga empieza automáticamente.
+                  </DialogDescription>
+                </div>
+                <form onSubmit={handleBrochureSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+                  <input
+                    required
+                    placeholder="Tu nombre"
+                    value={brochureName}
+                    onChange={e => setBrochureName(e.target.value)}
+                    style={{
+                      width: '100%', padding: '0.75rem 1rem', borderRadius: '0.625rem',
+                      background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+                      color: '#FFFFFF', fontSize: '0.875rem', outline: 'none',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                  <input
+                    required
+                    type="email"
+                    placeholder="Tu email"
+                    value={brochureEmail}
+                    onChange={e => setBrochureEmail(e.target.value)}
+                    style={{
+                      width: '100%', padding: '0.75rem 1rem', borderRadius: '0.625rem',
+                      background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+                      color: '#FFFFFF', fontSize: '0.875rem', outline: 'none',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={brochureLoading}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                      padding: '0.875rem', borderRadius: '0.625rem', border: 'none', cursor: 'pointer',
+                      background: 'linear-gradient(135deg, #0077FF, #0055CC)',
+                      color: '#FFFFFF', fontWeight: 700, fontSize: '0.9rem',
+                    }}
+                  >
+                    <Download size={16} />
+                    {brochureLoading ? 'Descargando...' : 'Descargar brochure'}
+                  </button>
+                  <p style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.2)', textAlign: 'center', margin: 0 }}>
+                    Sin spam. Solo te contactamos si te interesa el programa.
+                  </p>
+                </form>
+              </>
+            ) : (
+              <div style={{ textAlign: 'center', padding: '1rem 0' }}>
+                <div style={{ width: '3rem', height: '3rem', borderRadius: '50%', background: 'rgba(0,119,255,0.15)', border: '1px solid rgba(0,119,255,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
+                  <Download size={20} color='#0077FF' />
+                </div>
+                <DialogTitle style={{ color: '#FFFFFF', fontSize: '1rem', fontWeight: 800, marginBottom: '0.5rem' }}>
+                  ¡Listo! La descarga comenzó.
+                </DialogTitle>
+                <DialogDescription style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>
+                  Si no se descargó automáticamente, revisá tu carpeta de descargas.
+                </DialogDescription>
+                <button
+                  onClick={() => setBrochureOpen(false)}
+                  style={{ marginTop: '1.25rem', padding: '0.625rem 1.5rem', borderRadius: '0.5rem', border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: 'rgba(255,255,255,0.5)', cursor: 'pointer', fontSize: '0.82rem' }}
+                >
+                  Cerrar
+                </button>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* ── MODAL ── */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
@@ -1048,6 +1148,20 @@ export default function IaEnLaPracticaPage() {
 }
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
+
+function CarouselControls({ total, current, onPrev, onNext, onDot }: { total: number; current: number; onPrev: () => void; onNext: () => void; onDot: (i: number) => void }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', marginTop: '1.5rem' }}>
+      <button onClick={onPrev} style={{ width: '2rem', height: '2rem', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem' }}>‹</button>
+      <div style={{ display: 'flex', gap: '0.4rem' }}>
+        {Array.from({ length: total }).map((_, i) => (
+          <div key={i} onClick={() => onDot(i)} style={{ width: i === current ? '1.5rem' : '0.4rem', height: '0.4rem', borderRadius: '9999px', background: i === current ? '#0077FF' : 'rgba(255,255,255,0.15)', cursor: 'pointer', transition: 'all 0.3s' }} />
+        ))}
+      </div>
+      <button onClick={onNext} style={{ width: '2rem', height: '2rem', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem' }}>›</button>
+    </div>
+  );
+}
 
 function SectionLabel({ label }: { label: string }) {
   return (

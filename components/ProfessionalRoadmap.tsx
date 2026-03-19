@@ -30,7 +30,7 @@ const levels = [
     desc: 'Integrás la IA a planillas, reportes y visualizaciones de datos.',
     strength: 'Pensamiento analítico, gestión inteligente de datos',
     icon: BarChart2,
-    color: '#00C4BE',
+    color: '#0EA5E9',
   },
   {
     num: 4,
@@ -39,7 +39,7 @@ const levels = [
     desc: 'Usás IA para diseño, imagen y comunicación visual de impacto.',
     strength: 'Comunicación visual, diseño orientado a resultados',
     icon: Palette,
-    color: '#00C4BE',
+    color: '#0EA5E9',
     cert: 2,
   },
   {
@@ -88,7 +88,7 @@ const certs = [
     modules: 'Módulos 3–4',
     hours: '20 h',
     afterLevel: 4,
-    color: '#00C4BE',
+    color: '#0EA5E9',
   },
   {
     id: 3,
@@ -129,6 +129,14 @@ export default function ProfessionalRoadmap() {
         pointerEvents: 'none',
       }} />
 
+      <style>{`
+        @media (max-width: 640px) {
+          .roadmap-central-line { left: 1.5rem !important; transform: none !important; }
+          .roadmap-row { flex-direction: column !important; align-items: flex-start !important; padding-left: 3.5rem !important; margin-bottom: 1.25rem !important; }
+          .roadmap-node { position: absolute !important; left: 0 !important; top: 0.5rem !important; transform: none !important; width: 2.5rem !important; height: 2.5rem !important; }
+          .roadmap-left-slot, .roadmap-right-slot { flex: none !important; opacity: 1 !important; visibility: visible !important; padding: 0 !important; justify-content: flex-start !important; width: 100% !important; }
+        }
+      `}</style>
       <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
 
         {/* Header */}
@@ -176,14 +184,14 @@ export default function ProfessionalRoadmap() {
         <div style={{ position: 'relative' }}>
 
           {/* Central glowing line */}
-          <div style={{
+          <div className="roadmap-central-line" style={{
             position: 'absolute',
             left: '50%',
             top: 0,
             bottom: 0,
             width: '2px',
             transform: 'translateX(-50%)',
-            background: 'linear-gradient(180deg, #0077FF 0%, #00C4BE 40%, #00F7EF 70%, #FFD700 100%)',
+            background: 'linear-gradient(180deg, #0077FF 0%, #00F7EF 40%, #00F7EF 70%, #FFD700 100%)',
             opacity: 0.25,
           }} />
 
@@ -200,16 +208,17 @@ export default function ProfessionalRoadmap() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-60px' }}
                   transition={{ duration: 0.5, delay: i * 0.07 }}
+                  className="roadmap-row"
                   style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 0,
-                  marginBottom: cert ? '0' : '2rem',
-                  position: 'relative',
-                }}>
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 0,
+                    marginBottom: cert ? '0' : '2rem',
+                    position: 'relative',
+                  }}>
                   {/* Left card */}
-                  <div style={{
+                  <div className="roadmap-left-slot" style={{
                     flex: 1,
                     display: 'flex',
                     justifyContent: 'flex-end',
@@ -221,7 +230,7 @@ export default function ProfessionalRoadmap() {
                   </div>
 
                   {/* Center node */}
-                  <div style={{
+                  <div className="roadmap-node" style={{
                     width: '3rem',
                     height: '3rem',
                     borderRadius: '50%',
@@ -240,7 +249,7 @@ export default function ProfessionalRoadmap() {
                   </div>
 
                   {/* Right card */}
-                  <div style={{
+                  <div className="roadmap-right-slot" style={{
                     flex: 1,
                     paddingLeft: '2rem',
                     opacity: !isLeft ? 1 : 0,
@@ -323,7 +332,7 @@ export default function ProfessionalRoadmap() {
                           marginBottom: '0.2rem',
                           opacity: 0.85,
                         }}>
-                          {cert.final ? '🏆 Certificado Final' : `Certificado ${cert.id}`}
+                          {cert.final ? '★ Certificado Final' : `Certificado ${cert.id}`}
                           {cert.final && ' · Con aval universitario'}
                         </div>
                         <div style={{
