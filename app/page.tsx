@@ -233,10 +233,9 @@ ${lang==='es'?'Vengo desde la web de':'I come from the website of'} ${brandName}
 
       {/* Modal de conversión */}
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="border-0 p-0 overflow-hidden max-w-lg" style={{background:'#0B0B18',border:'1px solid rgba(0,119,255,0.18)',borderRadius:'1.25rem',boxShadow:'0 32px 80px rgba(0,0,0,0.6)'}}>
-          {/* Header */}
-          <div style={{background:'linear-gradient(135deg,rgba(0,60,160,0.3),rgba(0,20,60,0.5))',borderBottom:'1px solid rgba(0,119,255,0.12)',padding:'1.5rem 1.5rem 1.25rem'}}>
-            {/* Título */}
+        <DialogContent className="border-0 p-0 max-w-lg flex flex-col modal-conversion" style={{background:'#0B0B18',border:'1px solid rgba(0,119,255,0.18)',borderRadius:'1.25rem',boxShadow:'0 32px 80px rgba(0,0,0,0.6)',maxHeight:'90dvh'}}>
+          {/* Header — fijo */}
+          <div style={{background:'linear-gradient(135deg,rgba(0,60,160,0.3),rgba(0,20,60,0.5))',borderBottom:'1px solid rgba(0,119,255,0.12)',padding:'1.5rem 1.5rem 1.25rem',flexShrink:0}}>
             <DialogTitle className="text-xl font-bold" style={{color:'#FFFFFF',letterSpacing:'-0.02em',lineHeight:1.2,marginBottom:'0.3rem',textAlign:'center'}}>
               Reservá tu lugar
             </DialogTitle>
@@ -247,8 +246,8 @@ ${lang==='es'?'Vengo desde la web de':'I come from the website of'} ${brandName}
               Completá tus datos y te contactamos en menos de 24hs.
             </DialogDescription>
           </div>
-          {/* Formulario */}
-          <div className="modal-dark-form" style={{padding:'1.25rem 1.5rem 1.5rem'}}>
+          {/* Formulario — scrolleable */}
+          <div className="modal-dark-form" style={{padding:'1.25rem 1.5rem 1.5rem',overflowY:'auto',WebkitOverflowScrolling:'touch',flex:1}}>
             <ReservationForm defaultCourse={interes} onSuccess={()=>setModalOpen(false)} />
           </div>
         </DialogContent>

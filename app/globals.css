@@ -2095,11 +2095,12 @@ html, body {
 /* Modal del formulario en mobile: desde arriba, scrollable, compatible con teclado */
 @media (max-width: 767px) {
   [role="dialog"][aria-modal="true"] {
-    top: 1rem !important;
+    top: 0.75rem !important;
     transform: translateX(-50%) !important;
-    max-height: calc(100dvh - 5rem) !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    max-height: calc(100dvh - 4rem) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 }
 
