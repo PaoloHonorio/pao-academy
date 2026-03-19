@@ -280,7 +280,7 @@ export default function IaEnLaPracticaPage() {
 
   const categoryColor = '#0077FF';
 
-  const moduleEncounters: Record<number, { num: number; title: string; hours: string; deliverable: string }[]> = {
+  const moduleEncounters: Record<number, { num: number; title: string; hours: string; deliverable: string; topics: string[] }[]> = {
     1: certTabs[0].encounters.slice(0, 2),
     2: certTabs[0].encounters.slice(2, 3),
     3: certTabs[1].encounters.slice(0, 2),
