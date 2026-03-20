@@ -1,7 +1,7 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
-  ArrowLeft, ArrowRight, Play, Clock, Award, CheckCircle2, Star,
+  ArrowLeft, ArrowRight, Clock, Award, CheckCircle2, Star,
   Cpu, ChevronDown, BarChart2,
   Palette, Zap, Shield, Trophy, Users, Briefcase, GraduationCap,
   TrendingUp, Download, Target, RefreshCw, Heart
@@ -15,10 +15,11 @@ import { useCarouselNavigation } from '@/components/LiveCourses/hooks/useCarouse
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const profiles = [
-  { icon: Briefcase, title: 'Profesional en actividad', desc: 'Querés integrar IA a tu trabajo diario sin convertirte en programador.' },
-  { icon: TrendingUp, title: 'Emprendedor o freelancer', desc: 'Buscás automatizar procesos y escalar tu negocio con menos recursos.' },
-  { icon: Users, title: 'Líder o manager', desc: 'Necesitás tomar mejores decisiones y liderar equipos en la era digital.' },
-  { icon: GraduationCap, title: 'Profesional en transición', desc: 'Querés diferenciarte en el mercado y acceder a roles mejor remunerados.' },
+  { icon: Briefcase, title: 'Profesional en actividad', desc: 'Querés integrar IA a tu trabajo diario sin convertirte en programador.', color: '#0077FF', badge: 'Más común' },
+  { icon: TrendingUp, title: 'Emprendedor o freelancer', desc: 'Buscás automatizar procesos y escalar tu negocio con menos recursos.', color: '#0EA5E9', badge: 'Muy solicitado' },
+  { icon: Users, title: 'Líder o manager', desc: 'Necesitás tomar mejores decisiones y liderar equipos en la era digital.', color: '#0077FF', badge: 'Alta demanda' },
+  { icon: GraduationCap, title: 'Profesional en transición', desc: 'Querés diferenciarte en el mercado y acceder a roles mejor remunerados.', color: '#0EA5E9', badge: 'Recomendado' },
+  { icon: Zap, title: '¿Simplemente querés aprender?', desc: 'Sin experiencia previa. Si no querés quedarte atrás en la era de la IA, este programa es para vos.', color: '#00F7EF', badge: 'Para todos' },
 ];
 
 const outcomes = [
@@ -252,9 +253,30 @@ const trustedSectors = [
 ];
 
 const relatedCourses = [
-  { slug: 'data-analytics', title: 'Data Analytics Bootcamp', desc: 'Llevá tus análisis al siguiente nivel con datos reales.', tag: 'Datos', color: '#0077FF' },
-  { slug: 'power-bi-desde-cero', title: 'Power BI desde Cero', desc: 'Visualizá datos y creá dashboards con IA integrada.', tag: 'Datos', color: '#0077FF' },
-  { slug: 'liderazgo-agil', title: 'Liderazgo Ágil', desc: 'Liderá equipos modernos en la era digital.', tag: 'Liderazgo', color: '#8B5CF6' },
+  {
+    slug: 'data-analytics', title: 'Data Analytics Bootcamp',
+    desc: 'Dominá el análisis de datos con herramientas reales. Pasá de planillas a decisiones basadas en datos.',
+    tag: 'Datos', tagColor: '#0077FF',
+    gradient: 'linear-gradient(135deg, rgba(0,119,255,0.25) 0%, rgba(0,60,160,0.15) 100%)',
+    accentColor: '#0077FF', icon: BarChart2,
+    highlights: ['Power BI · SQL · Python', '8 semanas en vivo', 'Certificado profesional'],
+  },
+  {
+    slug: 'power-bi-desde-cero', title: 'Power BI desde Cero',
+    desc: 'Creá dashboards interactivos y reportes ejecutivos que impresionan. Con IA integrada desde el primer día.',
+    tag: 'Datos', tagColor: '#0EA5E9',
+    gradient: 'linear-gradient(135deg, rgba(14,165,233,0.2) 0%, rgba(0,80,160,0.12) 100%)',
+    accentColor: '#0EA5E9', icon: TrendingUp,
+    highlights: ['Power BI · DAX · IA', '4 semanas en vivo', 'Proyecto real incluido'],
+  },
+  {
+    slug: 'liderazgo-agil', title: 'Liderazgo Ágil',
+    desc: 'Liderá equipos modernos con metodologías ágiles y herramientas digitales para la era del trabajo remoto.',
+    tag: 'Liderazgo', tagColor: '#00F7EF',
+    gradient: 'linear-gradient(135deg, rgba(0,247,239,0.15) 0%, rgba(0,119,255,0.1) 100%)',
+    accentColor: '#00F7EF', icon: Users,
+    highlights: ['Scrum · OKRs · Gestión', '6 semanas en vivo', 'Certificado con aval'],
+  },
 ];
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
@@ -264,9 +286,12 @@ export default function IaEnLaPracticaPage() {
   const [openModule, setOpenModule] = useState<number | null>(null);
 
   const [showSticky, setShowSticky] = useState(false);
+  const [showFomo, setShowFomo] = useState(false);
+  const [fomoClosed, setFomoClosed] = useState(false);
   const { currentSlide: salaryIdx, nextSlide: salaryNext, prevSlide: salaryPrev, setCurrentSlide: setSalaryIdx } = useCarouselNavigation(salaries.length);
   const { currentSlide: testimonialIdx, nextSlide: testimonialNext, prevSlide: testimonialPrev, setCurrentSlide: setTestimonialIdx } = useCarouselNavigation(testimonials.length);
   const { currentSlide: relatedIdx, nextSlide: relatedNext, prevSlide: relatedPrev, setCurrentSlide: setRelatedIdx } = useCarouselNavigation(relatedCourses.length);
+  const { currentSlide: profileIdx, nextSlide: profileNext, prevSlide: profilePrev, setCurrentSlide: setProfileIdx } = useCarouselNavigation(profiles.length);
 
   useEffect(() => {
     const s = setInterval(salaryNext, 4000);
@@ -282,6 +307,12 @@ export default function IaEnLaPracticaPage() {
     const r = setInterval(relatedNext, 4500);
     return () => clearInterval(r);
   }, [relatedNext]);
+
+  useEffect(() => {
+    const p = setInterval(profileNext, 3500);
+    return () => clearInterval(p);
+  }, [profileNext]);
+
 
   const [brochureOpen, setBrochureOpen] = useState(false);
   const [brochureName, setBrochureName] = useState('');
@@ -316,12 +347,30 @@ export default function IaEnLaPracticaPage() {
   }
 
   useEffect(() => {
-    const onScroll = () => setShowSticky(window.scrollY > 500);
+    const onScroll = () => {
+      setShowSticky(window.scrollY > 500);
+      setShowFomo(window.scrollY > 300);
+    };
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const categoryColor = '#0077FF';
+
+  // ── Cupos dinámicos por fecha ──────────────────────────────────────────
+  // Actualizá COHORT_START cuando cambie la cohorte
+  const COHORT_START = new Date('2026-04-07');   // Fecha de inicio
+  const ENROLLMENT_START = new Date('2026-03-07'); // 31 días antes
+  const TOTAL_SPOTS = 12;
+
+  const spotsLeft = useMemo(() => {
+    const now = new Date();
+    if (now >= COHORT_START) return 1;
+    const totalMs = COHORT_START.getTime() - ENROLLMENT_START.getTime();
+    const elapsedMs = Math.max(0, now.getTime() - ENROLLMENT_START.getTime());
+    const ratio = Math.min(1, elapsedMs / totalMs);
+    return Math.max(1, Math.round(TOTAL_SPOTS * (1 - ratio)));
+  }, []);
 
   const moduleEncounters: Record<number, { num: number; title: string; hours: string; deliverable: string; topics: string[] }[]> = {
     1: certTabs[0].encounters.slice(0, 2),
@@ -357,6 +406,27 @@ export default function IaEnLaPracticaPage() {
         </div>
       )}
 
+      {/* ── SOCIAL PROOF BUBBLE ── */}
+      {showFomo && !fomoClosed && (
+        <div style={{
+          position: 'fixed', bottom: '1.5rem', left: '1rem', zIndex: 100,
+          width: '220px',
+          background: 'rgba(10,18,40,0.96)', backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: '1rem', padding: '1rem 1rem 0.875rem',
+          boxShadow: '0 12px 40px rgba(0,0,0,0.6)',
+          animation: 'fomo-in 0.4s cubic-bezier(0.34,1.56,0.64,1)',
+        }}>
+          <button onClick={() => setFomoClosed(true)} style={{ position: 'absolute', top: '0.5rem', right: '0.6rem', background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.25)', fontSize: '1rem', lineHeight: 1, padding: 0 }}>×</button>
+          <div style={{ display: 'flex', gap: '0.1rem', marginBottom: '0.6rem' }}>
+            {[...Array(5)].map((_, i) => <Star key={i} size={12} fill='#FBBF24' color='#FBBF24' />)}
+          </div>
+          <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.55, margin: 0 }}>
+            <strong style={{ color: '#FFFFFF', fontWeight: 800 }}>+500 profesionales</strong> ya transformaron su trabajo con IA
+          </p>
+        </div>
+      )}
+
       {/* ── HEADER ── */}
       <header style={{
         background: 'rgba(2,8,23,0.9)', backdropFilter: 'blur(12px)',
@@ -382,35 +452,6 @@ export default function IaEnLaPracticaPage() {
 
         <div className="hero-landing" style={{ maxWidth: '1200px', margin: '0 auto', padding: '4rem 0 4rem', position: 'relative' }}>
 
-          {/* Social proof bar */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '0.875rem',
-            padding: '0.6rem 1rem', borderRadius: '9999px',
-            background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)',
-            marginBottom: '2rem', flexWrap: 'wrap' as const,
-          }}>
-            <div style={{ display: 'flex' }}>
-              {['#0077FF', '#00F7EF', '#0077FF', '#00F7EF'].map((c, i) => (
-                <div key={i} style={{
-                  width: '2.1rem', height: '2.1rem', borderRadius: '50%',
-                  background: `${c}25`, border: `2px solid #020817`,
-                  marginLeft: i > 0 ? '-0.6rem' : 0,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '0.58rem', fontWeight: 800, color: c,
-                }}>
-                  {['MG', 'DF', 'VR', 'AL'][i]}
-                </div>
-              ))}
-            </div>
-            <div style={{ width: '1px', height: '1.2rem', background: 'rgba(255,255,255,0.1)' }} />
-            <div style={{ display: 'flex', gap: '0.15rem' }}>
-              {[...Array(5)].map((_, i) => <Star key={i} size={13} fill='#FBBF24' color='#FBBF24' />)}
-            </div>
-            <span style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.5)' }}>
-              <strong style={{ color: 'rgba(255,255,255,0.85)', fontWeight: 700 }}>+500 profesionales</strong> ya transformaron su trabajo con IA
-            </span>
-          </div>
-
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem', alignItems: 'center' }}>
 
             {/* Left: text */}
@@ -422,7 +463,7 @@ export default function IaEnLaPracticaPage() {
                 </span>
               </div>
 
-              <h1 style={{ fontSize: 'clamp(2.8rem, 5vw, 4rem)', fontWeight: 900, lineHeight: 1.05, marginBottom: '1rem', letterSpacing: '-0.025em' }}>
+              <h1 style={{ fontSize: 'clamp(2.8rem, 5vw, 4rem)', fontWeight: 900, lineHeight: 1.05, marginBottom: '1.25rem', letterSpacing: '-0.025em' }}>
                 IA en la{' '}
                 <span style={{ color: '#3B9EFF' }}>
                   Práctica
@@ -484,9 +525,12 @@ export default function IaEnLaPracticaPage() {
                 >
                   Quiero inscribirme <ArrowRight size={18} />
                 </button>
-                <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.22)', paddingLeft: '0.25rem' }}>
-                  Sin compromiso · Cupos limitados · Te contactamos en 24 hs
-                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', paddingLeft: '0.25rem' }}>
+                  <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#EF4444', boxShadow: '0 0 6px #EF4444', flexShrink: 0, animation: 'dot-pulse 2s infinite' }} />
+                  <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.55)' }}>
+                    Solo quedan <strong style={{ color: '#FF6B6B', fontWeight: 800 }}>{spotsLeft} cupos</strong> · Próximo inicio: <strong style={{ color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>7 de Abril</strong>
+                  </span>
+                </div>
               </div>
 
             </div>
@@ -505,61 +549,16 @@ export default function IaEnLaPracticaPage() {
                 background: 'linear-gradient(135deg, rgba(0,119,255,0.6) 0%, rgba(0,247,239,0.3) 50%, rgba(0,119,255,0.1) 100%)',
                 zIndex: 1,
               }}>
-                <div style={{
-                  borderRadius: '1.2rem', overflow: 'hidden',
-                  aspectRatio: '16/9',
-                  background: 'linear-gradient(135deg, #050D1F 0%, #091527 60%, #050D1F 100%)',
-                  position: 'relative',
-                }}>
-                  {/* Grid */}
-                  <div style={{
-                    position: 'absolute', inset: 0, opacity: 0.09,
-                    backgroundImage: 'linear-gradient(rgba(0,119,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,119,255,1) 1px, transparent 1px)',
-                    backgroundSize: '36px 36px',
-                  }} />
-                  {/* Radial center glow */}
-                  <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 45%, rgba(0,119,255,0.2) 0%, transparent 55%)', pointerEvents: 'none' }} />
-
-                  {/* Floating chips */}
-                  <div style={{ position: 'absolute', top: '1rem', left: '1rem', display: 'flex', gap: '0.4rem' }}>
-                    {['ChatGPT', 'Copilot', 'Gemini'].map(t => (
-                      <span key={t} style={{ padding: '0.2rem 0.5rem', borderRadius: '9999px', fontSize: '0.6rem', fontWeight: 700, background: 'rgba(0,119,255,0.15)', border: '1px solid rgba(0,119,255,0.3)', color: 'rgba(255,255,255,0.5)' }}>{t}</span>
-                    ))}
-                  </div>
-
-                  {/* Play button */}
-                  <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.875rem' }}>
-                    <div style={{ position: 'relative' }}>
-                      <div style={{ position: 'absolute', inset: '-10px', borderRadius: '50%', border: '1px solid rgba(0,119,255,0.25)', animation: 'pulse-ring 2.5s ease-out infinite' }} />
-                      <div style={{ position: 'absolute', inset: '-20px', borderRadius: '50%', border: '1px solid rgba(0,119,255,0.12)', animation: 'pulse-ring 2.5s ease-out infinite 0.5s' }} />
-                      <div style={{
-                        width: '5rem', height: '5rem', borderRadius: '50%',
-                        background: 'rgba(0,119,255,0.2)', border: '2px solid rgba(0,119,255,0.6)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        cursor: 'pointer', backdropFilter: 'blur(8px)',
-                        boxShadow: '0 0 24px rgba(0,119,255,0.3)',
-                      }}>
-                        <Play size={26} color='#fff' fill='#fff' style={{ marginLeft: '3px' }} />
-                      </div>
-                    </div>
-                    <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', margin: 0, letterSpacing: '0.06em' }}>
-                      Ver presentación del programa
-                    </p>
-                  </div>
-
-                  {/* Bottom bar */}
-                  <div style={{
-                    position: 'absolute', bottom: 0, left: 0, right: 0,
-                    padding: '1rem 1.25rem',
-                    background: 'linear-gradient(0deg, rgba(5,13,31,0.98) 0%, transparent 100%)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#00F7EF', boxShadow: '0 0 10px #00F7EF', animation: 'dot-pulse 2s ease-in-out infinite' }} />
-                      <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.55)', fontWeight: 600 }}>Próxima cohorte</span>
-                    </div>
-                    <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>Marzo 2026</span>
-                  </div>
+                <div style={{ borderRadius: '1.2rem', overflow: 'hidden', aspectRatio: '16/9', position: 'relative', background: '#000' }}>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/JMUxmLyrhSk?rel=0&modestbranding=1"
+                    title="Inteligencia Artificial en 5 minutos"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+                  />
                 </div>
               </div>
             </div>
@@ -567,6 +566,10 @@ export default function IaEnLaPracticaPage() {
         </div>
 
         <style>{`
+          @keyframes fomo-in {
+            0% { opacity: 0; transform: translateY(12px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+          }
           @keyframes pulse-ring {
             0% { transform: scale(1); opacity: 0.6; }
             100% { transform: scale(2); opacity: 0; }
@@ -578,7 +581,7 @@ export default function IaEnLaPracticaPage() {
           @media (max-width: 640px) {
             /* Hero */
             .hero-landing { padding: 2.5rem 0 2rem !important; }
-            .hero-social-bar { flex-wrap: wrap !important; gap: 0.5rem !important; font-size: 0.75rem !important; }
+            .hero-social-bar { flex-wrap: nowrap !important; }
             .hero-stats { width: 100% !important; }
             .hero-stats > div { flex: 1 !important; }
             /* Secciones */
@@ -594,42 +597,59 @@ export default function IaEnLaPracticaPage() {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <SectionLabel label="Para quién es" />
           <h2 style={sectionTitle}>¿Este programa es para vos?</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem', marginTop: '2.5rem' }}>
+
+          {/* Desktop: grid · Mobile: carrusel */}
+          <div className="profiles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1rem', marginTop: '2.5rem' }}>
             {profiles.map((p, i) => {
               const Icon = p.icon;
-              const isFeature = i === 0;
               return (
-                <div key={i} style={{
-                  padding: '1.75rem', borderRadius: '1rem',
-                  background: isFeature ? 'linear-gradient(135deg, rgba(0,119,255,0.1) 0%, rgba(0,119,255,0.04) 100%)' : 'rgba(255,255,255,0.02)',
-                  border: isFeature ? '1px solid rgba(0,119,255,0.3)' : '1px solid rgba(255,255,255,0.06)',
-                  display: 'flex', flexDirection: 'column', gap: '0.875rem',
+                <div key={i} className={`profile-card profile-card-${i}`} style={{
+                  padding: '1.75rem 1.5rem', borderRadius: '1.1rem',
+                  background: `linear-gradient(145deg, ${p.color}22 0%, ${p.color}0A 100%)`,
+                  border: `1px solid ${p.color}55`,
+                  display: 'flex', flexDirection: 'column', gap: '1.1rem',
                   position: 'relative', overflow: 'hidden',
+                  boxShadow: `0 4px 32px ${p.color}18, inset 0 1px 0 ${p.color}20`,
+                  height: '220px',
                 }}>
-                  {isFeature && (
-                    <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, #0077FF, #00F7EF44)' }} />
-                  )}
+                  {/* Línea superior sólida */}
+                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2.5px', background: p.color, opacity: 0.9 }} />
+                  {/* Glow corner */}
+                  <div style={{ position: 'absolute', top: '-2rem', right: '-2rem', width: '6rem', height: '6rem', borderRadius: '50%', background: p.color, opacity: 0.06, filter: 'blur(20px)', pointerEvents: 'none' }} />
+                  {/* Ícono + badge */}
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{
-                      width: '2.75rem', height: '2.75rem', borderRadius: '0.75rem',
-                      background: isFeature ? 'rgba(0,119,255,0.2)' : 'rgba(255,255,255,0.05)',
-                      border: isFeature ? '1px solid rgba(0,119,255,0.35)' : '1px solid rgba(255,255,255,0.08)',
+                      width: '3rem', height: '3rem', borderRadius: '0.875rem',
+                      background: `${p.color}30`, border: `1.5px solid ${p.color}70`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      boxShadow: `0 0 16px ${p.color}30`,
                     }}>
-                      <Icon size={18} color={isFeature ? categoryColor : 'rgba(255,255,255,0.4)'} />
+                      <Icon size={20} color={p.color} />
                     </div>
-                    {isFeature && (
-                      <span style={{ fontSize: '0.62rem', fontWeight: 700, color: categoryColor, letterSpacing: '0.08em', textTransform: 'uppercase', background: 'rgba(0,119,255,0.12)', padding: '0.2rem 0.5rem', borderRadius: '9999px', border: '1px solid rgba(0,119,255,0.2)' }}>
-                        Más común
-                      </span>
-                    )}
+                    <span style={{ fontSize: '0.58rem', fontWeight: 800, color: p.color, letterSpacing: '0.1em', textTransform: 'uppercase' as const, background: `${p.color}20`, padding: '0.25rem 0.6rem', borderRadius: '9999px', border: `1px solid ${p.color}50` }}>
+                      {p.badge}
+                    </span>
                   </div>
-                  <div style={{ fontWeight: 700, fontSize: '0.95rem', color: isFeature ? '#FFFFFF' : 'rgba(255,255,255,0.8)' }}>{p.title}</div>
-                  <div style={{ fontSize: '0.82rem', color: isFeature ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.38)', lineHeight: 1.65 }}>{p.desc}</div>
+                  <div style={{ fontWeight: 800, fontSize: '0.95rem', color: '#FFFFFF', lineHeight: 1.3 }}>{p.title}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as const }}>{p.desc}</div>
                 </div>
               );
             })}
           </div>
+
+          {/* Controles carrusel — solo mobile */}
+          <div className="profiles-controls">
+            <CarouselControls total={profiles.length} current={profileIdx} onPrev={profilePrev} onNext={profileNext} onDot={setProfileIdx} />
+          </div>
+
+          <style>{`
+            .profiles-controls { display: none; }
+            @media (max-width: 768px) {
+              .profiles-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+              ${profiles.map((_, i) => `.profile-card-${i} { display: ${i === profileIdx ? 'flex' : 'none'} !important; }`).join(' ')}
+              .profiles-controls { display: block; }
+            }
+          `}</style>
         </div>
       </section>
 
@@ -1018,32 +1038,75 @@ export default function IaEnLaPracticaPage() {
       </section>
 
       {/* ── 12. PROGRAMAS SUGERIDOS ── */}
-      <section style={{ padding: '4rem 1.5rem', background: 'rgba(255,255,255,0.015)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <section style={{ padding: '5rem 1.5rem', background: 'rgba(255,255,255,0.01)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'rgba(255,255,255,0.6)', marginBottom: '1.5rem', textAlign: 'center' }}>
-            También te puede interesar
-          </h3>
-          {/* Carrusel cursos sugeridos */}
-          <div>
-            {(() => { const c = relatedCourses[relatedIdx]; return (
-              <Link href={`/cursos/${c.slug}`} style={{ textDecoration: 'none', display: 'block', maxWidth: '420px', margin: '0 auto' }}>
-                <div style={{ padding: '1.75rem', borderRadius: '1rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', transition: 'border-color 0.2s, background 0.2s' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(0,119,255,0.3)'; (e.currentTarget as HTMLDivElement).style.background = 'rgba(0,119,255,0.04)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.08)'; (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,0.03)'; }}
-                >
-                  <span style={{ display: 'inline-block', padding: '0.25rem 0.6rem', borderRadius: '9999px', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.08em', background: `${c.color}15`, color: c.color, marginBottom: '0.875rem' }}>
-                    {c.tag}
-                  </span>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#FFFFFF', marginBottom: '0.5rem' }}>{c.title}</div>
-                  <div style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.4)', lineHeight: 1.6, marginBottom: '1.25rem' }}>{c.desc}</div>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem', fontWeight: 600, color: c.color }}>
-                    Ver programa <ArrowRight size={14} />
-                  </span>
-                </div>
-              </Link>
-            ); })()}
-            <CarouselControls total={relatedCourses.length} current={relatedIdx} onPrev={relatedPrev} onNext={relatedNext} onDot={setRelatedIdx} />
+          <SectionLabel label="Seguí creciendo" />
+          <h2 style={{ ...sectionTitle, marginBottom: '0.75rem' }}>También te puede interesar</h2>
+          <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.35)', fontSize: '0.9rem', marginBottom: '3rem' }}>
+            Programas en vivo que complementan tu formación en IA
+          </p>
+
+          {/* Desktop: grid · Mobile: carrusel automático */}
+          <div className="related-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }}>
+            {relatedCourses.map((c, idx) => {
+              const Icon = c.icon;
+              return (
+                <Link key={c.slug} href={`/cursos/${c.slug}`} className={`related-card related-card-${idx}`} style={{ textDecoration: 'none' }}>
+                  <div
+                    style={{ borderRadius: '1.25rem', overflow: 'hidden', border: `1px solid ${c.accentColor}22`, background: 'rgba(255,255,255,0.02)', transition: 'transform 0.25s, box-shadow 0.25s, border-color 0.25s', cursor: 'pointer', height: '100%', display: 'flex', flexDirection: 'column' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-6px)'; (e.currentTarget as HTMLDivElement).style.boxShadow = `0 20px 48px rgba(0,0,0,0.5), 0 0 0 1px ${c.accentColor}44`; (e.currentTarget as HTMLDivElement).style.borderColor = `${c.accentColor}55`; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'; (e.currentTarget as HTMLDivElement).style.boxShadow = 'none'; (e.currentTarget as HTMLDivElement).style.borderColor = `${c.accentColor}22`; }}
+                  >
+                    <div style={{ padding: '2rem 1.75rem 1.5rem', background: c.gradient, position: 'relative', overflow: 'hidden' }}>
+                      <div style={{ position: 'absolute', bottom: '-1.5rem', right: '-1rem', opacity: 0.07 }}>
+                        <Icon size={80} color={c.accentColor} />
+                      </div>
+                      <span style={{ display: 'inline-block', padding: '0.25rem 0.7rem', borderRadius: '9999px', fontSize: '0.62rem', fontWeight: 800, textTransform: 'uppercase' as const, letterSpacing: '0.1em', background: `${c.accentColor}20`, color: c.accentColor, border: `1px solid ${c.accentColor}40`, marginBottom: '1rem' }}>
+                        {c.tag}
+                      </span>
+                      <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1.25, margin: 0 }}>{c.title}</h3>
+                    </div>
+                    <div style={{ padding: '1.5rem 1.75rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, margin: 0 }}>{c.desc}</p>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                        {c.highlights.map((h, i) => (
+                          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: c.accentColor, flexShrink: 0 }} />
+                            <span style={{ fontSize: '0.76rem', color: 'rgba(255,255,255,0.5)' }}>{h}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ marginTop: 'auto', paddingTop: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: '0.4rem', color: c.accentColor, fontWeight: 700, fontSize: '0.82rem' }}>
+                        Ver programa <ArrowRight size={14} />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
+
+          {/* Controles del carrusel — solo mobile */}
+          <div className="related-controls">
+            <CarouselControls
+              total={relatedCourses.length}
+              current={relatedIdx}
+              onPrev={relatedPrev}
+              onNext={relatedNext}
+              onDot={setRelatedIdx}
+            />
+          </div>
+
+          <style>{`
+            .related-controls { display: none; }
+            @media (max-width: 768px) {
+              .related-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+              .related-card-0 { display: ${relatedIdx === 0 ? 'block' : 'none'}; }
+              .related-card-1 { display: ${relatedIdx === 1 ? 'block' : 'none'}; }
+              .related-card-2 { display: ${relatedIdx === 2 ? 'block' : 'none'}; }
+              .related-controls { display: block; }
+            }
+          `}</style>
         </div>
       </section>
 
