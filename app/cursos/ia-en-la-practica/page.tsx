@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import ReservationForm from '@/components/forms/ReservationForm';
 import ProfessionalRoadmap from '@/components/ProfessionalRoadmap';
 import { useCarouselNavigation } from '@/components/LiveCourses/hooks/useCarouselNavigation';
+import { useResponsive } from '@/components/LiveCourses/hooks/useResponsive';
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -288,6 +289,7 @@ export default function IaEnLaPracticaPage() {
   const [showSticky, setShowSticky] = useState(false);
   const [showFomo, setShowFomo] = useState(false);
   const [fomoClosed, setFomoClosed] = useState(false);
+  const { isMobile } = useResponsive();
   const { currentSlide: salaryIdx, nextSlide: salaryNext, prevSlide: salaryPrev, setCurrentSlide: setSalaryIdx } = useCarouselNavigation(salaries.length);
   const { currentSlide: testimonialIdx, nextSlide: testimonialNext, prevSlide: testimonialPrev, setCurrentSlide: setTestimonialIdx } = useCarouselNavigation(testimonials.length);
   const { currentSlide: relatedIdx, nextSlide: relatedNext, prevSlide: relatedPrev, setCurrentSlide: setRelatedIdx } = useCarouselNavigation(relatedCourses.length);
@@ -687,42 +689,48 @@ export default function IaEnLaPracticaPage() {
           <p style={sectionSubtitle}>A mayor certificación, mayor proyección. Rangos reales del mercado tech LATAM & remoto.</p>
 
           {/* Carrusel salarios */}
-          <div style={{ marginTop: '2.5rem', position: 'relative' }}>
-            <div style={{ overflow: 'hidden' }}>
-              {(() => { const s = salaries[salaryIdx]; return (
-                <div style={{ padding: '1.75rem', borderRadius: '1.125rem', background: 'rgba(255,255,255,0.025)', border: s.final ? '1px solid rgba(255,215,0,0.2)' : '1px solid rgba(0,119,255,0.15)', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '480px', margin: '0 auto', transition: 'all 0.3s' }}>
-                  <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: s.final ? 'linear-gradient(90deg, rgba(255,215,0,0.6), rgba(255,215,0,0.1))' : 'linear-gradient(90deg, rgba(0,119,255,0.7), rgba(0,119,255,0.1))' }} />
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: s.final ? 'rgba(255,215,0,0.8)' : 'rgba(0,119,255,0.9)', padding: '0.2rem 0.6rem', borderRadius: '9999px', background: s.final ? 'rgba(255,215,0,0.08)' : 'rgba(0,119,255,0.08)', border: s.final ? '1px solid rgba(255,215,0,0.2)' : '1px solid rgba(0,119,255,0.2)' }}>{s.level}</span>
-                    {s.final && <Trophy size={15} color='rgba(255,215,0,0.7)' />}
-                  </div>
-                  <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1.35 }}>{s.role}</div>
-                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1rem' }}>
-                    <div style={{ fontSize: '2rem', fontWeight: 900, color: '#FFFFFF', lineHeight: 1, letterSpacing: '-0.02em' }}>{s.range}</div>
-                    <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', marginTop: '0.3rem', fontWeight: 600, textTransform: 'uppercase' }}>{s.currency}</div>
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                      <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase' }}>vs. mercado</span>
-                      <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#0077FF' }}>{s.growth}</span>
-                    </div>
-                    <div style={{ height: '3px', borderRadius: '9999px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
-                      <div style={{ height: '100%', width: `${s.growthBar}%`, borderRadius: '9999px', background: 'linear-gradient(90deg, rgba(0,119,255,0.5), #0077FF)', transition: 'width 0.5s' }} />
-                    </div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    {s.skills.map((sk, j) => (
-                      <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <CheckCircle2 size={13} color='rgba(0,119,255,0.6)' style={{ flexShrink: 0 }} />
-                        <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.45)' }}>{sk}</span>
+          {(() => {
+            const visibleCount = isMobile ? 1 : 3;
+            const visible = Array.from({ length: visibleCount }, (_, i) => salaries[(salaryIdx + i) % salaries.length]);
+            return (
+              <div style={{ marginTop: '2.5rem', position: 'relative' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: `repeat(${visibleCount}, 1fr)`, gap: '1.25rem' }}>
+                  {visible.map((s, vi) => (
+                    <div key={vi} style={{ padding: '1.75rem', borderRadius: '1.125rem', background: 'rgba(255,255,255,0.025)', border: s.final ? '1px solid rgba(255,215,0,0.2)' : '1px solid rgba(0,119,255,0.15)', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: '1rem', transition: 'all 0.3s' }}>
+                      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: s.final ? 'linear-gradient(90deg, rgba(255,215,0,0.6), rgba(255,215,0,0.1))' : 'linear-gradient(90deg, rgba(0,119,255,0.7), rgba(0,119,255,0.1))' }} />
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: s.final ? 'rgba(255,215,0,0.8)' : 'rgba(0,119,255,0.9)', padding: '0.2rem 0.6rem', borderRadius: '9999px', background: s.final ? 'rgba(255,215,0,0.08)' : 'rgba(0,119,255,0.08)', border: s.final ? '1px solid rgba(255,215,0,0.2)' : '1px solid rgba(0,119,255,0.2)' }}>{s.level}</span>
+                        {s.final && <Trophy size={15} color='rgba(255,215,0,0.7)' />}
                       </div>
-                    ))}
-                  </div>
+                      <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#FFFFFF', lineHeight: 1.35 }}>{s.role}</div>
+                      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '1rem' }}>
+                        <div style={{ fontSize: '2rem', fontWeight: 900, color: '#FFFFFF', lineHeight: 1, letterSpacing: '-0.02em' }}>{s.range}</div>
+                        <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', marginTop: '0.3rem', fontWeight: 600, textTransform: 'uppercase' }}>{s.currency}</div>
+                      </div>
+                      <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                          <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase' }}>vs. mercado</span>
+                          <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#0077FF' }}>{s.growth}</span>
+                        </div>
+                        <div style={{ height: '3px', borderRadius: '9999px', background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
+                          <div style={{ height: '100%', width: `${s.growthBar}%`, borderRadius: '9999px', background: 'linear-gradient(90deg, rgba(0,119,255,0.5), #0077FF)', transition: 'width 0.5s' }} />
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                        {s.skills.map((sk, j) => (
+                          <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <CheckCircle2 size={13} color='rgba(0,119,255,0.6)' style={{ flexShrink: 0 }} />
+                            <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.45)' }}>{sk}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ); })()}
-            </div>
-            <CarouselControls total={salaries.length} current={salaryIdx} onPrev={salaryPrev} onNext={salaryNext} onDot={setSalaryIdx} />
-          </div>
+                <CarouselControls total={salaries.length} current={salaryIdx} onPrev={salaryPrev} onNext={salaryNext} onDot={setSalaryIdx} />
+              </div>
+            );
+          })()}
           <p style={{ textAlign: 'center', fontSize: '0.7rem', color: 'rgba(255,255,255,0.18)', marginTop: '1.25rem' }}>
             * Datos de mercado basados en plataformas de empleo tech LATAM. Los resultados individuales dependen de la experiencia y el mercado local.
           </p>
