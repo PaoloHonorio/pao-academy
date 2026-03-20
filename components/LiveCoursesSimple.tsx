@@ -705,7 +705,7 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           </div>
         )}
         {activeTab === 'live' && !loadingCourses && filteredCourses.length > 0 && (() => {
-          const visibleCount = isMobile ? 1 : 3;
+          const visibleCount = Math.min(isMobile ? 1 : 3, filteredCourses.length);
           const total = filteredCourses.length;
           const idx = carouselIndex % total;
           const visible = Array.from({length: visibleCount}, (_, i) => filteredCourses[(idx + i) % total]);
@@ -715,9 +715,10 @@ export default function LiveCoursesSimple({ t, lang, onCourseClick, onCatalogCli
           <div style={{ overflow: 'hidden' }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: isMobile ? 'repeat(1, 1fr)' : 'repeat(3, 1fr)',
+              gridTemplateColumns: isMobile ? 'repeat(1, 1fr)' : `repeat(${visibleCount}, minmax(0, 380px))`,
               gap: '1.5rem',
-              transition: 'all 0.5s ease'
+              transition: 'all 0.5s ease',
+              justifyContent: 'center'
             }}>
           {visible.map((course) => (
             <div
