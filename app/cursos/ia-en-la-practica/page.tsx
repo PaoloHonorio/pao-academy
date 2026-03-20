@@ -962,31 +962,60 @@ export default function IaEnLaPracticaPage() {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <SectionLabel label="Testimonios" />
           <h2 style={sectionTitle}>Transformaciones reales</h2>
-          {/* Carrusel testimonios */}
+          {/* Testimonios: grid en desktop, carrusel en mobile */}
           <div style={{ marginTop: '2.5rem' }}>
-            {(() => { const t = testimonials[testimonialIdx]; return (
-              <div style={{ padding: '1.75rem', borderRadius: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '560px', margin: '0 auto', transition: 'all 0.3s' }}>
-                <div style={{ display: 'flex', gap: '0.2rem' }}>
-                  {[...Array(5)].map((_, j) => <Star key={j} size={14} fill='#FBBF24' color='#FBBF24' />)}
-                </div>
-                <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.75, fontStyle: 'italic', margin: 0 }}>
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', background: `${t.color}12`, border: `1px solid ${t.color}25`, fontSize: '0.75rem', fontWeight: 700, color: t.color, width: 'fit-content' }}>
-                  ✓ {t.result}
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
-                  <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', flexShrink: 0, background: `linear-gradient(135deg, ${t.color}40, ${t.color}15)`, border: `1.5px solid ${t.color}50`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.72rem', fontWeight: 900, color: '#FFFFFF' }}>
-                    {t.avatar}
+            {isMobile ? (
+              <>
+                {(() => { const t = testimonials[testimonialIdx]; return (
+                  <div style={{ padding: '1.75rem', borderRadius: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', flexDirection: 'column', gap: '1.25rem', transition: 'all 0.3s' }}>
+                    <div style={{ display: 'flex', gap: '0.2rem' }}>
+                      {[...Array(5)].map((_, j) => <Star key={j} size={14} fill='#FBBF24' color='#FBBF24' />)}
+                    </div>
+                    <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.75, fontStyle: 'italic', margin: 0 }}>
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    <div style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', background: `${t.color}12`, border: `1px solid ${t.color}25`, fontSize: '0.75rem', fontWeight: 700, color: t.color, width: 'fit-content' }}>
+                      ✓ {t.result}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+                      <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', flexShrink: 0, background: `linear-gradient(135deg, ${t.color}40, ${t.color}15)`, border: `1.5px solid ${t.color}50`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.72rem', fontWeight: 900, color: '#FFFFFF' }}>
+                        {t.avatar}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#FFFFFF' }}>{t.name}</div>
+                        <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', marginTop: '0.1rem' }}>{t.role}</div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#FFFFFF' }}>{t.name}</div>
-                    <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', marginTop: '0.1rem' }}>{t.role}</div>
+                ); })()}
+                <CarouselControls total={testimonials.length} current={testimonialIdx} onPrev={testimonialPrev} onNext={testimonialNext} onDot={setTestimonialIdx} />
+              </>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }}>
+                {testimonials.map((t, i) => (
+                  <div key={i} style={{ padding: '1.75rem', borderRadius: '1.25rem', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                    <div style={{ display: 'flex', gap: '0.2rem' }}>
+                      {[...Array(5)].map((_, j) => <Star key={j} size={14} fill='#FBBF24' color='#FBBF24' />)}
+                    </div>
+                    <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.75, fontStyle: 'italic', margin: 0 }}>
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    <div style={{ padding: '0.5rem 0.875rem', borderRadius: '0.5rem', background: `${t.color}12`, border: `1px solid ${t.color}25`, fontSize: '0.75rem', fontWeight: 700, color: t.color, width: 'fit-content' }}>
+                      ✓ {t.result}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', marginTop: 'auto' }}>
+                      <div style={{ width: '2.75rem', height: '2.75rem', borderRadius: '50%', flexShrink: 0, background: `linear-gradient(135deg, ${t.color}40, ${t.color}15)`, border: `1.5px solid ${t.color}50`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.72rem', fontWeight: 900, color: '#FFFFFF' }}>
+                        {t.avatar}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '0.875rem', fontWeight: 700, color: '#FFFFFF' }}>{t.name}</div>
+                        <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', marginTop: '0.1rem' }}>{t.role}</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ); })()}
-            <CarouselControls total={testimonials.length} current={testimonialIdx} onPrev={testimonialPrev} onNext={testimonialNext} onDot={setTestimonialIdx} />
+            )}
           </div>
         </div>
       </section>
