@@ -16,11 +16,11 @@ import { useResponsive } from '@/components/LiveCourses/hooks/useResponsive';
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const profiles = [
-  { icon: Briefcase, title: 'Profesional en actividad', desc: 'Querés integrar IA a tu trabajo diario sin convertirte en programador.', color: '#0077FF', badge: 'Más común' },
-  { icon: TrendingUp, title: 'Emprendedor o freelancer', desc: 'Buscás automatizar procesos y escalar tu negocio con menos recursos.', color: '#0EA5E9', badge: 'Muy solicitado' },
-  { icon: Users, title: 'Líder o manager', desc: 'Necesitás tomar mejores decisiones y liderar equipos en la era digital.', color: '#0077FF', badge: 'Alta demanda' },
-  { icon: GraduationCap, title: 'Profesional en transición', desc: 'Querés diferenciarte en el mercado y acceder a roles mejor remunerados.', color: '#0EA5E9', badge: 'Recomendado' },
-  { icon: Zap, title: '¿Simplemente querés aprender?', desc: 'Sin experiencia previa. Si no querés quedarte atrás en la era de la IA, este programa es para vos.', color: '#00F7EF', badge: 'Para todos' },
+  { icon: Briefcase, title: 'Profesional en actividad', desc: 'Querés integrar IA a tu trabajo diario sin convertirte en programador.', color: '#0077FF', badge: 'Ya lo usan tus colegas' },
+  { icon: TrendingUp, title: 'Emprendedor o freelancer', desc: 'Buscás automatizar procesos y escalar tu negocio con menos recursos.', color: '#0EA5E9', badge: 'Tu competencia ya lo hace' },
+  { icon: Users, title: 'Líder o manager', desc: 'Necesitás tomar mejores decisiones y liderar equipos en la era digital.', color: '#0077FF', badge: 'Decidís con o sin datos' },
+  { icon: GraduationCap, title: 'Profesional en transición', desc: 'Querés diferenciarte en el mercado y acceder a roles mejor remunerados.', color: '#0EA5E9', badge: 'El mercado ya cambió' },
+  { icon: Zap, title: '¿Simplemente querés aprender?', desc: 'Sin experiencia previa. Si no aprendés IA ahora, el mundo laboral te va a dejar atrás.', color: '#00F7EF', badge: 'No hay tiempo que perder' },
 ];
 
 const outcomes = [
@@ -612,7 +612,6 @@ export default function IaEnLaPracticaPage() {
                   display: 'flex', flexDirection: 'column', gap: '1.1rem',
                   position: 'relative', overflow: 'hidden',
                   boxShadow: `0 4px 32px ${p.color}18, inset 0 1px 0 ${p.color}20`,
-                  height: '220px',
                 }}>
                   {/* Línea superior sólida */}
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2.5px', background: p.color, opacity: 0.9 }} />
@@ -633,7 +632,7 @@ export default function IaEnLaPracticaPage() {
                     </span>
                   </div>
                   <div style={{ fontWeight: 800, fontSize: '0.95rem', color: '#FFFFFF', lineHeight: 1.3 }}>{p.title}</div>
-                  <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as const }}>{p.desc}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>{p.desc}</div>
                 </div>
               );
             })}
