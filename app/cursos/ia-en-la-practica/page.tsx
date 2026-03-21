@@ -826,7 +826,7 @@ export default function IaEnLaPracticaPage() {
                       }}>
                         {isOpen
                           ? <ChevronDown size={14} color={certColor} />
-                          : <ArrowRight size={14} color='rgba(255,255,255,0.4)' />}
+                          : <span style={{ fontSize: '1.1rem', lineHeight: 1, color: 'rgba(255,255,255,0.4)', fontWeight: 300 }}>+</span>}
                       </div>
                     </button>
                     {isOpen && (
