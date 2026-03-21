@@ -618,15 +618,7 @@ export default function IaEnLaPracticaPage() {
                   {/* Glow corner */}
                   <div style={{ position: 'absolute', top: '-2rem', right: '-2rem', width: '6rem', height: '6rem', borderRadius: '50%', background: p.color, opacity: 0.06, filter: 'blur(20px)', pointerEvents: 'none' }} />
                   {/* Ícono + badge */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div style={{
-                      width: '3rem', height: '3rem', borderRadius: '0.875rem',
-                      background: `${p.color}30`, border: `1.5px solid ${p.color}70`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      boxShadow: `0 0 16px ${p.color}30`,
-                    }}>
-                      <Icon size={20} color={p.color} />
-                    </div>
+                  <div>
                     <span style={{ fontSize: '0.58rem', fontWeight: 800, color: p.color, letterSpacing: '0.1em', textTransform: 'uppercase' as const, background: `${p.color}20`, padding: '0.25rem 0.6rem', borderRadius: '9999px', border: `1px solid ${p.color}50` }}>
                       {p.badge}
                     </span>
