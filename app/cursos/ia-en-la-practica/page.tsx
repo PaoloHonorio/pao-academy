@@ -16,11 +16,11 @@ import { useResponsive } from '@/components/LiveCourses/hooks/useResponsive';
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const profiles = [
-  { icon: Briefcase, title: 'Profesional en actividad', desc: 'Querés integrar IA a tu trabajo diario sin convertirte en programador.', color: '#0077FF', badge: 'Ya lo usan tus colegas' },
-  { icon: TrendingUp, title: 'Emprendedor o freelancer', desc: 'Buscás automatizar procesos y escalar tu negocio con menos recursos.', color: '#0EA5E9', badge: 'Tu competencia ya lo hace' },
-  { icon: Users, title: 'Líder o manager', desc: 'Necesitás tomar mejores decisiones y liderar equipos en la era digital.', color: '#0077FF', badge: 'Decidís con o sin datos' },
-  { icon: GraduationCap, title: 'Profesional en transición', desc: 'Querés diferenciarte en el mercado y acceder a roles mejor remunerados.', color: '#0EA5E9', badge: 'El mercado ya cambió' },
-  { icon: Zap, title: '¿Simplemente querés aprender?', desc: 'Sin experiencia previa. Si no aprendés IA ahora, el mundo laboral te va a dejar atrás.', color: '#00F7EF', badge: 'No hay tiempo que perder' },
+  { icon: Briefcase, title: 'Profesional en actividad', desc: 'Querés integrar IA a tu trabajo diario sin convertirte en programador.', color: '#0077FF', badge: 'Tus colegas ya avanzan' },
+  { icon: TrendingUp, title: 'Emprendedor o freelancer', desc: 'Buscás automatizar procesos y escalar tu negocio con menos recursos.', color: '#0EA5E9', badge: 'Competencia activa' },
+  { icon: Users, title: 'Líder o manager', desc: 'Necesitás tomar mejores decisiones y liderar equipos en la era digital.', color: '#0077FF', badge: 'Decidí con datos' },
+  { icon: GraduationCap, title: 'Profesional en transición', desc: 'Querés diferenciarte en el mercado y acceder a roles mejor remunerados.', color: '#0EA5E9', badge: 'Mercado en cambio' },
+  { icon: Zap, title: '¿Simplemente querés aprender?', desc: 'Sin experiencia previa. Si no aprendés IA ahora, el mundo laboral te va a dejar atrás.', color: '#00F7EF', badge: 'Actuá ahora' },
 ];
 
 const outcomes = [
